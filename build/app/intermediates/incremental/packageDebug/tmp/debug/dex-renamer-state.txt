@@ -1,0 +1,16 @@
+#Tue Sep 06 13:46:22 ICT 2022
+path.4=2/classes.dex
+path.3=1/classes.dex
+path.2=0/classes.dex
+path.1=0/classes.dex
+path.0=classes.dex
+base.4=D\:\\work\\WORK\\work haris\\Flutterapp\\project\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\2\\classes.dex
+base.3=D\:\\work\\WORK\\work haris\\Flutterapp\\project\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
+base.2=D\:\\work\\WORK\\work haris\\Flutterapp\\project\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.1=D\:\\work\\WORK\\work haris\\Flutterapp\\project\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\0\\classes.dex
+base.0=D\:\\work\\WORK\\work haris\\Flutterapp\\project\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+renamed.3=classes4.dex
+renamed.2=classes3.dex
+renamed.1=classes2.dex
+renamed.0=classes.dex
+renamed.4=classes5.dex
