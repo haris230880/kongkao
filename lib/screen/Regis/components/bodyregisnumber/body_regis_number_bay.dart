@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/configs/services/api.dart';
 import 'package:project/screen/Login/components/login_screen.dart';
 import 'package:project/screen/Regis/components/regis.dart';
 
@@ -153,7 +154,7 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
 
 void getHttpAntique() async {
   try {
-    var response = await Dio().get('http://192.168.111.76/flutterApiProjeck/insertDataBay.php?antique_name=$antique_name&antique_lastname=$antique_lastname&antique_email=$antique_email&antique_shopname=$antique_shopname&antique_photo=null&antique_workingtime=$antique_workingtime&antique_phonenumber=$antique_phonenumber&antique_service=$antique_service&antique_gpslatitude=00&antique_gpslongitude=00&antique_locationparish=$antique_locationparish&antique_locationdistrict=$antique_locationdistrict&antique_locationcity=$antique_locationcity&antique_postcode=$antique_postcode&antique_locationhousenumber=$antique_locationhousenumber');
+    var response = await Dio().get(API.BASE_URL+API.USERBAY_URL);
     print(response);
   } catch (e) {
     print(e);
