@@ -1,5 +1,8 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:location/location.dart';
 import '../../../../configs/datauserbay.dart';
 import '../../../../constants.dart';
 import '../background_regis.dart';
@@ -14,6 +17,8 @@ class BobyRegisterAddressBay extends StatefulWidget {
 }
 
 class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
+
+
   @override
   Widget build(BuildContext context) {
     return BackgroundRegis(
@@ -290,12 +295,22 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                   Container(
                     height: 200,
                     width: 400,
-                    child: GoogleMap(
+                    child:
+                    GoogleMap(
+                      markers: {
+                        Marker(
+                            markerId: MarkerId("1"),
+                            position: LatLng(13.6900043, 100.7479237),
+                            infoWindow: InfoWindow(title: "สนามบินสุวรรณภูมิ", snippet: "สนามบินนานาชาติของประเทศไทย"),),
+                      },
+                      myLocationEnabled: true,
+                      mapType: MapType.normal,
                       initialCameraPosition: CameraPosition(
+                        target: LatLng(13.6900043, 100.7479237),
                         zoom: 15,
-                        target: LatLng(13.728912, 100.513205),
                       ),
-                    ),
+
+                    )
                   ),
                   // GoogleMap(initialCameraPosition: ),
                   SizedBox(
@@ -349,4 +364,15 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
       ),
     );
   }
+  // Future<LocationData?> getCurrentLocation() async {
+  //   Location location = Location();
+  //   try {
+  //     return await location.getLocation();
+  //   } on PlatformException catch (e) {
+  //     if (e.code == 'PERMISSION_DENIED') {
+  //       // Permission denied
+  //     }
+  //     return null;
+  //   }
+  // }
 }
