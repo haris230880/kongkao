@@ -1,6 +1,8 @@
 -- Merging decision tree log ---
 application
 INJECTED from D:\work\WORK\work haris\Flutterapp\project\android\app\src\main\AndroidManifest.xml:3:4-35:19
+MERGED from [:url_launcher_android] D:\work\WORK\work haris\Flutterapp\project\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-14:19
+MERGED from [:url_launcher_android] D:\work\WORK\work haris\Flutterapp\project\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-14:19
 MERGED from [:location] D:\work\WORK\work haris\Flutterapp\project\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:12:5-18:19
 MERGED from [:location] D:\work\WORK\work haris\Flutterapp\project\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:12:5-18:19
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\lenovo\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:24:5-31:19
@@ -33,6 +35,7 @@ INJECTED from D:\work\WORK\work haris\Flutterapp\project\android\app\src\main\An
 MERGED from D:\work\WORK\work haris\Flutterapp\project\android\app\src\main\AndroidManifest.xml:1:1-36:12
 MERGED from [:google_maps_flutter_android] D:\work\WORK\work haris\Flutterapp\project\build\google_maps_flutter_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:flutter_plugin_android_lifecycle] D:\work\WORK\work haris\Flutterapp\project\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:url_launcher_android] D:\work\WORK\work haris\Flutterapp\project\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-16:12
 MERGED from [:location] D:\work\WORK\work haris\Flutterapp\project\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-20:12
 MERGED from [:flutter_native_splash] D:\work\WORK\work haris\Flutterapp\project\build\flutter_native_splash\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\lenovo\.gradle\caches\transforms-3\246793f755122fe14a5802655438cb75\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:17:1-23:12
@@ -84,6 +87,8 @@ MERGED from [:google_maps_flutter_android] D:\work\WORK\work haris\Flutterapp\pr
 MERGED from [:google_maps_flutter_android] D:\work\WORK\work haris\Flutterapp\project\build\google_maps_flutter_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:flutter_plugin_android_lifecycle] D:\work\WORK\work haris\Flutterapp\project\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:flutter_plugin_android_lifecycle] D:\work\WORK\work haris\Flutterapp\project\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:url_launcher_android] D:\work\WORK\work haris\Flutterapp\project\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:url_launcher_android] D:\work\WORK\work haris\Flutterapp\project\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:location] D:\work\WORK\work haris\Flutterapp\project\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:location] D:\work\WORK\work haris\Flutterapp\project\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:flutter_native_splash] D:\work\WORK\work haris\Flutterapp\project\build\flutter_native_splash\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
@@ -150,6 +155,14 @@ MERGED from [com.google.android.gms:play-services-maps:18.0.2] C:\Users\lenovo\.
 MERGED from [com.google.android.gms:play-services-maps:18.0.2] C:\Users\lenovo\.gradle\caches\transforms-3\42e8e193afdde6a89d257fba9624cf99\transformed\jetified-play-services-maps-18.0.2\AndroidManifest.xml:24:5-67
 	android:name
 		ADDED from D:\work\WORK\work haris\Flutterapp\project\android\app\src\debug\AndroidManifest.xml:7:22-64
+activity#io.flutter.plugins.urllauncher.WebViewActivity
+ADDED from [:url_launcher_android] D:\work\WORK\work haris\Flutterapp\project\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-13:74
+	android:exported
+		ADDED from [:url_launcher_android] D:\work\WORK\work haris\Flutterapp\project\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-37
+	android:theme
+		ADDED from [:url_launcher_android] D:\work\WORK\work haris\Flutterapp\project\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-71
+	android:name
+		ADDED from [:url_launcher_android] D:\work\WORK\work haris\Flutterapp\project\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-74
 uses-permission#android.permission.ACCESS_COARSE_LOCATION
 ADDED from [:location] D:\work\WORK\work haris\Flutterapp\project\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-81
 	android:name

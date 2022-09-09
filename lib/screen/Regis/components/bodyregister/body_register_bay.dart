@@ -81,11 +81,13 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
                         keyboardType: TextInputType.name,
                         cursorColor: kPrimaryColor,
                         textAlignVertical: TextAlignVertical.center,
-                        decoration: InputDecoration(
+                        decoration:
+                        InputDecoration(
                           filled: true,
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.all(
+                            borderRadius:
+                            BorderRadius.all(
                               Radius.circular(20),
                             ),
                           ),

@@ -4,7 +4,6 @@ import 'package:project/screen/Login/components/login_screen.dart';
 import 'package:project/screen/Regis/components/regis.dart';
 import 'package:project/screen/Welcome/components/backgroundwelcome.dart';
 import 'package:project/screen/Welcome/components/welcomeScreen.dart';
-import 'package:project/screen/winged/bottomnavigatonbar.dart';
 
 import 'appbarhomepage.dart';
 import 'body_home.dart';

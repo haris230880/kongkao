@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:location/location.dart';
 import '../../../../configs/datauserbay.dart';
 import '../../../../constants.dart';
 import '../background_regis.dart';
@@ -181,7 +180,7 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                         },
                         onChanged: (value) =>
                             antique_locationhousenumber = value.trim(),
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.streetAddress,
                         cursorColor: kPrimaryColor,
                         textAlignVertical: TextAlignVertical.center,
                         decoration: InputDecoration(
@@ -310,9 +309,13 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                         Container(
                           height: 50,
                           width: 140,
+
                           child: TextFormField(
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(5),
+                              ],
                             validator: (value) {
-                              if (value != null  && value.length<5) {
+                              if (value != null  && value.length<5 ) {
                                 return "enter รหัสไปรษณีย์";
                               }
                               return null;
@@ -325,9 +328,7 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                               filled: true,
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(20),
-                                ),
+                                borderRadius: BorderRadius.all(Radius.circular(20),),
                               ),
                               contentPadding: EdgeInsets.all(10),
                               label: Text(
@@ -360,7 +361,7 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                           zoom: 15,
                         ),
 
-                      )
+                      ),
                     ),
                     // GoogleMap(initialCameraPosition: ),
                     SizedBox(

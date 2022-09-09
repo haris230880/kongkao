@@ -84,51 +84,60 @@
 69            android:name="com.google.android.geo.API_KEY"
 70            android:value="AIzaSyD3TgnGiIUyLV--EB49vrOkn27bVv-BMXk" />
 71
-72        <service
-72-->[:location] D:\work\WORK\work haris\Flutterapp\project\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:13:9-17:56
-73            android:name="com.lyokone.location.FlutterLocationService"
-73-->[:location] D:\work\WORK\work haris\Flutterapp\project\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-71
-74            android:enabled="true"
-74-->[:location] D:\work\WORK\work haris\Flutterapp\project\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-35
-75            android:exported="false"
-75-->[:location] D:\work\WORK\work haris\Flutterapp\project\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:16:13-37
-76            android:foregroundServiceType="location" />
-76-->[:location] D:\work\WORK\work haris\Flutterapp\project\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:17:13-53
-77
-78        <uses-library
-78-->[androidx.window:window:1.0.0-beta04] C:\Users\lenovo\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
-79            android:name="androidx.window.extensions"
-79-->[androidx.window:window:1.0.0-beta04] C:\Users\lenovo\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
-80            android:required="false" />
-80-->[androidx.window:window:1.0.0-beta04] C:\Users\lenovo\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
-81        <uses-library
-81-->[androidx.window:window:1.0.0-beta04] C:\Users\lenovo\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
-82            android:name="androidx.window.sidecar"
-82-->[androidx.window:window:1.0.0-beta04] C:\Users\lenovo\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
-83            android:required="false" /> <!-- Needs to be explicitly declared on P+ -->
-83-->[androidx.window:window:1.0.0-beta04] C:\Users\lenovo\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
-84        <uses-library
-84-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\lenovo\.gradle\caches\transforms-3\42e8e193afdde6a89d257fba9624cf99\transformed\jetified-play-services-maps-18.0.2\AndroidManifest.xml:39:9-41:40
-85            android:name="org.apache.http.legacy"
-85-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\lenovo\.gradle\caches\transforms-3\42e8e193afdde6a89d257fba9624cf99\transformed\jetified-play-services-maps-18.0.2\AndroidManifest.xml:40:13-50
-86            android:required="false" />
-86-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\lenovo\.gradle\caches\transforms-3\42e8e193afdde6a89d257fba9624cf99\transformed\jetified-play-services-maps-18.0.2\AndroidManifest.xml:41:13-37
-87
-88        <activity
-88-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\lenovo\.gradle\caches\transforms-3\3ff720be07735976176520d1c05fb799\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:9-22:45
-89            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-89-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\lenovo\.gradle\caches\transforms-3\3ff720be07735976176520d1c05fb799\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:19-85
-90            android:exported="false"
-90-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\lenovo\.gradle\caches\transforms-3\3ff720be07735976176520d1c05fb799\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:22:19-43
-91            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-91-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\lenovo\.gradle\caches\transforms-3\3ff720be07735976176520d1c05fb799\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:21:19-78
+72        <activity
+72-->[:url_launcher_android] D:\work\WORK\work haris\Flutterapp\project\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-13:74
+73            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+73-->[:url_launcher_android] D:\work\WORK\work haris\Flutterapp\project\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-74
+74            android:exported="false"
+74-->[:url_launcher_android] D:\work\WORK\work haris\Flutterapp\project\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-37
+75            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+75-->[:url_launcher_android] D:\work\WORK\work haris\Flutterapp\project\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-71
+76
+77        <service
+77-->[:location] D:\work\WORK\work haris\Flutterapp\project\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:13:9-17:56
+78            android:name="com.lyokone.location.FlutterLocationService"
+78-->[:location] D:\work\WORK\work haris\Flutterapp\project\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-71
+79            android:enabled="true"
+79-->[:location] D:\work\WORK\work haris\Flutterapp\project\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-35
+80            android:exported="false"
+80-->[:location] D:\work\WORK\work haris\Flutterapp\project\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:16:13-37
+81            android:foregroundServiceType="location" />
+81-->[:location] D:\work\WORK\work haris\Flutterapp\project\build\location\intermediates\merged_manifest\debug\AndroidManifest.xml:17:13-53
+82
+83        <uses-library
+83-->[androidx.window:window:1.0.0-beta04] C:\Users\lenovo\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+84            android:name="androidx.window.extensions"
+84-->[androidx.window:window:1.0.0-beta04] C:\Users\lenovo\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+85            android:required="false" />
+85-->[androidx.window:window:1.0.0-beta04] C:\Users\lenovo\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+86        <uses-library
+86-->[androidx.window:window:1.0.0-beta04] C:\Users\lenovo\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+87            android:name="androidx.window.sidecar"
+87-->[androidx.window:window:1.0.0-beta04] C:\Users\lenovo\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
+88            android:required="false" /> <!-- Needs to be explicitly declared on P+ -->
+88-->[androidx.window:window:1.0.0-beta04] C:\Users\lenovo\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+89        <uses-library
+89-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\lenovo\.gradle\caches\transforms-3\42e8e193afdde6a89d257fba9624cf99\transformed\jetified-play-services-maps-18.0.2\AndroidManifest.xml:39:9-41:40
+90            android:name="org.apache.http.legacy"
+90-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\lenovo\.gradle\caches\transforms-3\42e8e193afdde6a89d257fba9624cf99\transformed\jetified-play-services-maps-18.0.2\AndroidManifest.xml:40:13-50
+91            android:required="false" />
+91-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\lenovo\.gradle\caches\transforms-3\42e8e193afdde6a89d257fba9624cf99\transformed\jetified-play-services-maps-18.0.2\AndroidManifest.xml:41:13-37
 92
-93        <meta-data
-93-->[com.google.android.gms:play-services-basement:18.0.0] C:\Users\lenovo\.gradle\caches\transforms-3\601d4158b382ad9f634d3bbb23a34c83\transformed\jetified-play-services-basement-18.0.0\AndroidManifest.xml:21:9-23:69
-94            android:name="com.google.android.gms.version"
-94-->[com.google.android.gms:play-services-basement:18.0.0] C:\Users\lenovo\.gradle\caches\transforms-3\601d4158b382ad9f634d3bbb23a34c83\transformed\jetified-play-services-basement-18.0.0\AndroidManifest.xml:22:13-58
-95            android:value="@integer/google_play_services_version" />
-95-->[com.google.android.gms:play-services-basement:18.0.0] C:\Users\lenovo\.gradle\caches\transforms-3\601d4158b382ad9f634d3bbb23a34c83\transformed\jetified-play-services-basement-18.0.0\AndroidManifest.xml:23:13-66
-96    </application>
+93        <activity
+93-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\lenovo\.gradle\caches\transforms-3\3ff720be07735976176520d1c05fb799\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:9-22:45
+94            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+94-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\lenovo\.gradle\caches\transforms-3\3ff720be07735976176520d1c05fb799\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:19-85
+95            android:exported="false"
+95-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\lenovo\.gradle\caches\transforms-3\3ff720be07735976176520d1c05fb799\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:22:19-43
+96            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+96-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\lenovo\.gradle\caches\transforms-3\3ff720be07735976176520d1c05fb799\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:21:19-78
 97
-98</manifest>
+98        <meta-data
+98-->[com.google.android.gms:play-services-basement:18.0.0] C:\Users\lenovo\.gradle\caches\transforms-3\601d4158b382ad9f634d3bbb23a34c83\transformed\jetified-play-services-basement-18.0.0\AndroidManifest.xml:21:9-23:69
+99            android:name="com.google.android.gms.version"
+99-->[com.google.android.gms:play-services-basement:18.0.0] C:\Users\lenovo\.gradle\caches\transforms-3\601d4158b382ad9f634d3bbb23a34c83\transformed\jetified-play-services-basement-18.0.0\AndroidManifest.xml:22:13-58
+100            android:value="@integer/google_play_services_version" />
+100-->[com.google.android.gms:play-services-basement:18.0.0] C:\Users\lenovo\.gradle\caches\transforms-3\601d4158b382ad9f634d3bbb23a34c83\transformed\jetified-play-services-basement-18.0.0\AndroidManifest.xml:23:13-66
+101    </application>
+102
+103</manifest>
