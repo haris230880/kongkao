@@ -46,6 +46,8 @@ dev_dependencies:
   dio: ^4.0.5
   location: ^4.4.0
   google_maps_flutter: ^2.2.0
+  email_validator: ^2.1.16
+
 # run: flutter clean &&   && flutter pub run flutter_native_splash:create
 flutter_native_splash:    
 

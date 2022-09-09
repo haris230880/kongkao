@@ -69,7 +69,7 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                     ),
                     child: TextField(
                       onChanged: (value) => antique_phonenumber=value.trim(),
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.phone,
                       maxLength: 10,
                       cursorColor: kPrimaryColor,
                       textAlignVertical: TextAlignVertical.center,
