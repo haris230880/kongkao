@@ -213,7 +213,7 @@ packages:
     source: hosted
     version: "1.10.0"
   location:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: location
       url: "https://pub.dartlang.org"

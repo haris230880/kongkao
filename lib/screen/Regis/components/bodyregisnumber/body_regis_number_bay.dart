@@ -79,7 +79,7 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                           }
                           return null;
                         },
-                        onChanged: (value) => antique_phonenumber=value.trim(),
+                        onChanged: (value) => phone_number=value.trim(),
                         keyboardType: TextInputType.phone,
                         maxLength: 10,
                         cursorColor: kPrimaryColor,
@@ -129,6 +129,7 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                 onPressed: () {
                   final isValidFrom = formKey.currentState!.validate();
                   if(isValidFrom){
+                    getHttpBuyuser();
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -137,11 +138,7 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                         },
                       ),
                     );
-
                   }
-                  getHttpAntique();
-                  print('$antique_name$antique_locationhousenumber$antique_phonenumber');
-
                 },
                 child: const Text('ถัดไป'),
               ),
@@ -169,15 +166,23 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
     );
   }
 
-void getHttpAntique() async {
-  try {
-    var response = await Dio().get(API.BASE_URL+'/flutterApiProjeck/insertDataBay.php?antique_name=$antique_name&antique_lastname=$antique_lastname&antique_email=$antique_email&antique_shopname=$antique_shopname&antique_photo=null&antique_workingtime=$antique_workingtime&antique_phonenumber=$antique_phonenumber&antique_service=$antique_service&antique_gpslatitude=00&antique_gpslongitude=00&antique_locationparish=$antique_locationparish&antique_locationdistrict=$antique_locationdistrict&antique_locationcity=$antique_locationcity&antique_postcode=$antique_postcode&antique_locationhousenumber=$antique_locationhousenumber');
-    print(response);
-  } catch (e) {
-    print(e);
-  }
-}
+// void getHttpBuyuser() async {
+//   try {
+//     var response = await Dio().get(API.BASE_URL+'/flutterApiProjeck/insertDataBay.php?buyuser_name=$buyuser_name&buyuser_sname=$buyuser_sname&buyuser_email=$buyuser_email&buyuser_shop=$buyuser_shop&phone_number=$phone_number&buyuser_time=$buyuser_time&phone_number=$phone_number&buyuser_charge=$buyuser_charge&buyuser_latitude=NULL&buyuser_longitude=NULL&buyuser_district=$buyuser_district&buyuser_prefecture=$buyuser_prefecture&buyuser_city=$buyuser_city&buyuser_postid=$buyuser_postid&buyuser_housenum=$buyuser_housenum');
+//     print(response);
+//   } catch (e) {
+//     print(e);
+//   }
+// }
 
+  void getHttpBuyuser() async {
+    try {
+      var response = await Dio().get(API.BASE_URL+API.USERBAY_URL);
+      print(response);
+    } catch (e) {
+      print(e);
+    }
+  }
 
 
 

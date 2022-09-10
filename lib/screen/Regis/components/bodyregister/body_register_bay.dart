@@ -73,11 +73,11 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
                       child: TextFormField(
                         validator: (value) {
                           if (value != null && value.isEmpty) {
-                            return "enter name";
+                            return "กรอก ชื่อ";
                           }
                           return null;
                         },
-                        onChanged: (value) => antique_name = value.trim(),
+                        onChanged: (value) => buyuser_name = value.trim(),
                         keyboardType: TextInputType.name,
                         cursorColor: kPrimaryColor,
                         textAlignVertical: TextAlignVertical.center,
@@ -113,11 +113,11 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
                       child: TextFormField(
                         validator: (value) {
                           if (value != null && value.isEmpty) {
-                            return "enter lastname";
+                            return "กรอก นามสกุล";
                           }
                           return null;
                         },
-                        onChanged: (value) => antique_lastname = value.trim(),
+                        onChanged: (value) => buyuser_sname = value.trim(),
                         keyboardType: TextInputType.name,
                         cursorColor: kPrimaryColor,
                         textAlignVertical: TextAlignVertical.center,
@@ -146,11 +146,11 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
                       height: 50,
                       width: 350,
                       child: TextFormField(
-                        validator: (antique_email) =>
-                            EmailValidator.validate(antique_email!)
+                        validator: (buyuser_email) =>
+                            EmailValidator.validate(buyuser_email!)
                                 ? null
-                                : "Please enter a valid email",
-                        onChanged: (value) => antique_email = value.trim(),
+                                : "กรอกอีเมล ลงท้ายด้วย@gmail.com",
+                        onChanged: (value) => buyuser_email = value.trim(),
                         cursorColor: kPrimaryColor,
                         keyboardType: TextInputType.emailAddress,
                         textAlignVertical: TextAlignVertical.center,
@@ -173,11 +173,9 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 30,
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
+
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(

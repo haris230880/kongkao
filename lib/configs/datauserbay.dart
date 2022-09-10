@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
-late String antique_id;
-late String antique_name;
-late String antique_lastname;
-late String antique_email;
-late String antique_shopname;
-late String antique_photo;
-late String antique_workingtime;
-late String antique_phonenumber;
-late String antique_service;
-late String antique_gpslatitude;
-late String antique_gpslongitude;
-late String antique_locationhousenumber;
-late String antique_locationparish;
-late String antique_locationdistrict;
-late String antique_locationcity;
-late String antique_postcode;
+// late String buyuser_id;
+late String buyuser_name;
+late String buyuser_sname;
+late String buyuser_email;
+late String buyuser_shop;
+late String buyuser_photo;
+late String buyuser_time;
+late String phone_number;
+late String buyuser_charge;
+late String buyuser_latitude;
+late String buyuser_longitude;
+late String buyuser_housenum;
+late String buyuser_district;
+late String buyuser_prefecture;
+late String buyuser_city;
+late String buyuser_postid;
 
 
 

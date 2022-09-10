@@ -73,11 +73,11 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                       child: TextFormField(
                         validator: (value) {
                         if (value != null && value.isEmpty) {
-                          return "enter ชื่อร้าน";
+                          return "กรอก ชื่อร้าน";
                         }
                         return null;
                       },
-                        onChanged: (value) => antique_shopname = value.trim(),
+                        onChanged: (value) => buyuser_shop = value.trim(),
                         keyboardType: TextInputType.text,
                         cursorColor: kPrimaryColor,
                         textAlignVertical: TextAlignVertical.center,
@@ -109,11 +109,11 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                           child: TextFormField(
                             validator: (value) {
                               if (value != null && value.isEmpty) {
-                                return "enter เวลาทำการ";
+                                return "กรอก เวลาทำการ";
                               }
                               return null;
                             },
-                            onChanged: (value) => antique_workingtime = value.trim(),
+                            onChanged: (value) => buyuser_time = value.trim(),
                             keyboardType: TextInputType.datetime,
                             cursorColor: kPrimaryColor,
                             textAlignVertical: TextAlignVertical.center,
@@ -139,11 +139,11 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                           child: TextFormField(
                             validator: (value) {
                               if (value != null && value.isEmpty) {
-                                return "enter ค่าบริการ";
+                                return "กรอก ค่าบริการ";
                               }
                               return null;
                             },
-                            onChanged: (value) => antique_service = value.trim(),
+                            onChanged: (value) => buyuser_charge = value.trim(),
                             keyboardType: TextInputType.number,
                             cursorColor: kPrimaryColor,
                             textAlignVertical: TextAlignVertical.center,
@@ -174,12 +174,12 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                       child: TextFormField(
                         validator: (value) {
                           if (value != null && value.isEmpty) {
-                            return "enter บ้านเลขที่";
+                            return "กรอก บ้านเลขที่";
                           }
                           return null;
                         },
                         onChanged: (value) =>
-                            antique_locationhousenumber = value.trim(),
+                            buyuser_housenum = value.trim(),
                         keyboardType: TextInputType.streetAddress,
                         cursorColor: kPrimaryColor,
                         textAlignVertical: TextAlignVertical.center,
@@ -211,13 +211,13 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                           child: TextFormField(
                             validator: (value) {
                               if (value != null && value.isEmpty) {
-                                return "enter ตำบล";
+                                return "กรอก ตำบล";
                               }
                               return null;
                             },
                             onChanged: (value) =>
-                                antique_locationparish = value.trim(),
-                            keyboardType: TextInputType.name,
+                                buyuser_district = value.trim(),
+                            keyboardType: TextInputType.text,
                             cursorColor: kPrimaryColor,
                             textAlignVertical: TextAlignVertical.center,
                             decoration: InputDecoration(
@@ -242,13 +242,13 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                           child: TextFormField(
                             validator: (value) {
                               if (value != null && value.isEmpty) {
-                                return "enter อำเภอ";
+                                return "กรอก อำเภอ";
                               }
                               return null;
                             },
                             onChanged: (value) =>
-                                antique_locationdistrict = value.trim(),
-                            keyboardType: TextInputType.name,
+                                buyuser_prefecture = value.trim(),
+                            keyboardType: TextInputType.text,
                             cursorColor: kPrimaryColor,
                             textAlignVertical: TextAlignVertical.center,
                             decoration: InputDecoration(
@@ -281,13 +281,13 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                           child: TextFormField(
                             validator: (value) {
                               if (value != null && value.isEmpty) {
-                                return "enter จังหวัด";
+                                return "กรอก จังหวัด";
                               }
                               return null;
                             },
                             onChanged: (value) =>
-                                antique_locationcity = value.trim(),
-                            keyboardType: TextInputType.name,
+                                buyuser_city = value.trim(),
+                            keyboardType: TextInputType.text,
                             cursorColor: kPrimaryColor,
                             textAlignVertical: TextAlignVertical.center,
                             decoration: InputDecoration(
@@ -316,11 +316,11 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                               ],
                             validator: (value) {
                               if (value != null  && value.length<5 ) {
-                                return "enter รหัสไปรษณีย์";
+                                return "กรอก รหัสไปรษณีย์";
                               }
                               return null;
                             },
-                            onChanged: (value) => antique_postcode = value.trim(),
+                            onChanged: (value) => buyuser_postid = value.trim(),
                             keyboardType: TextInputType.number,
                             cursorColor: kPrimaryColor,
                             textAlignVertical: TextAlignVertical.center,
@@ -332,7 +332,7 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                               ),
                               contentPadding: EdgeInsets.all(10),
                               label: Text(
-                                'รหัสไปรษณีย์ ',
+                                ' รหัสไปรษณีย์ ',
                                 style: TextStyle(color: kPrimaryblckColor),
                               ),
                             ),
