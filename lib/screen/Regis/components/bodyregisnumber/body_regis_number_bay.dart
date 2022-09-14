@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/configs/services/api.dart';
-import 'package:project/screen/Login/components/login_screen.dart';
 import 'package:project/screen/Regis/components/regis.dart';
-
+import 'package:project/screen/winged/nomalDiolog.dart';
 import '../../../../configs/datauserbay.dart';
 import '../../../../constants.dart';
 import '../background_regis.dart';
@@ -17,7 +16,6 @@ class BodyRegisNumberBay extends StatefulWidget {
 
 class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
   final formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -44,7 +42,7 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
               Container(
                 margin: EdgeInsets.all(20),
                 padding:
-                EdgeInsets.only(left: 50, right: 50, top: 10, bottom: 20),
+                    EdgeInsets.only(left: 50, right: 50, top: 10, bottom: 20),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -60,7 +58,8 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                   children: <Widget>[
                     Text(
                       "ลงทะเบียน ผู้ซื้อ",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                     SizedBox(
                       height: 20,
@@ -74,12 +73,12 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                       ),
                       child: TextFormField(
                         validator: (value) {
-                          if(value!=null && value.length<10){
-                              return "enter เบอร์โทรศัพท์";
+                          if (value != null && value.length < 10) {
+                            return "กรอก เบอร์โทรศัพท์";
                           }
                           return null;
                         },
-                        onChanged: (value) => phone_number=value.trim(),
+                        onChanged: (value) => buyuser_phone = value.trim(),
                         keyboardType: TextInputType.phone,
                         maxLength: 10,
                         cursorColor: kPrimaryColor,
@@ -116,33 +115,25 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    elevation: 5,
-                    // Foreground color
-                    onPrimary: Colors.white,
-                    // Background color
-                    primary: kPrimaryColor,
-                    minimumSize: Size(100, 50))
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        elevation: 5,
+                        // Foreground color
+                        onPrimary: Colors.white,
+                        // Background color
+                        primary: kPrimaryColor,
+                        minimumSize: Size(100, 50))
                     .copyWith(elevation: ButtonStyleButton.allOrNull(5.0)),
                 onPressed: () {
                   final isValidFrom = formKey.currentState!.validate();
-                  if(isValidFrom){
+                  if (isValidFrom) {
                     getHttpBuyuser();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return OtpScreen();
-                        },
-                      ),
-                    );
+                    //checkPhoneNumber();
                   }
                 },
                 child: const Text('ถัดไป'),
               ),
-
               TextButton(
                 onPressed: () {
                   Navigator.push(
@@ -166,26 +157,71 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
     );
   }
 
-// void getHttpBuyuser() async {
-//   try {
-//     var response = await Dio().get(API.BASE_URL+'/flutterApiProjeck/insertDataBay.php?buyuser_name=$buyuser_name&buyuser_sname=$buyuser_sname&buyuser_email=$buyuser_email&buyuser_shop=$buyuser_shop&phone_number=$phone_number&buyuser_time=$buyuser_time&phone_number=$phone_number&buyuser_charge=$buyuser_charge&buyuser_latitude=NULL&buyuser_longitude=NULL&buyuser_district=$buyuser_district&buyuser_prefecture=$buyuser_prefecture&buyuser_city=$buyuser_city&buyuser_postid=$buyuser_postid&buyuser_housenum=$buyuser_housenum');
-//     print(response);
-//   } catch (e) {
-//     print(e);
-//   }
-// }
-
-  void getHttpBuyuser() async {
+  Future<Null> checkPhoneNumber() async {
+    String url = API.BASE_URL +
+        '/flutterApiProjeck/getUserWhereUserbay.php?isAdd=true&buyuser_phone=$buyuser_phone';
     try {
-      var response = await Dio().get(API.BASE_URL+API.USERBAY_URL);
-      print(response);
+      Response response = await Dio().get(url);
+      if (response.toString() == 'null') {
+        getHttpBuyuser();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return OtpScreen();
+            },
+          ),
+        );
+      } else {
+        normaDiolog(
+            context, 'เบอร์โทรศัพท์ซ้ำ $buyuser_phone กรุณาเปลี่ยนใหม่');
+        print('$response');
+      }
     } catch (e) {
       print(e);
     }
   }
 
-
-
-
+  // void getHttpBuyuser() async {
+  //   try {
+  //     var response = await Dio().get(API.BASE_URL + '/flutterApiProjeck/insertDataBay.php?isAdd=true&buyuser_name=$buyuser_name&buyuser_sname=$buyuser_sname&buyuser_email=$buyuser_email&buyuser_shop=$buyuser_shop&buyuser_phone=$buyuser_phone&buyuser_time=$buyuser_time&buyuser_photo=NULL&buyuser_charge=$buyuser_charge&buyuser_latitude=NULL&buyuser_longitude=NULL&buyuser_district=$buyuser_district&buyuser_prefecture=$buyuser_prefecture&buyuser_city=$buyuser_city&buyuser_postid=$buyuser_postid&buyuser_housenum=$buyuser_housenum');
+  //      print(response);
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
+  void getHttpBuyuser() async {
+    String url = (API.BASE_URL +
+        '/flutterApiProjeck/insertDataBay.php?isAdd=true&buyuser_name=$buyuser_name&buyuser_sname=$buyuser_sname&buyuser_email=$buyuser_email&buyuser_shop=$buyuser_shop&buyuser_phone=$buyuser_phone&buyuser_time=$buyuser_time&buyuser_photo=NULL&buyuser_charge=$buyuser_charge&buyuser_latitude=NULL&buyuser_longitude=NULL&buyuser_district=$buyuser_district&buyuser_prefecture=$buyuser_prefecture&buyuser_city=$buyuser_city&buyuser_postid=$buyuser_postid&buyuser_housenum=$buyuser_housenum');
+    try {
+      Response response = await Dio().get(url);
+      print('res = $response');
+      if (response.toString() == "true") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return OtpScreen();
+            },
+          ),
+        );
+      }else{
+        normaDiolog(context, 'ไม่สามารสมัคได้ลองใหม่');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 }
-
+//    final isValidFrom = formKey.currentState!.validate();
+//                   if (isValidFrom) {
+//                     getHttpBuyuser();
+//                     Navigator.push(
+//                       context,
+//                       MaterialPageRoute(
+//                         builder: (context) {
+//                           return OtpScreen();
+//                         },
+//                       ),
+//                     );
+//                   }

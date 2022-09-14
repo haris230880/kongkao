@@ -82,7 +82,7 @@ class _BodyRegisNumberSaleState extends State<BodyRegisNumberSale> {
                           }
                           return null;
                         },
-                        onChanged: (value) => phone_number = value.trim(),
+                        onChanged: (value) => selluser_phone = value.trim(),
                         keyboardType: TextInputType.phone,
                         maxLength: 10,
                         cursorColor: kPrimaryColor,
@@ -132,16 +132,16 @@ class _BodyRegisNumberSaleState extends State<BodyRegisNumberSale> {
                 onPressed: () {
                   final isValidFrom = formKey.currentState!.validate();
                   if (isValidFrom) {
-                    print('$selluser_name $selluser_housenum $phone_number');
+                    print('$selluser_name $selluser_housenum $selluser_phone');
                     getHttpsaleuser();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return OtpScreen();
-                        },
-                      ),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) {
+                    //       return OtpScreen();
+                    //     },
+                    //   ),
+                    // );
                   }
                 },
                 child: const Text('ถัดไป'),
@@ -169,23 +169,23 @@ class _BodyRegisNumberSaleState extends State<BodyRegisNumberSale> {
     );
   }
 
-  //
-  // void getHttpsaleuser() async {
-  //   try {
-  //     var response = await Dio().get(API.BASE_URL+'/flutterApiProjeck/insertDataSale.php?selluser_name=$selluser_name&selluser_sname=$selluser_sname&selluser_email=$selluser_email&phone_number=$phone_number&selluser_latitude=NULL&selluser_longitude=NULL&selluser_housenum=$selluser_housenum&selluser_district=$selluser_district&selluser_prefecture=$selluser_prefecture&selluser_city=$selluser_city&selluser_postid=$selluser_postid');
-  //     print(response);
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
 
   void getHttpsaleuser() async {
     try {
-      var response = await Dio().get(API.BASE_URL+API.USERSALE_URL);
+      var response = await Dio().get('http://192.168.43.201/flutterApiProjeck/insertDataSale.php?isAdd=true&selluser_name=$selluser_name&selluser_sname=$selluser_sname&selluser_email=$selluser_email&selluser_phone=$selluser_phone&selluser_latitude=NULL&selluser_longitude=NULL&selluser_housenum=$selluser_housenum&selluser_district=$selluser_district&selluser_prefecture=$selluser_prefecture&selluser_city=$selluser_city&selluser_postid=$selluser_postid&selluser_photo=NUL');
       print(response);
     } catch (e) {
       print(e);
     }
   }
+
+  // void getHttpsaleuser() async {
+  //   try {
+  //     var response = await Dio().get(API.BASE_URL+API.USERSALE_URL);
+  //     print(response);
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
 }

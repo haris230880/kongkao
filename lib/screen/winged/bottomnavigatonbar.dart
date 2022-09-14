@@ -26,9 +26,7 @@ class _HomePageState extends State<HomePage> {
     Center(
       child: Text('profile'),
     ),
-    Center(
-      child: Text('profile'),
-    ),
+    LoginScreen()
   ];
   @override
   Widget build(BuildContext context) {
@@ -60,15 +58,6 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: kPrimaryColor),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: kPrimaryLightColor,
-        tooltip: 'ADD',
-        child: Icon(
-          Icons.search,
-        ),
-        onPressed: () {},
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
     );
   }
 }

@@ -7,7 +7,7 @@ late String buyuser_email;
 late String buyuser_shop;
 late String buyuser_photo;
 late String buyuser_time;
-late String phone_number;
+late String buyuser_phone;
 late String buyuser_charge;
 late String buyuser_latitude;
 late String buyuser_longitude;
@@ -16,6 +16,7 @@ late String buyuser_district;
 late String buyuser_prefecture;
 late String buyuser_city;
 late String buyuser_postid;
+
 
 
 

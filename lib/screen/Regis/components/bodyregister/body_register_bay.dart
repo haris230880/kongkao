@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/screen/Regis/components/regis.dart';
+import 'package:project/screen/winged/nomalDiolog.dart';
 
 import '../../../../configs/datauserbay.dart';
 import '../../../../constants.dart';
@@ -81,13 +82,11 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
                         keyboardType: TextInputType.name,
                         cursorColor: kPrimaryColor,
                         textAlignVertical: TextAlignVertical.center,
-                        decoration:
-                        InputDecoration(
+                        decoration: InputDecoration(
                           filled: true,
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
-                            borderRadius:
-                            BorderRadius.all(
+                            borderRadius: BorderRadius.all(
                               Radius.circular(20),
                             ),
                           ),
@@ -175,7 +174,6 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
                     SizedBox(
                       height: 30,
                     ),
-
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
@@ -191,7 +189,7 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
                               elevation: ButtonStyleButton.allOrNull(5.0)),
                       onPressed: () {
                         final isValidFrom = formKey.currentState!.validate();
-                        if(isValidFrom){
+                        if (isValidFrom) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(

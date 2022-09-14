@@ -105,7 +105,7 @@
     },
     {
       "name": "flutter_native_splash",
-      "rootUri": "file:///C:/Users/lenovo/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_native_splash-2.2.8",
+      "rootUri": "file:///C:/Users/lenovo/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_native_splash-2.2.9",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
@@ -374,7 +374,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-09-10T09:00:36.238932Z",
+  "generated": "2022-09-13T08:18:55.490635Z",
   "generator": "pub",
   "generatorVersion": "2.19.0-133.0.dev"
 }

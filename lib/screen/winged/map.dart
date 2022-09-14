@@ -14,7 +14,7 @@ class WingetMaps extends StatefulWidget {
 
 class _WingetMapsState extends State<WingetMaps> {
   Completer<GoogleMapController> _controller = Completer();
-   late LocationData currentLocation;
+  late LocationData currentLocation;
 
   Future<LocationData?> getCurrentLocation() async {
     Location location = Location();
@@ -31,30 +31,31 @@ class _WingetMapsState extends State<WingetMaps> {
   Future _goToMe() async {
     final GoogleMapController controller = await _controller.future;
     currentLocation = (await getCurrentLocation())!;
-    controller.animateCamera(CameraUpdate.newCameraPosition(
+    controller.animateCamera(
+      CameraUpdate.newCameraPosition(
         CameraPosition(
           target: LatLng(13.7650836, 100.5379664),
           zoom: 16,
-        )));
+        ),
+      ),
+    );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(title: Text('data'),),
-        body: GoogleMap(
-          myLocationEnabled: true,
-          mapType: MapType.normal,
-          initialCameraPosition: CameraPosition(
-            target:LatLng(13.7650836, 100.5379664),
-            zoom: 16,
-          ),
-          onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
-          },
+    return Scaffold(
+      // appBar: AppBar(title: Text('MAP'),),
+      body: GoogleMap(
+        myLocationEnabled: true,
+        mapType: MapType.normal,
+        initialCameraPosition: CameraPosition(
+          target: LatLng(13.7650836, 100.5379664),
+          zoom: 16,
         ),
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _goToMe,
         label: Text('My location'),
