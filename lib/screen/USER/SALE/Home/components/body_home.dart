@@ -1,16 +1,22 @@
 //import 'dart:html';//เม้น
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:project/constants.dart';
-import 'package:project/screen/Home/components/backgroundhome.dart';
 import 'package:project/screen/Login/components/login_screen.dart';
 import 'package:project/screen/Regis/components/regis.dart';
+import 'package:project/screen/USER/SALE/Home/components/backgroundhome.dart';
 import 'package:project/screen/Welcome/components/backgroundwelcome.dart';
 import 'package:project/screen/winged/categoryitemmanu.dart';
 import 'package:project/screen/winged/searchbox.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../../main/main_user_sell.dart';
 import 'home_screen.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+
+late String userid;
 class BodyHomePage extends StatefulWidget {
   const BodyHomePage({Key? key}) : super(key: key);
 
@@ -20,6 +26,24 @@ class BodyHomePage extends StatefulWidget {
 
 class _BodyHomePageState extends State<BodyHomePage> {
 
+  //------------------
+  @override
+  void initState() {
+    super.initState();
+    finduser();
+  }
+  Future<Null> finduser() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      userid = preferences.getString('phoneNumber')!;
+    });
+  }
+  Future<Null> signOutprocess()async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.clear();
+    exit(0);
+  }//ฟังช้่นlogout
+//------------
   @override
   Widget build(BuildContext context) {
     return BackgroundHome(
@@ -47,6 +71,8 @@ class _BodyHomePageState extends State<BodyHomePage> {
                   ]),
               child: Column(
                 children: [
+                  IconButton(onPressed: () => signOutprocess(), icon: Icon(Icons.exit_to_app)),
+                  Text('phone: $userid'),
                   Text(
                     'รายการ',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

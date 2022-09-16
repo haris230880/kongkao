@@ -8,9 +8,9 @@ import 'package:project/main/main_user_bay.dart';
 import 'package:project/main/main_user_sell.dart';
 import 'package:project/model/user_model.dart';
 import 'package:project/screen/winged/bottomnavigatonbar.dart';
-import 'package:project/screen/Home/components/home_screen.dart';
 import 'package:project/screen/Login/components/backgroundlogin.dart';
 import 'package:project/screen/Welcome/components/welcomeScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../configs/String.dart';
 import '../../../constants.dart';
@@ -21,11 +21,9 @@ class BodyLogin extends StatefulWidget {
   @override
   State<BodyLogin> createState() => _BodyLoginState();
 }
-
 class _BodyLoginState extends State<BodyLogin> {
   final formKey = GlobalKey<FormState>();
   bool isHidden = true;
-  
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -185,30 +183,6 @@ class _BodyLoginState extends State<BodyLogin> {
                       checkAuthen();
 
                   }
-
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) {
-                  //       return HomePage();
-                  //     },
-                  //   ),
-                  // );
-                  // final isValidFrom = formKey.currentState!.validate();
-                  // if(_user==null||_password==null){
-                  //   normaDiolog(context, 'hi');
-                  // }else{
-                  //   if (isValidFrom) {
-                  //     Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //         builder: (context) {
-                  //           return HomePage();
-                  //         },
-                  //       ),
-                  //     );
-                  //   }
-                  // }
                 },
                 child: const Text(
                   'เข้าสู่ระบบ',
@@ -238,6 +212,12 @@ class _BodyLoginState extends State<BodyLogin> {
     );
   }
 
+
+
+
+
+
+  //--------------------//
   Future<Null> checkAuthen() async {
     String url = API.BASE_URL + '/flutterApiProjeck/getUserWhereUser.php?isAdd=true&phone_number=$phone_number';
     try {
@@ -250,20 +230,24 @@ class _BodyLoginState extends State<BodyLogin> {
         UserLoginModel userLoginModel = UserLoginModel.fromJson(map);
         if (password == userLoginModel.password) {
           String? choseType = userLoginModel.typeUser;
-          if(choseType =='1'){routetoservice(HomePage());
-          }else if (choseType == '2'){routetoservice(MainUserBay());
+          if(choseType =='1'){routetoservice(HomePage(),userLoginModel);
+          }else if (choseType == '2'){routetoservice(MainUserBay(),userLoginModel);
           }
         } else {
-          normaDiolog(context, 'ลองใหม่');
+          normaDiolog(context, 'หมายเลขโทรศัพท หรือ รหัสผ่าน ไม่ถูกต้อง');
         }
       }
     } catch (e) {}
-  }
+  }//ตรวจสอบการเข้าสู่ระบบ
+  Future<Null> routetoservice(Widget mywidget, UserLoginModel userLoginModel) async{
+  SharedPreferences preferences =await SharedPreferences.getInstance();
 
-  void routetoservice(Widget mywidget) {
+        preferences.setString('ID',userLoginModel.userId);
+        preferences.setString('phoneNumber', userLoginModel.phoneNumber);
+        preferences.setString('Type', userLoginModel.typeUser);
+
     MaterialPageRoute route = MaterialPageRoute(builder:(context) => mywidget,);
     Navigator.pushAndRemoveUntil(context, route, (route) => false);
   }
-
-  void togglePasswordVisibility() => setState(() => isHidden = !isHidden);
+  void togglePasswordVisibility() => setState(() => isHidden = !isHidden);//ซ้อนpassword
 }

@@ -33,6 +33,7 @@ INJECTED from D:\work\WORK\work haris\Flutterapp\project\android\app\src\main\An
 INJECTED from D:\work\WORK\work haris\Flutterapp\project\android\app\src\main\AndroidManifest.xml:1:1-38:12
 INJECTED from D:\work\WORK\work haris\Flutterapp\project\android\app\src\main\AndroidManifest.xml:1:1-38:12
 MERGED from D:\work\WORK\work haris\Flutterapp\project\android\app\src\main\AndroidManifest.xml:1:1-38:12
+MERGED from [:shared_preferences_android] D:\work\WORK\work haris\Flutterapp\project\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:google_maps_flutter_android] D:\work\WORK\work haris\Flutterapp\project\build\google_maps_flutter_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:flutter_plugin_android_lifecycle] D:\work\WORK\work haris\Flutterapp\project\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:url_launcher_android] D:\work\WORK\work haris\Flutterapp\project\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-16:12
@@ -91,6 +92,8 @@ uses-sdk
 INJECTED from D:\work\WORK\work haris\Flutterapp\project\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\work\WORK\work haris\Flutterapp\project\android\app\src\main\AndroidManifest.xml
 INJECTED from D:\work\WORK\work haris\Flutterapp\project\android\app\src\main\AndroidManifest.xml
+MERGED from [:shared_preferences_android] D:\work\WORK\work haris\Flutterapp\project\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:shared_preferences_android] D:\work\WORK\work haris\Flutterapp\project\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:google_maps_flutter_android] D:\work\WORK\work haris\Flutterapp\project\build\google_maps_flutter_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:google_maps_flutter_android] D:\work\WORK\work haris\Flutterapp\project\build\google_maps_flutter_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:flutter_plugin_android_lifecycle] D:\work\WORK\work haris\Flutterapp\project\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41

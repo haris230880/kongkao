@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:project/screen/USER/SALE/Home/components/home_screen.dart';
 import 'package:project/screen/Welcome/components/welcomeScreen.dart';
 import 'package:project/screen/winged/map.dart';
 import 'package:project/screen/winged/searchbox.dart';
@@ -8,8 +9,7 @@ import 'package:project/screen/winged/searchbox.dart';
 import '../../constants.dart';
 import '../Login/components/login_screen.dart';
 import '../Regis/components/regis.dart';
-import '../Home/components/appbarhomepage.dart';
-import '../Home/components/home_screen.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
