@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/configs/services/api.dart';
 import 'package:project/screen/Regis/components/regis.dart';
-import 'package:project/screen/winged/nomalDiolog.dart';
+import 'package:project/winged/nomalDiolog.dart';
 import '../../../../configs/datauserbay.dart';
 import '../../../../constants.dart';
 import '../background_regis.dart';

@@ -7,14 +7,15 @@ import 'package:project/configs/services/api.dart';
 import 'package:project/main/main_user_bay.dart';
 import 'package:project/main/main_user_sell.dart';
 import 'package:project/model/user_model.dart';
-import 'package:project/screen/winged/bottomnavigatonbar.dart';
 import 'package:project/screen/Login/components/backgroundlogin.dart';
+import 'package:project/screen/USER/BAY/HomePageBay.dart';
 import 'package:project/screen/Welcome/components/welcomeScreen.dart';
+import 'package:project/screen/USER/SALE/HomePageSell.dart';
+import 'package:project/winged/nomalDiolog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../configs/String.dart';
 import '../../../constants.dart';
-import '../../winged/nomalDiolog.dart';
 import 'package:dio/dio.dart';
 
 class BodyLogin extends StatefulWidget {
@@ -230,8 +231,8 @@ class _BodyLoginState extends State<BodyLogin> {
         UserLoginModel userLoginModel = UserLoginModel.fromJson(map);
         if (password == userLoginModel.password) {
           String? choseType = userLoginModel.typeUser;
-          if(choseType =='1'){routetoservice(HomePage(),userLoginModel);
-          }else if (choseType == '2'){routetoservice(MainUserBay(),userLoginModel);
+          if(choseType =='1'){routetoservice(HomePageSell(),userLoginModel);
+          }else if (choseType == '2'){routetoservice(HomePageBay(),userLoginModel);
           }
         } else {
           normaDiolog(context, 'หมายเลขโทรศัพท หรือ รหัสผ่าน ไม่ถูกต้อง');
