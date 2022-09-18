@@ -8,14 +8,14 @@ import 'package:project/screen/Welcome/components/welcomeScreen.dart';
 import 'appbarhomepagebay.dart';
 import 'body_homebay.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreenBay extends StatefulWidget {
+  const HomeScreenBay({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreenBay> createState() => _HomeScreenBayState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenBayState extends State<HomeScreenBay> {
 
   @override
   Widget build(BuildContext context) {

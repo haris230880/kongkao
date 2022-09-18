@@ -52,67 +52,41 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
   Widget build(BuildContext context) {
     return BackgroundHomePageSell(
       child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              color: Colors.black26,
-              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: <Widget>[
+              Row(
                 children: [
-                Container(
-                  height: 100,
-                  width: 150,
-                  child: CircleAvatar(
-                    child: Image.asset('assets/icons/Aluminium.png',),
-                  ),
-                ),
                   Container(
-                    width: 200,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('เบอร์โทร:  $userid',style: TextStyle(fontSize: 18),),
-                        Text('ชื่อร้าน:',style: TextStyle(fontSize: 18)),
-                        Text('ค่าบริการ:',style: TextStyle(fontSize: 18)),
-                        Text('เวลาทำการ:',style: TextStyle(fontSize: 18)),
-                      ],
-                    )
-                    ),
-              ],
-
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.all(20),
-              padding:
-              EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 30),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: kPrimaryColor // Set border color
-                  ), // Set border width
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(20.0)), // Set rounded corner radius
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 2,
-                        color: kPrimaryColor,
-                        offset: Offset(1, 1))
-                  ] // Make rounded corner of border
-              ),
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    "เข้าสู่ระบบ ",
-                    style: TextStyleblodgreen,
+                    child: Column(children: [
+                      CircleAvatar(
+                        maxRadius: 50,
+                      ),
+                    ]),
                   ),
                   SizedBox(
-                    height: 20,
+                    width: 20,
                   ),
-
+                  Container(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'USERNAME',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                          Text(
+                            'เเก้ไขข้อมูล  >',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ]),
+                  ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
