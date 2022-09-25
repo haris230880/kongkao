@@ -5,7 +5,7 @@ import 'package:project/screen/Welcome/components/backgroundwelcome.dart';
 import '../../Login/components/login_screen.dart';
 import '../../Regis/components/regis.dart';
 
-class Body extends StatelessWidget {
+class BodyWelcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

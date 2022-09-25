@@ -166,30 +166,7 @@ class _BodyLoginState extends State<BodyLogin> {
                   ],
                 ),
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        elevation: 5,
-                        // Foreground color
-                        onPrimary: Colors.white,
-                        // Background color
-                        primary: kPrimaryColor,
-                        minimumSize: Size(120, 50))
-                    .copyWith(elevation: ButtonStyleButton.allOrNull(5.0)),
-                onPressed: () {
-                  final isValidFrom = formKey.currentState!.validate();
-                  if (isValidFrom) {
-                      checkAuthen();
-
-                  }
-                },
-                child: const Text(
-                  'เข้าสู่ระบบ',
-                  style: TextStyle(fontSize: 14),
-                ),
-              ),
+              LoginButton(),
               TextButton(
                 onPressed: () {
                   Navigator.push(
@@ -211,6 +188,32 @@ class _BodyLoginState extends State<BodyLogin> {
         ),
       ),
     );
+  }
+
+  ElevatedButton LoginButton() {
+    return ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      elevation: 5,
+                      // Foreground color
+                      onPrimary: Colors.white,
+                      // Background color
+                      primary: kPrimaryColor,
+                      minimumSize: Size(120, 50))
+                  .copyWith(elevation: ButtonStyleButton.allOrNull(5.0)),
+              onPressed: () {
+                final isValidFrom = formKey.currentState!.validate();
+                if (isValidFrom) {
+                    checkAuthen();
+                }
+              },
+              child: const Text(
+                'เข้าสู่ระบบ',
+                style: TextStyle(fontSize: 14),
+              ),
+            );
   }
 
 
@@ -240,11 +243,11 @@ class _BodyLoginState extends State<BodyLogin> {
       }
     } catch (e) {}
   }//ตรวจสอบการเข้าสู่ระบบ
-  Future<Null> routetoservice(Widget mywidget, UserLoginModel userLoginModel) async{
+  Future<Null>  routetoservice(Widget mywidget, UserLoginModel userLoginModel) async{
   SharedPreferences preferences =await SharedPreferences.getInstance();
 
         preferences.setString('ID',userLoginModel.userId);
-        preferences.setString('phoneNumber', userLoginModel.phoneNumber);
+        preferences.setString('PhoneNumber', userLoginModel.phoneNumber);
         preferences.setString('Type', userLoginModel.typeUser);
 
     MaterialPageRoute route = MaterialPageRoute(builder:(context) => mywidget,);

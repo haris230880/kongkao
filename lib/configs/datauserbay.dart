@@ -16,6 +16,7 @@ late String buyuser_district;
 late String buyuser_prefecture;
 late String buyuser_city;
 late String buyuser_postid;
+late String buyuser_password;
 
 
 

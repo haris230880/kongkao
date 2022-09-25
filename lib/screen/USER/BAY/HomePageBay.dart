@@ -1,9 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:project/screen/USER/BAY/HOME/components/appbarhomepagebay.dart';
 import 'package:project/screen/USER/BAY/HOME/components/home_screenbay.dart';
+import 'package:project/screen/USER/BAY/NotiFication/notificationBayScreen.dart';
+import 'package:project/screen/USER/BAY/OrderScreen/OrderSreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants.dart';
 import 'ProFile/profile_sereenbay.dart';
+
 
 
 class HomePageBay extends StatefulWidget {
@@ -14,16 +20,14 @@ class HomePageBay extends StatefulWidget {
 }
 
 class _HomePageBayState extends State<HomePageBay> {
-  int currentIndex = 1;
-  final screen = [
 
-  HomeScreenBay(),
-    Center(
-      child: Text('รายการ'),
-    ),
-    Center(
-      child: Text('ผู้ใช้'),
-    ),
+
+
+  int currentIndex = 0;
+  final screen = [
+    HomeScreenBay(),
+    OrderScreen(),
+    NotiFicationBayScreen(),
     ProFileUserBay(),
   ];
 
@@ -40,16 +44,16 @@ class _HomePageBayState extends State<HomePageBay> {
         unselectedItemColor: kPrimaryblckColor,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.add_a_photo),
-              label: 'Manu',
+              icon: Icon(Icons.home),
+              label: 'หน้าเเรก',
+              backgroundColor: kPrimaryColor),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.offline_pin_rounded),
+              label: 'คำสั่งซื้อ',
               backgroundColor: kPrimaryColor),
           BottomNavigationBarItem(
               icon: Icon(Icons.add_alert),
               label: 'เเจ้งเตือน',
-              backgroundColor: kPrimaryColor),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.library_add_rounded),
-              label: 'รายการ',
               backgroundColor: kPrimaryColor),
           BottomNavigationBarItem(
               icon: Icon(Icons.person),

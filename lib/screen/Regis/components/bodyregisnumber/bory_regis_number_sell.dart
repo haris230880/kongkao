@@ -19,6 +19,7 @@ class BodyRegisNumberSale extends StatefulWidget {
 }
 
 class _BodyRegisNumberSaleState extends State<BodyRegisNumberSale> {
+  bool isHidden = false;
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -114,6 +115,62 @@ class _BodyRegisNumberSaleState extends State<BodyRegisNumberSale> {
                         ),
                       ),
                     ),
+                    SizedBox(height: 10,),
+                    Container(
+                      height: 50,
+                      width: 350,
+                      child: TextFormField(
+                        validator: (value) {
+                          if (value != null && value.length < 6) {
+                            return "enter รหัสผ่าน 6 ตัวขึ้นไป";
+                          }
+                          return null;
+                        },
+                        onChanged: (value) => selluser_password = value.trim(),
+
+                        obscureText: isHidden,
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(color: kPrimaryColor)),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(color: kPrimaryLightColor),
+                          ),
+                          filled: true,
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(20))),
+                          contentPadding: EdgeInsets.all(10),
+                          label: Text(
+                            'รหัสผ่าน ',
+                            style: TextStyle(color: kPrimaryColor),
+                          ),
+                          prefixIcon: Icon(
+                            Icons.password,
+                            color: kPrimaryColor,
+                          ),
+                          suffix: InkWell(
+                            onTap: togglePasswordVisibility,
+                            child: IconButton(
+                              icon: isHidden
+                                  ? Icon(
+                                Icons.visibility_off,
+                                color: kPrimaryColor,
+                              )
+                                  : Icon(
+                                Icons.visibility,
+                                color: kPrimaryColor,
+                              ),
+                              onPressed: togglePasswordVisibility,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
                   ],
                 ),
               ),
@@ -134,14 +191,14 @@ class _BodyRegisNumberSaleState extends State<BodyRegisNumberSale> {
                   if (isValidFrom) {
                     print('$selluser_name $selluser_housenum $selluser_phone');
                     getHttpsaleuser();
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) {
-                    //       return OtpScreen();
-                    //     },
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return OtpScreen();
+                        },
+                      ),
+                    );
                   }
                 },
                 child: const Text('ถัดไป'),
@@ -172,20 +229,13 @@ class _BodyRegisNumberSaleState extends State<BodyRegisNumberSale> {
 
   void getHttpsaleuser() async {
     try {
-      var response = await Dio().get('http://192.168.43.201/flutterApiProjeck/insertDataSale.php?isAdd=true&selluser_name=$selluser_name&selluser_sname=$selluser_sname&selluser_email=$selluser_email&selluser_phone=$selluser_phone&selluser_latitude=NULL&selluser_longitude=NULL&selluser_housenum=$selluser_housenum&selluser_district=$selluser_district&selluser_prefecture=$selluser_prefecture&selluser_city=$selluser_city&selluser_postid=$selluser_postid&selluser_photo=NUL');
+      var response = await Dio().get(API.BASE_URL+'/flutterApiProjeck/insertDataSale.php?isAdd=true&selluser_name=$selluser_name&selluser_sname=$selluser_sname&selluser_email=$selluser_email&selluser_phone=$selluser_phone&selluser_latitude=NULL&selluser_longitude=NULL&selluser_housenum=$selluser_housenum&selluser_district=$selluser_district&selluser_prefecture=$selluser_prefecture&selluser_city=$selluser_city&selluser_postid=$selluser_postid&selluser_photo=NULL&selluser_password=$selluser_password');
       print(response);
     } catch (e) {
       print(e);
     }
   }
 
-  // void getHttpsaleuser() async {
-  //   try {
-  //     var response = await Dio().get(API.BASE_URL+API.USERSALE_URL);
-  //     print(response);
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
 
+  void togglePasswordVisibility() => setState(() => isHidden = !isHidden);
 }

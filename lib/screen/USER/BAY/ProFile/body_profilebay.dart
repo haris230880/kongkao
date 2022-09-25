@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:project/screen/USER/BAY/HOME/components/backgroundhomebay.dart';
+import 'package:project/screen/USER/BAY/backgroundbay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../constants.dart';
 import '../../SALE/Home/components/body_homesale.dart';
+import '../HOME/components/body_homebay.dart';
+import '../HOME/components/home_screenbay.dart';
+import '../HomePageBay.dart';
 
 
 
@@ -19,24 +22,24 @@ class BodyProFileBay extends StatefulWidget {
 }
 
 class _BodyProFileBayState extends State<BodyProFileBay> {
-  //------------------
-  @override
-  void initState() {
-    super.initState();
-    finduser();
-  }
-  Future<Null> finduser() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    setState(() {
-      userid = preferences.getString('phoneNumber')!;
-    });
-  }
-  //ฟังช้่นlogout
-//------------
+//   //------------------
+//   @override
+//   void initState() {
+//     super.initState();
+//     finduser();
+//   }
+//   Future<Null> finduser() async {
+//     SharedPreferences preferences = await SharedPreferences.getInstance();
+//     setState(() {
+//       userid = preferences.getString('phoneNumber')!;
+//     });
+//   }
+//   //ฟังช้่นlogout
+// //------------
 
   @override
   Widget build(BuildContext context) {
-    return BackgroundHomePageBay(
+    return BackgroundPageBay(
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -48,6 +51,7 @@ class _BodyProFileBayState extends State<BodyProFileBay> {
                   child: Column(children: [
                     CircleAvatar(
                       maxRadius: 50,
+                      child: Image.asset('assets/icons/userbay.png'),
                     ),
                   ]),
                 ),
@@ -188,7 +192,7 @@ class _BodyProFileBayState extends State<BodyProFileBay> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('ผู้ใช้: $userid',
+                        Text('ผู้ใช้: $userphone',
                           style: TextStyle(color: kPrimaryblckColor),
                         ),
                         Text('ออกจากระบบ', style: TextStyle(color: kPrimaryblckColor))

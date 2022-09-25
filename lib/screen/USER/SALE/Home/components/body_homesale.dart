@@ -21,7 +21,6 @@ Future<Null> signOutprocess()async{
   preferences.clear();
   exit(0);
 }
-late String userid;
 class BodyHomePageSall extends StatefulWidget {
   const BodyHomePageSall({Key? key}) : super(key: key);
 
@@ -31,19 +30,7 @@ class BodyHomePageSall extends StatefulWidget {
 
 class _BodyHomePageSallState extends State<BodyHomePageSall> {
 
-  //------------------
-  @override
-  void initState() {
-    super.initState();
-    finduser();
-  }
-  Future<Null> finduser() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    setState(() {
-      userid = preferences.getString('phoneNumber')!;
-    });
-  }
-  //ฟังช้่นlogout
+
 //------------
   @override
   Widget build(BuildContext context) {
@@ -72,7 +59,7 @@ class _BodyHomePageSallState extends State<BodyHomePageSall> {
                   ]),
               child: Column(
                 children: [
-                  Text('phone: $userid'),
+                  Text('phone:'),
                   Text(
                     'รายการ',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

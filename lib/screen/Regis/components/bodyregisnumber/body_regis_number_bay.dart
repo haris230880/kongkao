@@ -7,6 +7,8 @@ import '../../../../constants.dart';
 import '../background_regis.dart';
 import 'package:dio/dio.dart';
 
+
+
 class BodyRegisNumberBay extends StatefulWidget {
   const BodyRegisNumberBay({Key? key}) : super(key: key);
 
@@ -16,6 +18,8 @@ class BodyRegisNumberBay extends StatefulWidget {
 
 class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
   final formKey = GlobalKey<FormState>();
+  bool isHidden = false;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -110,9 +114,65 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                         ),
                       ),
                     ),
+                    SizedBox(height: 10,),
+                    Container(
+                      height: 50,
+                      width: 350,
+                      child: TextFormField(
+                        validator: (value) {
+                          if (value != null && value.length < 6) {
+                            return "enter รหัสผ่าน 6 ตัวขึ้นไป";
+                          }
+                          return null;
+                        },
+                        onChanged: (value) => buyuser_password = value.trim(),
+
+                        obscureText: isHidden,
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(color: kPrimaryColor)),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(color: kPrimaryLightColor),
+                          ),
+                          filled: true,
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(20))),
+                          contentPadding: EdgeInsets.all(10),
+                          label: Text(
+                            'รหัสผ่าน ',
+                            style: TextStyle(color: kPrimaryColor),
+                          ),
+                          prefixIcon: Icon(
+                            Icons.password,
+                            color: kPrimaryColor,
+                          ),
+                          suffix: InkWell(
+                            onTap: togglePasswordVisibility,
+                            child: IconButton(
+                              icon: isHidden
+                                  ? Icon(
+                                Icons.visibility_off,
+                                color: kPrimaryColor,
+                              )
+                                  : Icon(
+                                Icons.visibility,
+                                color: kPrimaryColor,
+                              ),
+                              onPressed: togglePasswordVisibility,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
+
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -128,7 +188,15 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                 onPressed: () {
                   final isValidFrom = formKey.currentState!.validate();
                   if (isValidFrom) {
-                    getHttpBuyuser();
+                     getHttpBuyuser();
+                     Navigator.push(
+                                 context,
+                                 MaterialPageRoute(
+                                   builder: (context) {
+                                     return OtpScreen();
+                                   },
+                                 ),
+                               );
                     //checkPhoneNumber();
                   }
                 },
@@ -152,17 +220,19 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
               )
             ],
           ),
-        ),
+        ), 
       ),
     );
+
   }
+  void togglePasswordVisibility() => setState(() => isHidden = !isHidden);
 
   Future<Null> checkPhoneNumber() async {
     String url = API.BASE_URL +
         '/flutterApiProjeck/getUserWhereUserbay.php?isAdd=true&buyuser_phone=$buyuser_phone';
     try {
       Response response = await Dio().get(url);
-      if (response.toString() == 'null') {
+      if (response.toString() == "null") {
         getHttpBuyuser();
         Navigator.push(
           context,
@@ -182,37 +252,41 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
     }
   }
 
+
   // void getHttpBuyuser() async {
+  //   String url = (API.BASE_URL +
+  //       '/flutterApiProjeck/insertDataBay.php?isAdd=true&buyuser_name=$buyuser_name&buyuser_sname=$buyuser_sname&buyuser_email=$buyuser_email&buyuser_shop=$buyuser_shop&buyuser_phone=$buyuser_phone&buyuser_time=$buyuser_time&buyuser_photo=NULL&buyuser_charge=$buyuser_charge&buyuser_latitude=NULL&buyuser_longitude=NULL&buyuser_district=$buyuser_district&buyuser_prefecture=$buyuser_prefecture&buyuser_city=$buyuser_city&buyuser_postid=$buyuser_postid&buyuser_housenum=$buyuser_housenum');
   //   try {
-  //     var response = await Dio().get(API.BASE_URL + '/flutterApiProjeck/insertDataBay.php?isAdd=true&buyuser_name=$buyuser_name&buyuser_sname=$buyuser_sname&buyuser_email=$buyuser_email&buyuser_shop=$buyuser_shop&buyuser_phone=$buyuser_phone&buyuser_time=$buyuser_time&buyuser_photo=NULL&buyuser_charge=$buyuser_charge&buyuser_latitude=NULL&buyuser_longitude=NULL&buyuser_district=$buyuser_district&buyuser_prefecture=$buyuser_prefecture&buyuser_city=$buyuser_city&buyuser_postid=$buyuser_postid&buyuser_housenum=$buyuser_housenum');
-  //      print(response);
+  //     Response response = await Dio().get(url);
+  //     print('res = $response');
+  //     if (response.toString() =='true') {
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (context) {
+  //             return OtpScreen();
+  //           },
+  //         ),
+  //       );
+  //     }else{
+  //       normaDiolog(context, 'ไม่สามารสมัคได้ลองใหม่');
+  //     }
   //   } catch (e) {
   //     print(e);
   //   }
   // }
+
   void getHttpBuyuser() async {
-    String url = (API.BASE_URL +
-        '/flutterApiProjeck/insertDataBay.php?isAdd=true&buyuser_name=$buyuser_name&buyuser_sname=$buyuser_sname&buyuser_email=$buyuser_email&buyuser_shop=$buyuser_shop&buyuser_phone=$buyuser_phone&buyuser_time=$buyuser_time&buyuser_photo=NULL&buyuser_charge=$buyuser_charge&buyuser_latitude=NULL&buyuser_longitude=NULL&buyuser_district=$buyuser_district&buyuser_prefecture=$buyuser_prefecture&buyuser_city=$buyuser_city&buyuser_postid=$buyuser_postid&buyuser_housenum=$buyuser_housenum');
     try {
-      Response response = await Dio().get(url);
-      print('res = $response');
-      if (response.toString() == "true") {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return OtpScreen();
-            },
-          ),
-        );
-      }else{
-        normaDiolog(context, 'ไม่สามารสมัคได้ลองใหม่');
-      }
+      var response = await Dio().get(API.BASE_URL +
+          '/flutterApiProjeck/insertDataBay.php?isAdd=true&buyuser_name=$buyuser_name&buyuser_sname=$buyuser_sname&buyuser_email=$buyuser_email&buyuser_shop=$buyuser_shop&buyuser_phone=$buyuser_phone&buyuser_time=$buyuser_time&buyuser_charge=$buyuser_charge&buyuser_latitude=NULL&buyuser_longitude=NULL&buyuser_district=$buyuser_district&buyuser_prefecture=$buyuser_prefecture&buyuser_city=$buyuser_city&buyuser_postid=$buyuser_postid&buyuser_housenum=$buyuser_housenum&buyuser_password=$buyuser_password');
+     print(response);
     } catch (e) {
       print(e);
     }
   }
 }
+
 //    final isValidFrom = formKey.currentState!.validate();
 //                   if (isValidFrom) {
 //                     getHttpBuyuser();
