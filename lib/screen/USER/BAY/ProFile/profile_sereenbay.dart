@@ -1,8 +1,5 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:project/screen/USER/BAY/HOME/components/body_homebay.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'body_profilebay.dart';
 
@@ -21,8 +18,4 @@ class _ProFileUserBayState extends State<ProFileUserBay> {
   }
 }
 
-Future<Null> signOutprocess() async {
-  SharedPreferences preferences = await SharedPreferences.getInstance();
-  preferences.clear();
-  exit(0);
-}
+

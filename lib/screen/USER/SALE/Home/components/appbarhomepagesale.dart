@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project/constants.dart';
-import 'package:project/screen/Login/components/login_screen.dart';
-import 'package:project/screen/USER/SALE/Home/components/body_homesale.dart';
+
+import '../../../../../future_All.dart';
+
 
 AppBar HomeAppBarSall() {
   return AppBar(
@@ -38,12 +39,12 @@ AppBar HomeAppBarSall() {
       ]),
     ),
     actions: [
-      IconButton(
-          onPressed: () => signOutprocess(),
-          icon: Icon(
-            Icons.exit_to_app_rounded,
-            color: Colors.white,
-          )),
+      // IconButton(
+      //     onPressed: () => signOutprocess(),
+      //     icon: Icon(
+      //       Icons.exit_to_app_rounded,
+      //       color: Colors.white,
+      //     )),
     ],
   );
 }

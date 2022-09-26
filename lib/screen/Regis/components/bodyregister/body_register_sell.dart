@@ -4,7 +4,6 @@ import 'package:project/configs/datausersale.dart';
 import 'package:project/screen/Regis/components/regis.dart';
 
 import '../../../../constants.dart';
-import '../../../Login/components/login_screen.dart';
 import '../background_regis.dart';
 import 'package:email_validator/email_validator.dart';
 

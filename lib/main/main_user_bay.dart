@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project/screen/USER/BAY/HomePageBay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../screen/USER/BAY/HOME/components/home_screenbay.dart';
-import '../screen/USER/SALE/Home/components/body_homesale.dart';
-import 'main_user_sell.dart';
+import '../future_All.dart';
 
 class MainUserBay extends StatefulWidget {
   const MainUserBay({Key? key}) : super(key: key);
@@ -34,7 +31,7 @@ class _MainUserBayState extends State<MainUserBay> {
           title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(userid == null ? 'mainsell' : '$userid loginBay'),
-          IconButton(onPressed: () => signOutprocess(), icon: Icon(Icons.exit_to_app)),
+          IconButton(onPressed: () => signOutprocess(context), icon: Icon(Icons.exit_to_app)),
         ],
       )),
       body: Center(

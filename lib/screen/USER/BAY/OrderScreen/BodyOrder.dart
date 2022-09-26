@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project/constants.dart';
 import 'package:project/model/slide.dart';
 import 'package:project/screen/USER/BAY/backgroundbay.dart';
 import 'package:project/winged/slideitem.dart';

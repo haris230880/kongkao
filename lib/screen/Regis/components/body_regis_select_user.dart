@@ -3,7 +3,6 @@ import 'package:project/screen/Regis/components/background_regis.dart';
 import 'package:project/screen/Regis/components/regis.dart';
 
 import '../../../constants.dart';
-import '../../Login/components/login_screen.dart';
 import '../../Welcome/components/welcomeScreen.dart';
 
 class BodyRegisSelectUser extends StatelessWidget {

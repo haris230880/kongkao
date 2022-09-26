@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:project/configs/services/api.dart';
 import 'package:project/screen/Regis/components/background_regis.dart';
-import 'package:project/screen/Regis/components/otp_regis.dart';
 import 'package:project/screen/Regis/components/regis.dart';
-
 import '../../../../configs/datausersale.dart';
 import '../../../../constants.dart';
-import '../../../Login/components/login_screen.dart';
-import '../../../Welcome/components/welcomeScreen.dart';
 import 'package:dio/dio.dart';
 
 class BodyRegisNumberSale extends StatefulWidget {

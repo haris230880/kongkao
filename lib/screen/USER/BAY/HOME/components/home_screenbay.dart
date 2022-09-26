@@ -1,18 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:project/constants.dart';
-import 'package:project/screen/Login/components/login_screen.dart';
-import 'package:project/screen/Regis/components/regis.dart';
-import 'package:project/screen/Welcome/components/backgroundwelcome.dart';
-import 'package:project/screen/Welcome/components/welcomeScreen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../HomePageBay.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../Login/components/login_screen.dart';
 import 'appbarhomepagebay.dart';
 import 'body_homebay.dart';
 
-
 late String userid;
 late String userphone;
+late String usertype;
+
 
 
 
@@ -24,7 +20,8 @@ class HomeScreenBay extends StatefulWidget {
 }
 
 class _HomeScreenBayState extends State<HomeScreenBay> {
-  @override
+  
+@override
   void initState() {
     super.initState();
     finduser();
@@ -34,6 +31,7 @@ class _HomeScreenBayState extends State<HomeScreenBay> {
     setState(() {
       userid = preferences.getString('ID')!;
       userphone = preferences.getString('PhoneNumber')!;
+      usertype = preferences.getString('Type')!;
 
     });
   }

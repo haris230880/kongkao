@@ -1,13 +1,13 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:project/screen/Login/components/login_screen.dart';
 import 'package:project/screen/USER/SALE/Home/components/home_screensale.dart';
-import 'package:project/screen/Welcome/components/welcomeScreen.dart';
 import 'package:project/winged/map.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 import '../../../../constants.dart';
+import '../BAY/HOME/components/home_screenbay.dart';
 
 
 
@@ -19,10 +19,10 @@ class HomePageSell extends StatefulWidget {
 }
 
 class _HomePageSellState extends State<HomePageSell> {
-  int currentIndex = 1;
+  int currentIndex = 0;
   final screen = [
+     HomeScreen(),
     WingetMaps(),
-    HomeScreen(),
     Center(
       child: Text('profile'),
     ),
@@ -39,15 +39,16 @@ class _HomePageSellState extends State<HomePageSell> {
         onTap: (index) => setState(() => currentIndex = index),
         selectedItemColor: kPrimaryColor,
         unselectedItemColor: kPrimaryblckColor,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.add_a_photo),
-              label: 'Manu',
-              backgroundColor: kPrimaryColor),
+        items: [ 
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle_outlined),
               label: 'Home',
               backgroundColor: kPrimaryColor),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.add_a_photo),
+              label: 'Manu',
+              backgroundColor: kPrimaryColor),
+         
           BottomNavigationBarItem(
               icon: Icon(Icons.login),
               label: 'profile',

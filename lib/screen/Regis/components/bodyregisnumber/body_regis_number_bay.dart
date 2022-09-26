@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:project/configs/services/api.dart';
 import 'package:project/screen/Regis/components/regis.dart';
-import 'package:project/winged/nomalDiolog.dart';
+import 'package:project/my_style.dart';
 import '../../../../configs/datauserbay.dart';
 import '../../../../constants.dart';
+import '../../../../future_All.dart';
 import '../background_regis.dart';
 import 'package:dio/dio.dart';
 

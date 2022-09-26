@@ -1,18 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:project/screen/USER/BAY/backgroundbay.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../constants.dart';
-import '../../SALE/Home/components/body_homesale.dart';
-import '../HOME/components/body_homebay.dart';
+import '../../../../future_All.dart';
+import '../../../../my_style.dart';
 import '../HOME/components/home_screenbay.dart';
-import '../HomePageBay.dart';
-
-
-
-
-
-
 
 class BodyProFileBay extends StatefulWidget {
   const BodyProFileBay({Key? key}) : super(key: key);
@@ -22,21 +13,6 @@ class BodyProFileBay extends StatefulWidget {
 }
 
 class _BodyProFileBayState extends State<BodyProFileBay> {
-//   //------------------
-//   @override
-//   void initState() {
-//     super.initState();
-//     finduser();
-//   }
-//   Future<Null> finduser() async {
-//     SharedPreferences preferences = await SharedPreferences.getInstance();
-//     setState(() {
-//       userid = preferences.getString('phoneNumber')!;
-//     });
-//   }
-//   //ฟังช้่นlogout
-// //------------
-
   @override
   Widget build(BuildContext context) {
     return BackgroundPageBay(
@@ -45,36 +21,7 @@ class _BodyProFileBayState extends State<BodyProFileBay> {
           padding: const EdgeInsets.all(20.0),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Row(
-              children: [
-                Container(
-                  child: Column(children: [
-                    CircleAvatar(
-                      maxRadius: 50,
-                      child: Image.asset('assets/icons/userbay.png'),
-                    ),
-                  ]),
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                Container(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'USERNAME',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                        Text(
-                          'เเก้ไขข้อมูล  >',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ]),
-                ),
-              ],
-            ),
+            usernamestlyeprofile('userbay.png'),
             SizedBox(
               height: 20,
             ),
@@ -82,125 +29,27 @@ class _BodyProFileBayState extends State<BodyProFileBay> {
               'บัญชีขอฉัน',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
             ),
-            TextButton(
-                onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'data',
-                      style: TextStyle(color: kPrimaryblckColor),
-                    ),
-                    Text('>', style: TextStyle(color: kPrimaryblckColor))
-                  ],
-                )),
-            TextButton(
-                onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'data',
-                      style: TextStyle(color: kPrimaryblckColor),
-                    ),
-                    Text('>', style: TextStyle(color: kPrimaryblckColor))
-                  ],
-                )),
-            TextButton(
-                onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'data',
-                      style: TextStyle(color: kPrimaryblckColor),
-                    ),
-                    Text('>', style: TextStyle(color: kPrimaryblckColor))
-                  ],
-                )),
-            TextButton(
-                onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'data',
-                      style: TextStyle(color: kPrimaryblckColor),
-                    ),
-                    Text('>', style: TextStyle(color: kPrimaryblckColor))
-                  ],
-                )),
+            TextButton(onPressed: () {}, child: ManuProflie('manu')),
+            TextButton(onPressed: () {}, child: ManuProflie('manu')),
+            TextButton(onPressed: () {}, child: ManuProflie('manu')),
+            TextButton(onPressed: () {}, child: ManuProflie('manu')),
             Text(
               'ระบบ',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
             ),
-                TextButton(
-                    onPressed: () {},
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'data',
-                          style: TextStyle(color: kPrimaryblckColor),
-                        ),
-                        Text('>', style: TextStyle(color: kPrimaryblckColor))
-                      ],
-                    )),
-                TextButton(
-                    onPressed: () {},
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'data',
-                          style: TextStyle(color: kPrimaryblckColor),
-                        ),
-                        Text('>', style: TextStyle(color: kPrimaryblckColor))
-                      ],
-                    )),
-                TextButton(
-                    onPressed: () {},
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'data',
-                          style: TextStyle(color: kPrimaryblckColor),
-                        ),
-                        Text('>', style: TextStyle(color: kPrimaryblckColor))
-                      ],
-                    )),
-                TextButton(
-                    onPressed: () {},
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'data',
-                          style: TextStyle(color: kPrimaryblckColor),
-                        ),
-                        Text('>', style: TextStyle(color: kPrimaryblckColor))
-                      ],
-                    )),
-                Text(
-                  'ออกจากระบบ',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
-                ),
-                TextButton(
-                    onPressed:() =>
-                    signOutprocess(),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('ผู้ใช้: $userphone',
-                          style: TextStyle(color: kPrimaryblckColor),
-                        ),
-                        Text('ออกจากระบบ', style: TextStyle(color: kPrimaryblckColor))
-                      ],
-                    )),
+            TextButton(onPressed: () {}, child: ManuProflie('manu')),
+            TextButton(onPressed: () {}, child: ManuProflie('manu')),
+            TextButton(onPressed: () {}, child: ManuProflie('manu')),
+            TextButton(onPressed: () {}, child: ManuProflie('manu')),
+            Text(
+              'ออกจากระบบ',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
+            ),
+            SingoutButtonProfile(context),
           ]),
         ),
       ),
     );
   }
+
 }

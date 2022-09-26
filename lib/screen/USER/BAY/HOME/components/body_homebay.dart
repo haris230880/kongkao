@@ -1,29 +1,11 @@
-//import 'dart:html';//เม้น
-
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:project/constants.dart';
-import 'package:project/screen/Login/components/login_screen.dart';
-import 'package:project/screen/Regis/components/regis.dart';
-import 'package:project/screen/USER/SALE/Home/components/backgroundhomesale.dart';
-import 'package:project/screen/Welcome/components/backgroundwelcome.dart';
-import 'package:project/screen/Welcome/components/welcomeScreen.dart';
-import 'package:project/winged/categoryitemmanu.dart';
-import 'package:project/winged/searchbox.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../../main/main_user_sell.dart';
+import 'package:project/screen/USER/SALE/Home/components/backgroundhomesale.dart';
+
 import '../../EditProduct/editproduct.dart';
 import 'home_screenbay.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-// Future<Null> signOutprocess() async {
-//   SharedPreferences preferences = await SharedPreferences.getInstance();
-//   preferences.clear();
-//   exit(0);
-// }
-
 
 class BodyHomePageBay extends StatefulWidget {
   const BodyHomePageBay({Key? key}) : super(key: key);
@@ -33,22 +15,6 @@ class BodyHomePageBay extends StatefulWidget {
 }
 
 class _BodyHomePageBayState extends State<BodyHomePageBay> {
-  //------------------
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   finduser();
-  // }
-
-  // Future<Null> finduser() async {
-  //   SharedPreferences preferences = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     userid = preferences.getString('phoneNumber')!;
-  //   });
-  // }
-
-  //ฟังช้่นlogout
-//------------
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -56,6 +22,7 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
       child: Column(
         children: [
           HeaderHomePageBay(),
+          Center(child: Text('__________รายการสินค้า__________',style: TextStyle(fontSize: 16),),),
           Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -108,7 +75,10 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Image.asset('assets/icons/paper.png'),
+                        Image.asset(
+                          'assets/icons/paper.png',
+                          scale: 20,
+                        ),
                         Text(
                           'กระดาษ',
                           style: TextStyle(
@@ -148,7 +118,7 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
                         Image.asset('assets/icons/Aluminium.png'),
                         Text(
                           'อลูมิเนียม',
-                        style: TextStyle(
+                          style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: kPrimaryblckColor,
                               fontSize: 18),
@@ -208,7 +178,10 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Image.asset('assets/icons/other.png',scale: 12,),
+                  Image.asset(
+                    'assets/icons/other.png',
+                    scale: 12,
+                  ),
                   Text(
                     'อื่น ๆ',
                     style: TextStyle(
@@ -239,20 +212,25 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
                 borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(30),
                     bottomLeft: Radius.circular(30))),
-            child: Row(children: [
-              Text(
-                'Hi! $userphone',
-                style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
-              Spacer(),
-              Image.asset(
-                'assets/icons/icon.png',
-                scale: 10,
-              ),
-            ]),
+            child: Row(
+              children: [
+                Text(
+                  'user$usertype: $userphone',
+                  style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+                Spacer(),
+                Image.asset(
+                  'assets/icons/icon.png',
+                  scale: 10,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
           ),
           Positioned(
             child: Center(
@@ -271,7 +249,6 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
                     ]),
                 child: OutlinedButton(
                   onPressed: () {
-
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -280,7 +257,6 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
                         },
                       ),
                     );
-
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

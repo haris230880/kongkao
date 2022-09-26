@@ -1,15 +1,11 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:project/screen/USER/BAY/HOME/components/appbarhomepagebay.dart';
 import 'package:project/screen/USER/BAY/HOME/components/home_screenbay.dart';
 import 'package:project/screen/USER/BAY/NotiFication/notificationBayScreen.dart';
 import 'package:project/screen/USER/BAY/OrderScreen/OrderSreen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants.dart';
 import 'ProFile/profile_sereenbay.dart';
-
 
 
 class HomePageBay extends StatefulWidget {
@@ -20,9 +16,6 @@ class HomePageBay extends StatefulWidget {
 }
 
 class _HomePageBayState extends State<HomePageBay> {
-
-
-
   int currentIndex = 0;
   final screen = [
     HomeScreenBay(),

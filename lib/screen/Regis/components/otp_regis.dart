@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:project/screen/Login/components/login_screen.dart';
 import 'package:project/screen/Regis/components/background_regis.dart';
-import 'package:project/screen/Regis/components/body_set_password.dart';
 import 'package:project/screen/Regis/components/regis.dart';
 
 import '../../../constants.dart';
