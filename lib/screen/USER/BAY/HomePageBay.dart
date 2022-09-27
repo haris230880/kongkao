@@ -28,32 +28,36 @@ class _HomePageBayState extends State<HomePageBay> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: screen[currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white70,
-        type: BottomNavigationBarType.fixed,
-        currentIndex: currentIndex,
-        onTap: (index) => setState(() => currentIndex = index),
-        selectedItemColor: kPrimaryColor,
-        unselectedItemColor: kPrimaryblckColor,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'หน้าเเรก',
-              backgroundColor: kPrimaryColor),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.offline_pin_rounded),
-              label: 'คำสั่งซื้อ',
-              backgroundColor: kPrimaryColor),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.add_alert),
-              label: 'เเจ้งเตือน',
-              backgroundColor: kPrimaryColor),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'ผู้ใช้',
-              backgroundColor: kPrimaryColor),
-        ],
-      ),
+      bottomNavigationBar: BayBottomNavigationBar(),
+    );
+  }
+
+  BottomNavigationBar BayBottomNavigationBar() {
+    return BottomNavigationBar(
+      backgroundColor: Colors.white70,
+      type: BottomNavigationBarType.fixed,
+      currentIndex: currentIndex,
+      onTap: (index) => setState(() => currentIndex = index),
+      selectedItemColor: kPrimaryColor,
+      unselectedItemColor: kPrimaryblckColor,
+      items: [
+        BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'หน้าเเรก',
+            backgroundColor: kPrimaryColor),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.offline_pin_rounded),
+            label: 'คำสั่งซื้อ',
+            backgroundColor: kPrimaryColor),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.add_alert),
+            label: 'เเจ้งเตือน',
+            backgroundColor: kPrimaryColor),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'ผู้ใช้',
+            backgroundColor: kPrimaryColor),
+      ],
     );
   }
 }

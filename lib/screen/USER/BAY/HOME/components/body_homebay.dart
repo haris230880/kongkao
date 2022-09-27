@@ -1,8 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:project/constants.dart';
+import 'package:project/screen/USER/BAY/OrderScreen/OrderSreen.dart';
 
 import 'package:project/screen/USER/SALE/Home/components/backgroundhomesale.dart';
+import 'package:project/winged/oeder_list_shop.dart';
 
 import '../../EditProduct/editproduct.dart';
 import 'home_screenbay.dart';
@@ -22,7 +23,12 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
       child: Column(
         children: [
           HeaderHomePageBay(),
-          Center(child: Text('__________รายการสินค้า__________',style: TextStyle(fontSize: 16),),),
+          Center(
+            child: Text(
+              '__________รายการสินค้า__________',
+              style: TextStyle(fontSize: 16),
+            ),
+          ),
           Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -41,7 +47,16 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
                             color: kPrimaryColor.withOpacity(0.20)),
                       ]),
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return OrderListShop();
+                          },
+                        ),
+                      );
+                    },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -71,7 +86,16 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
                             color: kPrimaryColor.withOpacity(0.20)),
                       ]),
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return OrderListShop();
+                          },
+                        ),
+                      );
+                    },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -111,7 +135,16 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
                             color: kPrimaryColor.withOpacity(0.20)),
                       ]),
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return OrderListShop();
+                          },
+                        ),
+                      );
+                    },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -141,7 +174,17 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
                             color: kPrimaryColor.withOpacity(0.20)),
                       ]),
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return OrderListShop();
+                          },
+                        ),
+                      );
+                    },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -174,7 +217,17 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
                       color: kPrimaryColor.withOpacity(0.20)),
                 ]),
             child: OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return OrderListShop();
+                    },
+                  ),
+                );
+
+              },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [

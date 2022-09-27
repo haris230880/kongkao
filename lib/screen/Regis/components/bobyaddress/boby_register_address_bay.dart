@@ -16,7 +16,6 @@ class BobyRegisterAddressBay extends StatefulWidget {
 }
 
 class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
-
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -72,11 +71,11 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                       width: 350,
                       child: TextFormField(
                         validator: (value) {
-                        if (value != null && value.isEmpty) {
-                          return "กรอก ชื่อร้าน";
-                        }
-                        return null;
-                      },
+                          if (value != null && value.isEmpty) {
+                            return "กรอก ชื่อร้าน";
+                          }
+                          return null;
+                        },
                         onChanged: (value) => buyuser_shop = value.trim(),
                         keyboardType: TextInputType.text,
                         cursorColor: kPrimaryColor,
@@ -178,8 +177,7 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                           }
                           return null;
                         },
-                        onChanged: (value) =>
-                            buyuser_housenum = value.trim(),
+                        onChanged: (value) => buyuser_housenum = value.trim(),
                         keyboardType: TextInputType.streetAddress,
                         cursorColor: kPrimaryColor,
                         textAlignVertical: TextAlignVertical.center,
@@ -285,8 +283,7 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                               }
                               return null;
                             },
-                            onChanged: (value) =>
-                                buyuser_city = value.trim(),
+                            onChanged: (value) => buyuser_city = value.trim(),
                             keyboardType: TextInputType.text,
                             cursorColor: kPrimaryColor,
                             textAlignVertical: TextAlignVertical.center,
@@ -309,13 +306,12 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                         Container(
                           height: 50,
                           width: 140,
-
                           child: TextFormField(
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(5),
-                              ],
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(5),
+                            ],
                             validator: (value) {
-                              if (value != null  && value.length<5 ) {
+                              if (value != null && value.length < 5) {
                                 return "กรอก รหัสไปรษณีย์";
                               }
                               return null;
@@ -328,7 +324,9 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                               filled: true,
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.all(Radius.circular(20),),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20),
+                                ),
                               ),
                               contentPadding: EdgeInsets.all(10),
                               label: Text(
@@ -343,27 +341,7 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                     SizedBox(
                       height: 10,
                     ),
-                    Container(
-                      height: 200,
-                      width: 400,
-                      child:
-                      GoogleMap(
-                        markers: {
-                          Marker(
-                              markerId: MarkerId("1"),
-                              position: LatLng(13.6900043, 100.7479237),
-                              infoWindow: InfoWindow(title: "สนามบินสุวรรณภูมิ", snippet: "สนามบินนานาชาติของประเทศไทย"),),
-                        },
-                        myLocationEnabled: true,
-                        mapType: MapType.normal,
-                        initialCameraPosition: CameraPosition(
-                          target: LatLng(13.6900043, 100.7479237),
-                          zoom: 15,
-                        ),
-
-                      ),
-                    ),
-                    // GoogleMap(initialCameraPosition: ),
+                    showmap(),
                     SizedBox(
                       height: 20,
                     ),
@@ -378,10 +356,11 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                               // Background color
                               primary: kPrimaryColor,
                               minimumSize: Size(100, 50))
-                          .copyWith(elevation: ButtonStyleButton.allOrNull(5.0)),
+                          .copyWith(
+                              elevation: ButtonStyleButton.allOrNull(5.0)),
                       onPressed: () {
                         final isValidFrom = formKey.currentState!.validate();
-                        if(isValidFrom){
+                        if (isValidFrom) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -391,7 +370,6 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                             ),
                           );
                         }
-
                       },
                       child: const Text('ถัดไป'),
                     ),
@@ -414,10 +392,46 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                   ],
                 ),
               ),
+
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Container showmap() {
+    LatLng latLng = LatLng(13.728472, 100.532769);
+    CameraPosition cameraPosition = CameraPosition(target: latLng, zoom: 18);
+    return Container(
+      height: 300,
+      width: 300,
+      color: kPrimaryblckColor,
+      child: GoogleMap(
+        initialCameraPosition: cameraPosition,
+        mapType: MapType.normal,
+        onMapCreated: (controller) {},
+      ),
+
+
+
+
+
+      // GoogleMap(
+      //   markers: {
+      //     Marker(
+      //         markerId: MarkerId("1"),
+      //         position: LatLng(13.6900043, 100.7479237),
+      //         infoWindow: InfoWindow(title: "สนามบินสุวรรณภูมิ", snippet: "สนามบินนานาชาติของประเทศไทย"),),
+      //   },
+      //   myLocationEnabled: true,
+      //   mapType: MapType.normal,
+      //   initialCameraPosition: CameraPosition(
+      //     target: LatLng(13.6900043, 100.7479237),
+      //     zoom: 15,
+      //   ),
+      //
+      // ),
     );
   }
   // Future<LocationData?> getCurrentLocation() async {
