@@ -1,4 +1,5 @@
-import 'dart:async';
+
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,7 +7,8 @@ import '../../../../configs/datauserbay.dart';
 import '../../../../constants.dart';
 import '../background_regis.dart';
 import '../regis.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+
 
 class BobyRegisterAddressBay extends StatefulWidget {
   const BobyRegisterAddressBay({Key? key}) : super(key: key);
@@ -16,6 +18,32 @@ class BobyRegisterAddressBay extends StatefulWidget {
 }
 
 class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
+  // //Filed
+  // late double lat;
+  // late double lng;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   findLatLng();
+  // }
+
+//   Future<Null> findLatLng()async{
+// LocationData? locationData = await findlocationData();
+//  // lat = locationData.latitude;
+//  // lng = locationData.longitude;
+//
+//   }
+//
+//
+// Future<LocationData?> findlocationData()async{
+// Location location = Location();
+// try{
+//   return location.getLocation();
+// }catch(e){
+//   return null ;
+// }
+// }
+
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -341,7 +369,7 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                     SizedBox(
                       height: 10,
                     ),
-                    showmap(),
+                     //showmap(),
                     SizedBox(
                       height: 20,
                     ),
@@ -400,40 +428,21 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
     );
   }
 
-  Container showmap() {
-    LatLng latLng = LatLng(13.728472, 100.532769);
-    CameraPosition cameraPosition = CameraPosition(target: latLng, zoom: 18);
-    return Container(
-      height: 300,
-      width: 300,
-      color: kPrimaryblckColor,
-      child: GoogleMap(
-        initialCameraPosition: cameraPosition,
-        mapType: MapType.normal,
-        onMapCreated: (controller) {},
-      ),
+  // Container showmap() {
+  //   LatLng latLng = LatLng(13.728472, 100.532769);
+  //   CameraPosition cameraPosition = CameraPosition(target: latLng, zoom: 18);
+  //   return Container(
+  //     height: 300,
+  //     width: 300,
+  //     color: kPrimaryblckColor,
+  //     child: GoogleMap(
+  //       initialCameraPosition: cameraPosition,
+  //       mapType: MapType.normal,
+  //       onMapCreated: (controller) {},
+  //     ),
+  //   );
+  // }
 
-
-
-
-
-      // GoogleMap(
-      //   markers: {
-      //     Marker(
-      //         markerId: MarkerId("1"),
-      //         position: LatLng(13.6900043, 100.7479237),
-      //         infoWindow: InfoWindow(title: "สนามบินสุวรรณภูมิ", snippet: "สนามบินนานาชาติของประเทศไทย"),),
-      //   },
-      //   myLocationEnabled: true,
-      //   mapType: MapType.normal,
-      //   initialCameraPosition: CameraPosition(
-      //     target: LatLng(13.6900043, 100.7479237),
-      //     zoom: 15,
-      //   ),
-      //
-      // ),
-    );
-  }
   // Future<LocationData?> getCurrentLocation() async {
   //   Location location = Location();
   //   try {

@@ -23,12 +23,7 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
       child: Column(
         children: [
           HeaderHomePageBay(),
-          Center(
-            child: Text(
-              '__________รายการสินค้า__________',
-              style: TextStyle(fontSize: 16),
-            ),
-          ),
+
           Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -117,6 +112,7 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
               ],
             ),
           ),
+          SizedBox(height: 20,),
           Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -175,7 +171,6 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
                       ]),
                   child: OutlinedButton(
                     onPressed: () {
-
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -226,7 +221,6 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
                     },
                   ),
                 );
-
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -254,11 +248,11 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
   Container HeaderHomePageBay() {
     return Container(
       margin: EdgeInsets.only(bottom: 1, top: 0),
-      height: 200,
+      height: 250,
       child: Stack(
         children: [
           Container(
-            height: 100,
+            height: 130,
             padding: EdgeInsets.only(left: 10, right: 10, bottom: 50, top: 1),
             decoration: BoxDecoration(
                 color: kPrimaryColor,
@@ -270,15 +264,11 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
                 Text(
                   'user$usertype: $userphone',
                   style: TextStyle(
-                      fontSize: 30,
+                      fontSize: 20,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
                 Spacer(),
-                Image.asset(
-                  'assets/icons/icon.png',
-                  scale: 10,
-                ),
                 SizedBox(
                   height: 20,
                 ),
@@ -288,19 +278,19 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
           Positioned(
             child: Center(
               child: Container(
-                margin: EdgeInsets.all(20),
+                margin: EdgeInsets.all(50),
                 height: 80,
                 width: 400,
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(50),
                     boxShadow: [
                       BoxShadow(
                           offset: Offset(0, 10),
                           blurRadius: 10,
-                          color: kPrimaryColor.withOpacity(0.50)),
+                          color: kPrimaryColor.withOpacity(0.4)),
                     ]),
-                child: OutlinedButton(
+                child: TextButton(
                   onPressed: () {
                     Navigator.push(
                       context,

@@ -6,7 +6,7 @@ import '../../../../constants.dart';
 import '../background_regis.dart';
 import '../regis.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
+import 'package:location/location.dart';
 class BobyRegisterAddressSell extends StatefulWidget {
   const BobyRegisterAddressSell({Key? key}) : super(key: key);
 

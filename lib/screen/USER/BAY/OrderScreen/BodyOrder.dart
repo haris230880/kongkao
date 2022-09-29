@@ -18,16 +18,26 @@ class _BodyOrderState extends State<BodyOrder> {
   @override
   Widget build(BuildContext context) {
     return BackgroundPageBay(
+      child: Center(
         child: Column(
           children: [
-            Expanded(
-                child: PageView.builder(
-                  scrollDirection: Axis.horizontal,
-                  controller: _pageController,
-                    itemCount: slideList.length,
-                    itemBuilder: (ctx, i) => SlideItem(i))),
+            SizedBox(height: 200,),
+            Image.asset('assets/images/no_photo.png'),
+            Text('ไม่มีอะไรเลยย',style: TextStyle(fontSize: 30)),
+
           ],
         ),
+      ),
+        // child: Column(
+        //   children: [
+        //     Expanded(
+        //         child: PageView.builder(
+        //           scrollDirection: Axis.horizontal,
+        //           controller: _pageController,
+        //             itemCount: slideList.length,
+        //             itemBuilder: (ctx, i) => SlideItem(i))),
+        //   ],
+        // ),
 
     );
   }

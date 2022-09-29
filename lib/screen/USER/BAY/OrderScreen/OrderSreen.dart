@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:project/screen/USER/BAY/HOME/components/appbarhomepagebay.dart';
 import 'package:project/screen/USER/BAY/OrderScreen/BodyOrder.dart';
+
+import '../../../../constants.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({Key? key}) : super(key: key);
@@ -13,61 +16,59 @@ class _OrderScreenState extends State<OrderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          title: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+        backgroundColor: kPrimaryColor,
+        elevation: 0,
+        title: Row(
+          children: [
+            CircleAvatar(
+              minRadius: 20,
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                'assets/icons/userbay.png',
+                scale: 10,
+              ),
+            ),
+            RichText(
+              textAlign: TextAlign.right,
+              text: TextSpan(children: [
+                TextSpan(
+                  text: "K",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25),
+                ),
+                TextSpan(
+                  text: "ongkao ",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
+                ),
+              ]),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+              onPressed: () {},
+              child: Row(
                 children: [
-                  Text(
-                    'คำสั่งซื้อ',
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold),
-                  ),
+                  Text('ประวัติ',style: TextStyle(color: Colors.white),),
+                 SizedBox(width: 5,),
+                  Icon(Icons.history,color: Colors.white,),
                 ],
-              ),
-              SizedBox(height: 10,),
-              Container(
-                height: 30,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(0),
-                    bottomLeft: Radius.circular(0),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    OutlinedButton(
-                      onPressed: () {
-                      },
-                      child: Text('คำสั่งซื้อ',
-                          style: TextStyle(color: Colors.black)),
-                    ),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: Text('ดำเนินการ',
-                          style: TextStyle(color: Colors.black)),
-                    ),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: Text('เสร็จสิ้น',
-                          style: TextStyle(color: Colors.black)),
-                    ),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child:
-                          Text('ยกเลิก', style: TextStyle(color: Colors.black)),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          )),
+              ))
+          // Container(
+          //   child: Row(
+          //     children: [
+          //       Text('ประวัติคำสั่งซื้อ'),
+          //       IconButton(onPressed: () {}, icon: Icon(Icons.history)),
+          //     ],
+          //   ),
+          // )
+        ],
+      ),
       body: BodyOrder(),
     );
   }

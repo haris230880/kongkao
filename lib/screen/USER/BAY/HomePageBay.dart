@@ -34,7 +34,7 @@ class _HomePageBayState extends State<HomePageBay> {
 
   BottomNavigationBar BayBottomNavigationBar() {
     return BottomNavigationBar(
-      backgroundColor: Colors.white70,
+      backgroundColor: Colors.white,
       type: BottomNavigationBarType.fixed,
       currentIndex: currentIndex,
       onTap: (index) => setState(() => currentIndex = index),
