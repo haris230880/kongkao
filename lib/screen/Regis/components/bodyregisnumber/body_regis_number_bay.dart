@@ -1,5 +1,11 @@
+
+
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:project/configs/services/api.dart';
+import 'package:project/screen/Regis/components/bobyaddress/boby_register_address_bay.dart';
 import 'package:project/screen/Regis/components/regis.dart';
 import 'package:project/my_style.dart';
 import '../../../../configs/datauserbay.dart';
@@ -7,6 +13,10 @@ import '../../../../constants.dart';
 import '../../../../future_All.dart';
 import '../background_regis.dart';
 import 'package:dio/dio.dart';
+
+import '../bodyregister/body_register_bay.dart';
+
+
 
 
 
@@ -20,6 +30,7 @@ class BodyRegisNumberBay extends StatefulWidget {
 class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
   final formKey = GlobalKey<FormState>();
   bool isHidden = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +50,8 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
               SizedBox(
                 height: 20,
               ),
-              CircleAvatar(
-                maxRadius: 100,
-                backgroundColor: kPrimaryColor,
-                child: Image.asset('assets/icons/userbay.png'),
-              ),
+
+              MyStyle().CircleAvataruserbuy(),
               Container(
                 margin: EdgeInsets.all(20),
                 padding:
@@ -83,7 +91,7 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                           }
                           return null;
                         },
-                        onChanged: (value) => buyuser_phone = value.trim(),
+                        onChanged: (value) => buyuser_phone  = value.trim(),
                         keyboardType: TextInputType.phone,
                         maxLength: 10,
                         cursorColor: kPrimaryColor,
@@ -189,7 +197,12 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                 onPressed: () {
                   final isValidFrom = formKey.currentState!.validate();
                   if (isValidFrom) {
-                     getHttpBuyuser();
+                    setState(() {
+                      getHttpBuyuser();
+                       uplodeimageuser();
+                    });
+                       // getHttpBuyuser();
+                     // getHttpTabelLoginBay();
                      Navigator.push(
                                  context,
                                  MaterialPageRoute(
@@ -221,11 +234,13 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
               )
             ],
           ),
-        ), 
+        ),
       ),
     );
 
   }
+
+
   void togglePasswordVisibility() => setState(() => isHidden = !isHidden);
 
   Future<Null> checkPhoneNumber() async {
@@ -234,7 +249,10 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
     try {
       Response response = await Dio().get(url);
       if (response.toString() == "null") {
-        getHttpBuyuser();
+
+         getHttpBuyuser();
+         uplodeimageuser();
+        // getHttpTabelLoginBay();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -252,51 +270,70 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
       print(e);
     }
   }
+  Future<Null> uplodeimageuser() async {
+    Random random = Random();
+    int i = random.nextInt(100000);
+    String nameimage = 'user$i.jpg';
+    String url = API.BASE_URL + '/kongkao/saveimage.php';
+    try {
+      Map<String, dynamic> map = Map();
+      map['file'] =
+      await MultipartFile.fromFile(fileuser!.path, filename: nameimage);
+      FormData formData = FormData.fromMap(map);
+      await Dio().post(url, data: formData).then((value) {
+        print('$value');
+        print('user_photo>>>>>$buyuser_photo');
+        buyuser_photo = '/kongkao/Image/$nameimage';
+         print('nameimage ======= $buyuser_photo');
 
-
-  // void getHttpBuyuser() async {
-  //   String url = (API.BASE_URL +
-  //       '/flutterApiProjeck/insertDataBay.php?isAdd=true&buyuser_name=$buyuser_name&buyuser_sname=$buyuser_sname&buyuser_email=$buyuser_email&buyuser_shop=$buyuser_shop&buyuser_phone=$buyuser_phone&buyuser_time=$buyuser_time&buyuser_photo=NULL&buyuser_charge=$buyuser_charge&buyuser_latitude=NULL&buyuser_longitude=NULL&buyuser_district=$buyuser_district&buyuser_prefecture=$buyuser_prefecture&buyuser_city=$buyuser_city&buyuser_postid=$buyuser_postid&buyuser_housenum=$buyuser_housenum');
-  //   try {
-  //     Response response = await Dio().get(url);
-  //     print('res = $response');
-  //     if (response.toString() =='true') {
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) {
-  //             return OtpScreen();
-  //           },
-  //         ),
-  //       );
-  //     }else{
-  //       normaDiolog(context, 'ไม่สามารสมัคได้ลองใหม่');
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
+      });
+    } catch (e) {}
+  }
 
   void getHttpBuyuser() async {
     try {
       var response = await Dio().get(API.BASE_URL +
-          '/flutterApiProjeck/insertDataBay.php?isAdd=true&buyuser_name=$buyuser_name&buyuser_sname=$buyuser_sname&buyuser_email=$buyuser_email&buyuser_shop=$buyuser_shop&buyuser_phone=$buyuser_phone&buyuser_time=$buyuser_time&buyuser_charge=$buyuser_charge&buyuser_latitude=NULL&buyuser_longitude=NULL&buyuser_district=$buyuser_district&buyuser_prefecture=$buyuser_prefecture&buyuser_city=$buyuser_city&buyuser_postid=$buyuser_postid&buyuser_housenum=$buyuser_housenum&buyuser_password=$buyuser_password');
+          '/kongkao/insertuser.php?id=3&name=$buyuser_name&lastname=$buyuser_sname&phone=$buyuser_phone&email=$buyuser_email&photo=$buyuser_photo&typeuser=buy&password=$buyuser_password&housenum=$buyuser_housenum&district=$buyuser_district&prefecture=$buyuser_prefecture&city=$buyuser_city&postid=$buyuser_postid&latitude=$lat&longitude=$lng&charge=$buyuser_charge&shop=$buyuser_shop&time=$buyuser_time');
      print(response);
     } catch (e) {
       print(e);
     }
   }
-}
+// void getHttpBuyuser() async {
+//   String url = (API.BASE_URL +
+//       '/flutterApiProjeck/insertDataBay.php?isAdd=true&buyuser_name=$buyuser_name&buyuser_sname=$buyuser_sname&buyuser_email=$buyuser_email&buyuser_shop=$buyuser_shop&buyuser_phone=$buyuser_phone&buyuser_time=$buyuser_time&buyuser_photo=NULL&buyuser_charge=$buyuser_charge&buyuser_latitude=NULL&buyuser_longitude=NULL&buyuser_district=$buyuser_district&buyuser_prefecture=$buyuser_prefecture&buyuser_city=$buyuser_city&buyuser_postid=$buyuser_postid&buyuser_housenum=$buyuser_housenum');
+//   try {
+//     Response response = await Dio().get(url);
+//     print('res = $response');
+//     if (response.toString() =='true') {
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(
+//           builder: (context) {
+//             return OtpScreen();
+//           },
+//         ),
+//       );
+//     }else{
+//       normaDiolog(context, 'ไม่สามารสมัคได้ลองใหม่');
+//     }
+//   } catch (e) {
+//     print(e);
+//   }
+// }
+  // void getHttpTabelLoginBay() async {
+  //   try {
+  //     var response = await Dio().get(API.BASE_URL +
+  //         '/flutterApiProjeck/insertDataLoginbay.php?isAdd=true&phone_number=$buyuser_phone&password=$buyuser_password&TypeUser=bay&Token=Token&&useridbay=$buyuser_phone');
+  //    print(response);
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
-//    final isValidFrom = formKey.currentState!.validate();
-//                   if (isValidFrom) {
-//                     getHttpBuyuser();
-//                     Navigator.push(
-//                       context,
-//                       MaterialPageRoute(
-//                         builder: (context) {
-//                           return OtpScreen();
-//                         },
-//                       ),
-//                     );
-//                   }
+
+
+
+
+}//end
+

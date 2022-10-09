@@ -12,6 +12,7 @@ import 'bobyaddress/boby_register_address_sell.dart';
 import 'bodyregisnumber/body_regis_number_bay.dart';
 import 'bodyregisnumber/bory_regis_number_sell.dart';
 
+import 'package:location/location.dart';
 
 
 
@@ -146,6 +147,8 @@ class RegisterAddressBay extends StatefulWidget {
 }
 
 class _RegisterAddressBayState extends State<RegisterAddressBay> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

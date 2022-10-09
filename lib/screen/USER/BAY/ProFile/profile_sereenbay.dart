@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'body_profilebay.dart';
 
 
-class ProFileUserBay extends StatefulWidget {
-  const ProFileUserBay({Key? key}) : super(key: key);
+class ProFileUserBaySreen extends StatefulWidget {
+  const ProFileUserBaySreen({Key? key}) : super(key: key);
 
   @override
-  State<ProFileUserBay> createState() => _ProFileUserBayState();
+  State<ProFileUserBaySreen> createState() => _ProFileUserBaySreenState();
 }
 
-class _ProFileUserBayState extends State<ProFileUserBay> {
+class _ProFileUserBaySreenState extends State<ProFileUserBaySreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: BodyProFileBay());

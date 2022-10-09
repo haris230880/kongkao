@@ -6,3 +6,5 @@ const kPrimaryblckColor =  Color(0xFF807E7E);
 const TextStyleblodgreen = TextStyle(fontWeight: FontWeight.bold, fontSize: 19, color: kPrimaryColor);
 
 
+const kDefaultPaddin=20.0;
+

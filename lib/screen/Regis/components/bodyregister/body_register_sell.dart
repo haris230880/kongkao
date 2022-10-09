@@ -1,12 +1,20 @@
+
+import 'dart:io';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:project/configs/datausersale.dart';
+import 'package:project/my_style.dart';
 import 'package:project/screen/Regis/components/regis.dart';
 
 import '../../../../constants.dart';
 import '../background_regis.dart';
 import 'package:email_validator/email_validator.dart';
 
+import 'body_register_bay.dart';
+File? fileusersell;
 class BodyRegisterSale extends StatefulWidget {
   const BodyRegisterSale({Key? key}) : super(key: key);
 
@@ -15,6 +23,22 @@ class BodyRegisterSale extends StatefulWidget {
 }
 
 class _BodyRegisterSaleState extends State<BodyRegisterSale> {
+
+
+
+  Future<Null> chooseImagesale(ImageSource imageSource) async {
+    Random random = Random();
+    int i = random.nextInt(100000);
+    String nameimage = 'user$i.jpg';
+    try {
+      var object = await ImagePicker.platform.pickImage(
+        source: imageSource,
+        maxHeight: 800.0,
+        maxWidth: 800.0,
+      );
+      fileusersell = File(object!.path);
+    } catch (e) {}
+  }
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -26,18 +50,15 @@ class _BodyRegisterSaleState extends State<BodyRegisterSale> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-
               SizedBox(
                 height: 10,
               ),
-              CircleAvatar(minRadius: 70,
-                backgroundColor: kPrimaryLightColor,
-                child: Image.asset(
-                'assets/icons/usersale.png',
-                scale: 4,
-              ),),
+              MyStyle().CircleAvatarusersale(),
               //ใส่รุปป
-              TextButton(onPressed: (){}, child: Text('เปลี่ยนรูป'),),
+              TextButton(
+                onPressed: () => chooseImagesale(ImageSource.camera),
+                child: Text('เปลี่ยนรูป'),
+              ),
               Container(
                 margin: EdgeInsets.all(30),
                 padding:

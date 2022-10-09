@@ -5,22 +5,21 @@ import '../../../../Login/components/login_screen.dart';
 import 'appbarhomepagebay.dart';
 import 'body_homebay.dart';
 
-late String userid;
-late String userphone;
-late String usertype;
+
+  String? userid;
+  String? userphone;
+  String? usertype;
 
 
-
-
-class HomeScreenBay extends StatefulWidget {
-  const HomeScreenBay({Key? key}) : super(key: key);
+class HomeBayScreen extends StatefulWidget {
+  const HomeBayScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreenBay> createState() => _HomeScreenBayState();
+  State<HomeBayScreen> createState() => _HomeBayScreenState();
 }
 
-class _HomeScreenBayState extends State<HomeScreenBay> {
-  
+class _HomeBayScreenState extends State<HomeBayScreen> {
+
 @override
   void initState() {
     super.initState();
@@ -29,9 +28,9 @@ class _HomeScreenBayState extends State<HomeScreenBay> {
   Future<Null> finduser() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      userid = preferences.getString('ID')!;
-      userphone = preferences.getString('PhoneNumber')!;
-      usertype = preferences.getString('Type')!;
+      userid = preferences.getString('ID');
+      userphone = preferences.getString('PhoneNumber');
+      usertype = preferences.getString('Type');
 
     });
   }

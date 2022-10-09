@@ -15,6 +15,7 @@ import '../../../constants.dart';
 import 'package:dio/dio.dart';
 
 import '../../../future_All.dart';
+import '../../../model/user_bay_model.dart';
 
 class BodyLogin extends StatefulWidget {
   @override
@@ -30,12 +31,17 @@ class _BodyLoginState extends State<BodyLogin> {
       print('res = $response');
       var reslt = jsonDecode(response.data);
       print('reslt = $reslt');
+if(reslt == null){
+  normaDiolog(context, 'ไม่มีสมาชิก');
+}
+
 
       for (var map in reslt) {
         UserLoginModel userLoginModel = UserLoginModel.fromJson(map);
         if (password == userLoginModel.password) {
           String? choseType = userLoginModel.typeUser;
-          if(choseType =='sale'){routetoservice(HomePageSell(),userLoginModel);
+          if(choseType =='sale'){
+            routetoservice(HomePageSell(),userLoginModel);
           }else if (choseType == 'bay'){routetoservice(HomePageBay(),userLoginModel);
           }
         } else {
@@ -44,17 +50,20 @@ class _BodyLoginState extends State<BodyLogin> {
       }
     } catch (e) {}
   }//ตรวจสอบการเข้าสู่ระบบ
-  
   Future<Null>  routetoservice(Widget mywidget, UserLoginModel userLoginModel) async{
   SharedPreferences preferences =await SharedPreferences.getInstance();
 
-        preferences.setString('ID',userLoginModel.userId);
         preferences.setString('PhoneNumber', userLoginModel.phoneNumber);
         preferences.setString('Type', userLoginModel.typeUser);
+        preferences.setString('useridbay', userLoginModel.useridbay);
+        preferences.setString('useridsale', userLoginModel.useridsale);
 
     MaterialPageRoute route = MaterialPageRoute(builder:(context) => mywidget,);
     Navigator.pushAndRemoveUntil(context, route, (route) => false);
   }
+
+
+
   final formKey = GlobalKey<FormState>();
   bool isHidden = true;
   @override

@@ -1,8 +1,19 @@
+
+
+
+
+import 'dart:math';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
+import 'package:project/screen/Login/components/login_screen.dart';
+import 'package:project/screen/Regis/components/bodyregister/body_register_bay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'configs/datauserbay.dart';
+import 'configs/services/api.dart';
 import 'constants.dart';
-import 'screen/Login/components/login_screen.dart';
 
 Future<Null> signOutprocess(BuildContext context) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -12,6 +23,17 @@ Future<Null> signOutprocess(BuildContext context) async {
     builder: (context) => LoginScreen(),);
   Navigator.pushAndRemoveUntil(context, route, (route) => false);
 }
+
+Future<LocationData?> findlocationData() async {
+  Location location = Location();
+  try {
+    return location.getLocation();
+  } catch (e) {
+    return null;
+  }
+}
+
+
 
 
 Future<void> normaDiolog(BuildContext context, String message) async {

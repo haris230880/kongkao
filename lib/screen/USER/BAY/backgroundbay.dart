@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 
-class BackgroundPageBay extends StatelessWidget {
+class BackgroundHomePageBay extends StatelessWidget {
   final Widget child;
-  const BackgroundPageBay({
+  const BackgroundHomePageBay({
     Key? key,
     required this.child,
   }) : super(key: key);
@@ -18,26 +18,8 @@ class BackgroundPageBay extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          // Positioned(
-          //   bottom: 50,
-          //   left: -70,
-          //   child: Image.asset(
-          //     "assets/icons/backgrad (5).png",
-          //     width: size.width*0.5,
-          //     // color: const Color.fromRGBO(255, 255, 255, 0.7),
-          //     // colorBlendMode: BlendMode.modulate
 
-          //   ),
-          // ),
-          // Positioned(
-          //   top: -70,
-          //   left: 270,
-          //   child: Image.asset(
-          //     "assets/icons/backgrad (3).png",
-          //     width: size.width*0.5,
-          //   ),
-          // ),
-       
+
           child,
         ],
       ),

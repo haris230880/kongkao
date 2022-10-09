@@ -18,10 +18,10 @@ class HomePageBay extends StatefulWidget {
 class _HomePageBayState extends State<HomePageBay> {
   int currentIndex = 0;
   final screen = [
-    HomeScreenBay(),
+    HomeBayScreen(),
     OrderScreen(),
     NotiFicationBayScreen(),
-    ProFileUserBay(),
+    ProFileUserBaySreen(),
   ];
 
   @override

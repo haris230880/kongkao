@@ -1,11 +1,23 @@
+import 'dart:io';
+import 'dart:math';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:project/future_All.dart';
 import 'package:project/screen/Regis/components/regis.dart';
 
 import '../../../../configs/datauserbay.dart';
+import '../../../../configs/services/api.dart';
 import '../../../../constants.dart';
+import '../../../../my_style.dart';
+import '../../../USER/BAY/Product/addproduct.dart';
 import '../background_regis.dart';
 import 'package:email_validator/email_validator.dart';
 
+
+
+File? fileuser;
 class BodyRegisterBay extends StatefulWidget {
   const BodyRegisterBay({Key? key}) : super(key: key);
 
@@ -14,7 +26,29 @@ class BodyRegisterBay extends StatefulWidget {
 }
 
 class _BodyRegisterBayState extends State<BodyRegisterBay> {
+
+
+
+  Future<Null> chooseImageuser(ImageSource imageSource) async {
+    Random random = Random();
+    int i = random.nextInt(100000);
+    String nameimage = 'user$i.jpg';
+    try {
+      var object = await ImagePicker.platform.pickImage(
+        source: imageSource,
+        maxHeight: 800.0,
+        maxWidth: 800.0,
+      );
+      setState(() {
+        fileuser = File(object!.path);
+      });
+    } catch (e) {}
+  }
+
+
+
   final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return BackgroundRegis(
@@ -28,17 +62,10 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
               SizedBox(
                 height: 10,
               ),
-              CircleAvatar(
-                minRadius: 70,
-                backgroundColor: kPrimaryLightColor,
-                child: Image.asset(
-                  'assets/icons/userbay.png',
-                  scale: 4,
-                ),
-              ),
-              //ใส่รุปป
+
+              MyStyle().CircleAvataruserbuy(),
               TextButton(
-                onPressed: () {},
+                onPressed: () => chooseImageuser(ImageSource.camera),
                 child: Text('เปลี่ยนรูป'),
               ),
               Container(
@@ -187,7 +214,7 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
                               elevation: ButtonStyleButton.allOrNull(5.0)),
                       onPressed: () {
                         final isValidFrom = formKey.currentState!.validate();
-                        if (isValidFrom) {
+                        if (isValidFrom || fileuser == null) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -196,6 +223,8 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
                               },
                             ),
                           );
+                        } else {
+                          normaDiolog(context, "กรุณากรอกข้อมูลให้ครบถ้วนค่ะ");
                         }
                       },
                       child: const Text('ถัดไป'),

@@ -1,61 +1,45 @@
-// class UserLoginModel {
-//   String? userId;
-//   String? phoneNumber;
-//   String? password;
-//   String? typeUser;
-//
-//   UserLoginModel({this.userId, this.phoneNumber, this.password, this.typeUser});
-//
-//   UserLoginModel.fromJson(Map<String, dynamic> json) {
-//     userId = json['User_id'];
-//     phoneNumber = json['phone_number'];
-//     password = json['password'];
-//     typeUser = json['TypeUser'];
-//   }
-//
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data = new Map<String, dynamic>();
-//     data['User_id'] = this.userId;
-//     data['phone_number'] = this.phoneNumber;
-//     data['password'] = this.password;
-//     data['TypeUser'] = this.typeUser;
-//     return data;
-//   }
-// }
 // To parse this JSON data, do
-
-    //final userLoginModel = userLoginModelFromJson(jsonString);
+//
+//     final userLoginModel = userLoginModelFromJson(jsonString);
 
 import 'dart:convert';
 
-UserLoginModel userLoginModelFromJson(String str) => UserLoginModel.fromJson(json.decode(str));
+List<UserLoginModel> userLoginModelFromJson(String str) => List<UserLoginModel>.from(json.decode(str).map((x) => UserLoginModel.fromJson(x)));
 
-String userLoginModelToJson(UserLoginModel data) => json.encode(data.toJson());
+String userLoginModelToJson(List<UserLoginModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class UserLoginModel {
   UserLoginModel({
-    required this.userId,
     required this.phoneNumber,
     required this.password,
     required this.typeUser,
+    required this.token,
+    this.useridbay,
+    this.useridsale,
   });
 
-  String userId;
   String phoneNumber;
   String password;
   String typeUser;
+  String token;
+  dynamic useridbay;
+  dynamic useridsale;
 
   factory UserLoginModel.fromJson(Map<String, dynamic> json) => UserLoginModel(
-    userId: json["User_id"],
     phoneNumber: json["phone_number"],
     password: json["password"],
     typeUser: json["TypeUser"],
+    token: json["Token"],
+    useridbay: json["useridbay"],
+    useridsale: json["useridsale"],
   );
 
   Map<String, dynamic> toJson() => {
-    "User_id": userId,
     "phone_number": phoneNumber,
     "password": password,
     "TypeUser": typeUser,
+    "Token": token,
+    "useridbay": useridbay,
+    "useridsale": useridsale,
   };
 }

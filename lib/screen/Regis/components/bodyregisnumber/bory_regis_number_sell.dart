@@ -187,6 +187,7 @@ class _BodyRegisNumberSaleState extends State<BodyRegisNumberSale> {
                   if (isValidFrom) {
                     print('$selluser_name $selluser_housenum $selluser_phone');
                     getHttpsaleuser();
+                    getHttpTabelLoginSale();
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -231,6 +232,29 @@ class _BodyRegisNumberSaleState extends State<BodyRegisNumberSale> {
       print(e);
     }
   }
+  void getHttpTabelLoginSale() async {
+    try {
+      var response = await Dio().get(API.BASE_URL +
+          '/flutterApiProjeck/insertDataLoginsale.php?isAdd=true&phone_number=$selluser_phone&password=$selluser_password&TypeUser=sale&Token=Token&useridsale=$selluser_phone');
+      print(response);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+
+  // void getHttpTabelLoginSell() async {
+  //   try {
+  //     var response = await Dio().get(API.BASE_URL +
+  //         '/flutterApiProjeck/insertDataLogin.php?isAdd=true&phone_number=$buyuser_phone&password=$buyuser_password&TypeUser=bay&Token=Token');
+  //     print(response);
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
+
+
+
 
 
   void togglePasswordVisibility() => setState(() => isHidden = !isHidden);

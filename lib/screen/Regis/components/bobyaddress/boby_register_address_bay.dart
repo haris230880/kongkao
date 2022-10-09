@@ -3,13 +3,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:location/location.dart';
+import 'package:project/my_style.dart';
 import '../../../../configs/datauserbay.dart';
 import '../../../../constants.dart';
+import '../../../../future_All.dart';
 import '../background_regis.dart';
 import '../regis.dart';
 
 
-
+double? lat;
+double? lng;
 class BobyRegisterAddressBay extends StatefulWidget {
   const BobyRegisterAddressBay({Key? key}) : super(key: key);
 
@@ -21,11 +25,21 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
   // //Filed
   // late double lat;
   // late double lng;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   findLatLng();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    findLatLng();
+  }
+
+  Future<Null> findLatLng() async {
+    LocationData? locationData = await findlocationData();
+    lat = locationData!.latitude!;
+    lng = locationData!.longitude!;
+    print('lat=$lat , lng=$lng');
+    setState(() {
+      MyStyle().showmap();
+    });
+  }
 
 //   Future<Null> findLatLng()async{
 // LocationData? locationData = await findlocationData();
@@ -58,10 +72,7 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
               SizedBox(
                 height: 10,
               ),
-              Image.asset(
-                'assets/icons/userbay.png',
-                scale: 5,
-              ),
+              MyStyle().CircleAvataruserbuy(),
               Container(
                 margin: EdgeInsets.all(30),
                 padding:
@@ -369,7 +380,7 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                     SizedBox(
                       height: 10,
                     ),
-                     //showmap(),
+                    MyStyle().showmap(),
                     SizedBox(
                       height: 20,
                     ),
