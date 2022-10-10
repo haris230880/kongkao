@@ -12,8 +12,7 @@ import '../background_regis.dart';
 import '../regis.dart';
 
 
-double? lat;
-double? lng;
+
 class BobyRegisterAddressBay extends StatefulWidget {
   const BobyRegisterAddressBay({Key? key}) : super(key: key);
 
@@ -22,16 +21,13 @@ class BobyRegisterAddressBay extends StatefulWidget {
 }
 
 class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
-  // //Filed
-  // late double lat;
-  // late double lng;
+
   @override
   void initState() {
     super.initState();
-    findLatLng();
+    findLatLngBuy();
   }
-
-  Future<Null> findLatLng() async {
+  Future<Null> findLatLngBuy() async {
     LocationData? locationData = await findlocationData();
     lat = locationData!.latitude!;
     lng = locationData!.longitude!;
@@ -39,24 +35,8 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
     setState(() {
       MyStyle().showmap();
     });
-  }
 
-//   Future<Null> findLatLng()async{
-// LocationData? locationData = await findlocationData();
-//  // lat = locationData.latitude;
-//  // lng = locationData.longitude;
-//
-//   }
-//
-//
-// Future<LocationData?> findlocationData()async{
-// Location location = Location();
-// try{
-//   return location.getLocation();
-// }catch(e){
-//   return null ;
-// }
-// }
+  }//หาค่าlatlng
 
   final formKey = GlobalKey<FormState>();
   @override
@@ -439,30 +419,4 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
     );
   }
 
-  // Container showmap() {
-  //   LatLng latLng = LatLng(13.728472, 100.532769);
-  //   CameraPosition cameraPosition = CameraPosition(target: latLng, zoom: 18);
-  //   return Container(
-  //     height: 300,
-  //     width: 300,
-  //     color: kPrimaryblckColor,
-  //     child: GoogleMap(
-  //       initialCameraPosition: cameraPosition,
-  //       mapType: MapType.normal,
-  //       onMapCreated: (controller) {},
-  //     ),
-  //   );
-  // }
-
-  // Future<LocationData?> getCurrentLocation() async {
-  //   Location location = Location();
-  //   try {
-  //     return await location.getLocation();
-  //   } on PlatformException catch (e) {
-  //     if (e.code == 'PERMISSION_DENIED') {
-  //       // Permission denied
-  //     }
-  //     return null;
-  //   }
-  // }
 }

@@ -1,5 +1,3 @@
-
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -16,10 +14,6 @@ import 'package:dio/dio.dart';
 
 import '../bodyregister/body_register_bay.dart';
 
-
-
-
-
 class BodyRegisNumberBay extends StatefulWidget {
   const BodyRegisNumberBay({Key? key}) : super(key: key);
 
@@ -29,8 +23,7 @@ class BodyRegisNumberBay extends StatefulWidget {
 
 class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
   final formKey = GlobalKey<FormState>();
-  bool isHidden = false;
-
+  bool isHidden = false; //กำหนดซ่อนรหัส
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +43,6 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
               SizedBox(
                 height: 20,
               ),
-
               MyStyle().CircleAvataruserbuy(),
               Container(
                 margin: EdgeInsets.all(20),
@@ -91,7 +83,7 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                           }
                           return null;
                         },
-                        onChanged: (value) => buyuser_phone  = value.trim(),
+                        onChanged: (value) => buyuser_phone = value.trim(),
                         keyboardType: TextInputType.phone,
                         maxLength: 10,
                         cursorColor: kPrimaryColor,
@@ -123,7 +115,9 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Container(
                       height: 50,
                       width: 350,
@@ -135,7 +129,6 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                           return null;
                         },
                         onChanged: (value) => buyuser_password = value.trim(),
-
                         obscureText: isHidden,
                         textAlignVertical: TextAlignVertical.center,
                         decoration: InputDecoration(
@@ -150,7 +143,7 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                           border: OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius:
-                              BorderRadius.all(Radius.circular(20))),
+                                  BorderRadius.all(Radius.circular(20))),
                           contentPadding: EdgeInsets.all(10),
                           label: Text(
                             'รหัสผ่าน ',
@@ -165,13 +158,13 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                             child: IconButton(
                               icon: isHidden
                                   ? Icon(
-                                Icons.visibility_off,
-                                color: kPrimaryColor,
-                              )
+                                      Icons.visibility_off,
+                                      color: kPrimaryColor,
+                                    )
                                   : Icon(
-                                Icons.visibility,
-                                color: kPrimaryColor,
-                              ),
+                                      Icons.visibility,
+                                      color: kPrimaryColor,
+                                    ),
                               onPressed: togglePasswordVisibility,
                             ),
                           ),
@@ -181,7 +174,6 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                   ],
                 ),
               ),
-
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -197,21 +189,8 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                 onPressed: () {
                   final isValidFrom = formKey.currentState!.validate();
                   if (isValidFrom) {
-                    setState(() {
-                      getHttpBuyuser();
-                       uplodeimageuser();
-                    });
-                       // getHttpBuyuser();
-                     // getHttpTabelLoginBay();
-                     Navigator.push(
-                                 context,
-                                 MaterialPageRoute(
-                                   builder: (context) {
-                                     return OtpScreen();
-                                   },
-                                 ),
-                               );
-                    //checkPhoneNumber();
+                  //  chackUser();
+                  uplodeimageusersaveuserbuy();
                   }
                 },
                 child: const Text('ถัดไป'),
@@ -237,22 +216,47 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
         ),
       ),
     );
-
   }
-
 
   void togglePasswordVisibility() => setState(() => isHidden = !isHidden);
 
-  Future<Null> checkPhoneNumber() async {
+  void uplodeimageusersaveuserbuy() async {
+    Random random = Random();
+    int i = random.nextInt(100000);
+    String nameimage = 'user$i.jpg';
+    String url = API.BASE_URL + '/kongkao/saveimage.php';
+    try {
+      Map<String, dynamic> map = Map();
+      map['file'] =
+          await MultipartFile.fromFile(fileuserbuy!.path, filename: nameimage);
+      FormData formData = FormData.fromMap(map);
+      await Dio().post(url, data: formData).then((value) {
+        print('value=====$value');
+        buyuser_photo = '/kongkao/Image/$nameimage';
+        print('nameimage ======= $buyuser_photo');
+        print('user_photo>>>>>$buyuser_photo');
+        getHttpBuyuser();
+      });
+    } catch (e) {}
+  } //บันทึกข้อมูลผู้ซื้อเละรูป
+
+  void getHttpBuyuser() async {
+    try {
+      var response = await Dio().get(API.BASE_URL +
+          '/kongkao/insertuser.php?id=3&name=$buyuser_name&lastname=$buyuser_sname&phone=$buyuser_phone&email=$buyuser_email&photo=$buyuser_photo&typeuser=buy&password=$buyuser_password&housenum=$buyuser_housenum&district=$buyuser_district&prefecture=$buyuser_prefecture&city=$buyuser_city&postid=$buyuser_postid&latitude=$lat&longitude=$lng&charge=$buyuser_charge&shop=$buyuser_shop&time=$buyuser_time');
+      print(response);
+    } catch (e) {
+      print(e);
+    }
+  } //apiบันทึกข้อมูลผู้ซื้อ
+
+  Future<Null> chackUser() async {
     String url = API.BASE_URL +
-        '/flutterApiProjeck/getUserWhereUserbay.php?isAdd=true&buyuser_phone=$buyuser_phone';
+        '/kongkao/insertuserphone.php?isAdd=true&phone=$buyuser_phone';
     try {
       Response response = await Dio().get(url);
       if (response.toString() == "null") {
-
-         getHttpBuyuser();
-         uplodeimageuser();
-        // getHttpTabelLoginBay();
+        uplodeimageusersaveuserbuy();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -262,78 +266,8 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
           ),
         );
       } else {
-        normaDiolog(
-            context, 'เบอร์โทรศัพท์ซ้ำ $buyuser_phone กรุณาเปลี่ยนใหม่');
-        print('$response');
+        normaDiolog(context, 'เบอร์ผู้ใช้ซ้ำ');
       }
-    } catch (e) {
-      print(e);
-    }
-  }
-  Future<Null> uplodeimageuser() async {
-    Random random = Random();
-    int i = random.nextInt(100000);
-    String nameimage = 'user$i.jpg';
-    String url = API.BASE_URL + '/kongkao/saveimage.php';
-    try {
-      Map<String, dynamic> map = Map();
-      map['file'] =
-      await MultipartFile.fromFile(fileuser!.path, filename: nameimage);
-      FormData formData = FormData.fromMap(map);
-      await Dio().post(url, data: formData).then((value) {
-        print('$value');
-        print('user_photo>>>>>$buyuser_photo');
-        buyuser_photo = '/kongkao/Image/$nameimage';
-         print('nameimage ======= $buyuser_photo');
-
-      });
     } catch (e) {}
   }
-
-  void getHttpBuyuser() async {
-    try {
-      var response = await Dio().get(API.BASE_URL +
-          '/kongkao/insertuser.php?id=3&name=$buyuser_name&lastname=$buyuser_sname&phone=$buyuser_phone&email=$buyuser_email&photo=$buyuser_photo&typeuser=buy&password=$buyuser_password&housenum=$buyuser_housenum&district=$buyuser_district&prefecture=$buyuser_prefecture&city=$buyuser_city&postid=$buyuser_postid&latitude=$lat&longitude=$lng&charge=$buyuser_charge&shop=$buyuser_shop&time=$buyuser_time');
-     print(response);
-    } catch (e) {
-      print(e);
-    }
-  }
-// void getHttpBuyuser() async {
-//   String url = (API.BASE_URL +
-//       '/flutterApiProjeck/insertDataBay.php?isAdd=true&buyuser_name=$buyuser_name&buyuser_sname=$buyuser_sname&buyuser_email=$buyuser_email&buyuser_shop=$buyuser_shop&buyuser_phone=$buyuser_phone&buyuser_time=$buyuser_time&buyuser_photo=NULL&buyuser_charge=$buyuser_charge&buyuser_latitude=NULL&buyuser_longitude=NULL&buyuser_district=$buyuser_district&buyuser_prefecture=$buyuser_prefecture&buyuser_city=$buyuser_city&buyuser_postid=$buyuser_postid&buyuser_housenum=$buyuser_housenum');
-//   try {
-//     Response response = await Dio().get(url);
-//     print('res = $response');
-//     if (response.toString() =='true') {
-//       Navigator.push(
-//         context,
-//         MaterialPageRoute(
-//           builder: (context) {
-//             return OtpScreen();
-//           },
-//         ),
-//       );
-//     }else{
-//       normaDiolog(context, 'ไม่สามารสมัคได้ลองใหม่');
-//     }
-//   } catch (e) {
-//     print(e);
-//   }
-// }
-  // void getHttpTabelLoginBay() async {
-  //   try {
-  //     var response = await Dio().get(API.BASE_URL +
-  //         '/flutterApiProjeck/insertDataLoginbay.php?isAdd=true&phone_number=$buyuser_phone&password=$buyuser_password&TypeUser=bay&Token=Token&&useridbay=$buyuser_phone');
-  //    print(response);
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
-
-
-
-
-
-}//end
-
+} //end

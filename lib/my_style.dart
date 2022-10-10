@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:project/screen/Regis/components/bobyaddress/boby_register_address_bay.dart';
 import 'package:project/screen/Regis/components/bodyregisnumber/body_regis_number_bay.dart';
 import 'package:project/screen/Regis/components/bodyregister/body_register_bay.dart';
+import 'package:project/screen/Regis/components/bodyregister/body_register_sell.dart';
 import 'package:project/screen/USER/BAY/HOME/components/home_screenbay.dart';
 
 import 'constants.dart';
@@ -88,11 +89,11 @@ Widget showProgress(){
     return CircleAvatar(
         backgroundColor: kPrimaryColor,
         maxRadius: 80,
-        child: fileuser == null
+        child: fileuserbuy == null
             ? Image.asset('assets/icons/userbay.png')
             : CircleAvatar(
           maxRadius: 80,
-          backgroundImage: FileImage(fileuser!),
+          backgroundImage: FileImage(fileuserbuy!),
         ));
   }
 
@@ -100,11 +101,11 @@ Widget showProgress(){
     return CircleAvatar(
         backgroundColor: kPrimaryColor,
         maxRadius: 80,
-        child: fileuser == null
+        child: fileusersell == null
             ? Image.asset('assets/icons/usersale.png')
             : CircleAvatar(
           maxRadius: 80,
-          backgroundImage: FileImage(fileuser!),
+          backgroundImage: FileImage(fileusersell!),
         ));
   }
   Set<Marker> myMarker() {

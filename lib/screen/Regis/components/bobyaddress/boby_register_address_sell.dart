@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:location/location.dart';
 import 'package:project/configs/datausersale.dart';
+import 'package:project/my_style.dart';
 
 import '../../../../constants.dart';
+import '../../../../future_All.dart';
 import '../background_regis.dart';
 import '../regis.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
+
+
+
 class BobyRegisterAddressSell extends StatefulWidget {
   const BobyRegisterAddressSell({Key? key}) : super(key: key);
 
@@ -16,6 +21,22 @@ class BobyRegisterAddressSell extends StatefulWidget {
 }
 
 class _BobyRegisterAddressSellState extends State<BobyRegisterAddressSell> {
+
+  @override
+  void initState() {
+    super.initState();
+    findLatLngSale();
+  }
+  Future<Null> findLatLngSale() async {
+    LocationData? locationData = await findlocationData();
+    lat = locationData!.latitude!;
+    lng = locationData!.longitude!;
+    print('lat=$lat , lng=$lng');
+    setState(() {
+      MyStyle().showmap();
+    });
+
+  }//หาค่าlatlng
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -30,10 +51,7 @@ class _BobyRegisterAddressSellState extends State<BobyRegisterAddressSell> {
               SizedBox(
                 height: 10,
               ),
-              Image.asset(
-                'assets/icons/usersale.png',
-                scale: 5,
-              ),
+              MyStyle().CircleAvatarusersale(),
               Container(
                 margin: EdgeInsets.all(30),
                 padding:
@@ -241,27 +259,7 @@ class _BobyRegisterAddressSellState extends State<BobyRegisterAddressSell> {
                     SizedBox(
                       height: 10,
                     ),
-                    Container(
-                      height: 200,
-                      width: 400,
-                      child: GoogleMap(
-                        markers: {
-                          Marker(
-                            markerId: MarkerId("1"),
-                            position: LatLng(13.6900043, 100.7479237),
-                            infoWindow: InfoWindow(
-                                title: "สนามบินสุวรรณภูมิ",
-                                snippet: "สนามบินนานาชาติของประเทศไทย"),
-                          ),
-                        },
-                        myLocationEnabled: true,
-                        mapType: MapType.normal,
-                        initialCameraPosition: CameraPosition(
-                          target: LatLng(13.6900043, 100.7479237),
-                          zoom: 15,
-                        ),
-                      ),
-                    ),
+                    MyStyle().showmap(),
                     SizedBox(
                       height: 20,
                     ),

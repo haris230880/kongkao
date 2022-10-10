@@ -7,6 +7,7 @@ import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:project/my_style.dart';
 import 'package:project/screen/Login/components/login_screen.dart';
 import 'package:project/screen/Regis/components/bodyregister/body_register_bay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -75,4 +76,36 @@ Future<void> normaDiolog(BuildContext context, String message) async {
   );
 }
 
+//>>>>>>>>>>>>>>>>>>>
+double? lat;
+double? lng;
 
+
+
+// Future<Null> checkPhoneNumber() async {
+//   String url = API.BASE_URL +
+//       '/flutterApiProjeck/getUserWhereUserbay.php?isAdd=true&buyuser_phone=$buyuser_phone';
+//   try {
+//     Response response = await Dio().get(url);
+//     if (response.toString() == "null") {
+//
+//       getHttpBuyuser();
+//       uplodeimageusersaveuserbuy();
+//       // getHttpTabelLoginBay();
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(
+//           builder: (context) {
+//             return OtpScreen();
+//           },
+//         ),
+//       );
+//     } else {
+//       normaDiolog(
+//           context, 'เบอร์โทรศัพท์ซ้ำ $buyuser_phone กรุณาเปลี่ยนใหม่');
+//       print('$response');
+//     }
+//   } catch (e) {
+//     print(e);
+//   }
+// }

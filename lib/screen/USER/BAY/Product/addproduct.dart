@@ -8,13 +8,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:project/configs/datauserbay.dart';
 import 'package:project/constants.dart';
 import 'package:project/future_All.dart';
+import 'package:project/screen/Login/components/bodylogin.dart';
 import 'package:project/screen/USER/BAY/HOME/components/home_screenbay.dart';
 import 'package:project/screen/USER/BAY/HomePageBay.dart';
 import 'package:project/screen/USER/BAY/backgroundbay.dart';
 import 'package:project/screen/USER/BAY/oeder_list_shop.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../configs/String.dart';
 import '../../../../configs/services/api.dart';
 
 const List<String> list = <String>[
@@ -376,7 +376,7 @@ class _AddProductState extends State<AddProduct> {
 
     try {
       var response = await Dio().get(API.BASE_URL +
-          '/flutterApiProjeck/insertDataproduct.php?product_name=$product_name&product_photo=$product_photo&product_price=$product_price&protype_id=$protype_id&buyuser_phone=$phone_number');
+          '/flutterApiProjeck/insertDataproduct.php?product_name=$product_name&product_photo=$product_photo&product_price=$product_price&protype_id=$protype_id&buyuser_phone=000000');
       print(response);
     } catch (e) {
       print(e);

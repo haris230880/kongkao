@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project/configs/services/api.dart';
-import 'package:project/model/user_bay_model.dart';
 import 'package:project/screen/USER/BAY/backgroundbay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../constants.dart';

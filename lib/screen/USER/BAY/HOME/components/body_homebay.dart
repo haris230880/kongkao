@@ -3,8 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:project/constants.dart';
-import 'package:project/model/producttypemodel.dart';
-import 'package:project/model/user_bay_model.dart';
+import 'package:project/model/product_type_model.dart';
 import 'package:project/screen/USER/BAY/OrderScreen/OrderSreen.dart';
 import 'package:project/screen/USER/BAY/backgroundbay.dart';
 

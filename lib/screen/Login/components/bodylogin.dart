@@ -1,68 +1,82 @@
+
+
+
+
 import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:project/configs/services/api.dart';
-import 'package:project/model/user_model.dart';
+import 'package:project/constants.dart';
+import 'package:project/future_All.dart';
+import 'package:project/model/usermodel.dart';
 import 'package:project/screen/Login/components/backgroundlogin.dart';
 import 'package:project/screen/USER/BAY/HomePageBay.dart';
-import 'package:project/screen/Welcome/components/welcomeScreen.dart';
 import 'package:project/screen/USER/SALE/HomePageSell.dart';
-import 'package:project/my_style.dart';
+import 'package:project/screen/Welcome/components/welcomeScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../configs/String.dart';
-import '../../../constants.dart';
-import 'package:dio/dio.dart';
 
-import '../../../future_All.dart';
-import '../../../model/user_bay_model.dart';
-
+String? phoneuser;
+String? password;
 class BodyLogin extends StatefulWidget {
   @override
   State<BodyLogin> createState() => _BodyLoginState();
 }
+
 class _BodyLoginState extends State<BodyLogin> {
-  
+
+
   //--------------------//
   Future<Null> checkAuthen() async {
-    String url = API.BASE_URL + '/flutterApiProjeck/getUserWhereUser.php?isAdd=true&phone_number=$phone_number';
+    String url =
+        API.BASE_URL + '/kongkao/insertuserphone.php?isAdd=true&phone=$phoneuser';
     try {
       Response response = await Dio().get(url);
-      print('res = $response');
-      var reslt = jsonDecode(response.data);
-      print('reslt = $reslt');
-if(reslt == null){
-  normaDiolog(context, 'ไม่มีสมาชิก');
-}
+      print('resss>>>>>>>>> = $response');
 
 
-      for (var map in reslt) {
-        UserLoginModel userLoginModel = UserLoginModel.fromJson(map);
-        if (password == userLoginModel.password) {
-          String? choseType = userLoginModel.typeUser;
-          if(choseType =='sale'){
-            routetoservice(HomePageSell(),userLoginModel);
-          }else if (choseType == 'bay'){routetoservice(HomePageBay(),userLoginModel);
+      var result = jsonDecode(response.data);
+      print('resl>>>>>> = $result');
+      if (result == null) {
+        normaDiolog(context, 'ไม่ได้ลงทะเบียน');
+      }
+      for (var map in result) {
+        UserModel userModel = UserModel.fromJson(map);
+        print('$password');
+
+        if (password == userModel.password) {
+          String choseType = userModel.typeuser;
+          if (choseType =='sale') {
+            print('saleeeee$password');
+            routetoservice(HomePageSell(),userModel);
+          } else if (choseType =='buy') {
+            print('buyyyyyyy$password');
+            routetoservice(HomePageBay(),userModel);
           }
         } else {
           normaDiolog(context, 'หมายเลขโทรศัพท หรือ รหัสผ่าน ไม่ถูกต้อง');
         }
       }
     } catch (e) {}
-  }//ตรวจสอบการเข้าสู่ระบบ
-  Future<Null>  routetoservice(Widget mywidget, UserLoginModel userLoginModel) async{
-  SharedPreferences preferences =await SharedPreferences.getInstance();
+  } //ตรวจสอบphoneการเข้าสู่ระบบ
 
-        preferences.setString('PhoneNumber', userLoginModel.phoneNumber);
-        preferences.setString('Type', userLoginModel.typeUser);
-        preferences.setString('useridbay', userLoginModel.useridbay);
-        preferences.setString('useridsale', userLoginModel.useridsale);
+  Future<Null> routetoservice(Widget myWidget, UserModel userModel) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
 
-    MaterialPageRoute route = MaterialPageRoute(builder:(context) => mywidget,);
+    preferences.setString('_id', userModel.id);
+    preferences.setString('_phone', userModel.phone);
+    preferences.setString('_name', userModel.name);
+    preferences.setString('_lastname', userModel.lastname);
+    preferences.setString('_typeuser', userModel.typeuser);
+    preferences.setString('_email', userModel.email);
+
+    MaterialPageRoute route = MaterialPageRoute(
+      builder: (context) => myWidget,
+    );
     Navigator.pushAndRemoveUntil(context, route, (route) => false);
   }
-
-
 
   final formKey = GlobalKey<FormState>();
   bool isHidden = true;
@@ -119,14 +133,14 @@ if(reslt == null){
                     Container(
                       height: 50,
                       width: 250,
-                      child:  TextFormField(
+                      child: TextFormField(
                         validator: (value) {
                           if (value != null && value.length < 10) {
                             return "กรอก หมายเลขโทรศัพท 10 ตัว";
                           }
                           return null;
                         },
-                        onChanged: (value) => phone_number = value.trim(),
+                        onChanged: (value) => phoneuser = value.trim(),
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(10),
                         ],
@@ -233,34 +247,30 @@ if(reslt == null){
 
   ElevatedButton LoginButton() {
     return ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      elevation: 5,
-                      // Foreground color
-                      onPrimary: Colors.white,
-                      // Background color
-                      primary: kPrimaryColor,
-                      minimumSize: Size(120, 50))
-                  .copyWith(elevation: ButtonStyleButton.allOrNull(5.0)),
-              onPressed: () {
-                final isValidFrom = formKey.currentState!.validate();
-                if (isValidFrom) {
-                    checkAuthen();
-                }
-              },
-              child: const Text(
-                'เข้าสู่ระบบ',
-                style: TextStyle(fontSize: 14),
+      style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
               ),
-            );
+              elevation: 5,
+              // Foreground color
+              onPrimary: Colors.white,
+              // Background color
+              primary: kPrimaryColor,
+              minimumSize: Size(120, 50))
+          .copyWith(elevation: ButtonStyleButton.allOrNull(5.0)),
+      onPressed: () {
+        final isValidFrom = formKey.currentState!.validate();
+        if (isValidFrom) {
+          checkAuthen();
+        }
+      },
+      child: const Text(
+        'เข้าสู่ระบบ',
+        style: TextStyle(fontSize: 14),
+      ),
+    );
   }
 
-
-
-
-
-
-  void togglePasswordVisibility() => setState(() => isHidden = !isHidden);//ซ้อนpassword
+  void togglePasswordVisibility() =>
+      setState(() => isHidden = !isHidden); //ซ้อนpassword
 }

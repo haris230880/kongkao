@@ -13,15 +13,13 @@ import '../../../../constants.dart';
 import '../background_regis.dart';
 import 'package:email_validator/email_validator.dart';
 
-import 'body_register_bay.dart';
+
 File? fileusersell;
 class BodyRegisterSale extends StatefulWidget {
   const BodyRegisterSale({Key? key}) : super(key: key);
-
   @override
   State<BodyRegisterSale> createState() => _BodyRegisterSaleState();
 }
-
 class _BodyRegisterSaleState extends State<BodyRegisterSale> {
 
 
@@ -29,16 +27,18 @@ class _BodyRegisterSaleState extends State<BodyRegisterSale> {
   Future<Null> chooseImagesale(ImageSource imageSource) async {
     Random random = Random();
     int i = random.nextInt(100000);
-    String nameimage = 'user$i.jpg';
+    String nameimage = 'usersale$i.jpg';
     try {
       var object = await ImagePicker.platform.pickImage(
         source: imageSource,
         maxHeight: 800.0,
         maxWidth: 800.0,
       );
-      fileusersell = File(object!.path);
+      setState(() {
+        fileusersell = File(object!.path);
+      });
     } catch (e) {}
-  }
+  }//เก็บรูปในเเครื่อง
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,6 @@ class _BodyRegisterSaleState extends State<BodyRegisterSale> {
                 height: 10,
               ),
               MyStyle().CircleAvatarusersale(),
-              //ใส่รุปป
               TextButton(
                 onPressed: () => chooseImagesale(ImageSource.camera),
                 child: Text('เปลี่ยนรูป'),

@@ -17,7 +17,7 @@ import 'package:email_validator/email_validator.dart';
 
 
 
-File? fileuser;
+File? fileuserbuy;
 class BodyRegisterBay extends StatefulWidget {
   const BodyRegisterBay({Key? key}) : super(key: key);
 
@@ -28,11 +28,10 @@ class BodyRegisterBay extends StatefulWidget {
 class _BodyRegisterBayState extends State<BodyRegisterBay> {
 
 
-
-  Future<Null> chooseImageuser(ImageSource imageSource) async {
+  Future<Null> chooseImageuserbuy(ImageSource imageSource) async {
     Random random = Random();
     int i = random.nextInt(100000);
-    String nameimage = 'user$i.jpg';
+    String nameimage = 'userbuy$i.jpg';
     try {
       var object = await ImagePicker.platform.pickImage(
         source: imageSource,
@@ -40,15 +39,11 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
         maxWidth: 800.0,
       );
       setState(() {
-        fileuser = File(object!.path);
+        fileuserbuy = File(object!.path);
       });
     } catch (e) {}
-  }
-
-
-
+  }//เก็บรูปในเเครื่อง
   final formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return BackgroundRegis(
@@ -62,10 +57,9 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
               SizedBox(
                 height: 10,
               ),
-
               MyStyle().CircleAvataruserbuy(),
               TextButton(
-                onPressed: () => chooseImageuser(ImageSource.camera),
+                onPressed: () => chooseImageuserbuy(ImageSource.camera),
                 child: Text('เปลี่ยนรูป'),
               ),
               Container(
@@ -214,7 +208,7 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
                               elevation: ButtonStyleButton.allOrNull(5.0)),
                       onPressed: () {
                         final isValidFrom = formKey.currentState!.validate();
-                        if (isValidFrom || fileuser == null) {
+                        if (isValidFrom || fileuserbuy == null) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
