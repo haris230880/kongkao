@@ -18,8 +18,7 @@ import 'package:project/screen/Welcome/components/welcomeScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-String? phoneuser;
-String? password;
+
 class BodyLogin extends StatefulWidget {
   @override
   State<BodyLogin> createState() => _BodyLoginState();
@@ -27,7 +26,8 @@ class BodyLogin extends StatefulWidget {
 
 class _BodyLoginState extends State<BodyLogin> {
 
-
+  String? phoneuser;
+  String? password;
   //--------------------//
   Future<Null> checkAuthen() async {
     String url =
