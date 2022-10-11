@@ -30,11 +30,11 @@ Future<Null> signOutprocess() async {
   Future<Null> chackPreferance() async {
     try {
       SharedPreferences preferences = await SharedPreferences.getInstance();
-      String? choseType = preferences.getString('Type');
+      String? choseType = preferences.getString('_typeuser');
       if (choseType != null && choseType.isNotEmpty) {
         if (choseType == 'sale') {
           routetoservice(HomePageSell());
-        } else if (choseType == 'bay') {
+        } else if (choseType == 'buy') {
           routetoservice(HomePageBay());
         }else {
           normaDiolog(context, 'Error User type');

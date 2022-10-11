@@ -30,7 +30,7 @@ const List<String> list = <String>[
   '5',
   ''
 ];
-
+final formKey = GlobalKey<FormState>();
 class AddProduct extends StatefulWidget {
   const AddProduct({Key? key}) : super(key: key);
   @override
@@ -42,7 +42,7 @@ class _AddProductState extends State<AddProduct> {
   File? file;
   String protype_id = list.last;
 
-  final formKey = GlobalKey<FormState>();
+
 
 
   @override
@@ -137,9 +137,8 @@ class _AddProductState extends State<AddProduct> {
                           final isValidFrom = formKey.currentState!.validate();
                           if (isValidFrom) {
                             if (file != null) {
-                              getHttpProduct();
-                              uplodeimage();
-                              // Navigator.push(context, MaterialPageRoute(builder: (context) => OrderListShop(),));
+                              uplodeimageandsave();
+                               Navigator.push(context, MaterialPageRoute(builder: (context) =>HomePageBay(),));
                             } else {
                               normaDiolog(context, 'เลือกรูป');
                             }
@@ -277,24 +276,7 @@ class _AddProductState extends State<AddProduct> {
     } catch (e) {}
   }
 
-  Future<Null> uplodeimage() async {
-    Random random = Random();
 
-    int i = random.nextInt(100000);
-    String nameimage = 'shop$i.jpg';
-    String url = API.BASE_URL + '/flutterApiProjeck/saveFile.php';
-    try {
-      Map<String, dynamic> map = Map();
-      map['file'] =
-          await MultipartFile.fromFile(file!.path, filename: nameimage);
-      FormData formData = FormData.fromMap(map);
-      await Dio().post(url, data: formData).then((value) {
-        print('$value');
-        print('$product_photo');
-        product_photo =  '/flutterApiProjeck/Shop/$nameimage';
-      });
-    } catch (e) {}
-  }
 
   Widget dropdown() {
     return Container(
@@ -370,13 +352,30 @@ class _AddProductState extends State<AddProduct> {
 
 
 
+  Future<Null> uplodeimageandsave() async {
+    Random random = Random();
 
-
+    int i = random.nextInt(100000);
+    String nameimage = 'shop$i.jpg';
+    String url = API.BASE_URL + '/kongkao/saveimageproduct.php';
+    try {
+      Map<String, dynamic> map = Map();
+      map['file'] =
+      await MultipartFile.fromFile(file!.path, filename: nameimage);
+      FormData formData = FormData.fromMap(map);
+      await Dio().post(url, data: formData).then((value) {
+        print('$value');
+        print('$product_photo');
+        product_photo =  '/kongkao/imageproduct/$nameimage';
+        getHttpProduct();
+      });
+    } catch (e) {}
+  }
   void getHttpProduct() async {
 
     try {
       var response = await Dio().get(API.BASE_URL +
-          '/flutterApiProjeck/insertDataproduct.php?product_name=$product_name&product_photo=$product_photo&product_price=$product_price&protype_id=$protype_id&buyuser_phone=000000');
+          '/kongkao/insertproduct.php?isAdd=true&productid=NULL&productname=$product_name&productprice=$product_price&idtypeproduct=$protype_id&id=$userid&productphoto=$product_photo');
       print(response);
     } catch (e) {
       print(e);

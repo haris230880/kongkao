@@ -17,7 +17,8 @@ import 'package:project/screen/USER/SALE/HomePageSell.dart';
 import 'package:project/screen/Welcome/components/welcomeScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
+String? phoneuser;
+String? passworduser;
 
 class BodyLogin extends StatefulWidget {
   @override
@@ -26,8 +27,7 @@ class BodyLogin extends StatefulWidget {
 
 class _BodyLoginState extends State<BodyLogin> {
 
-  String? phoneuser;
-  String? password;
+
   //--------------------//
   Future<Null> checkAuthen() async {
     String url =
@@ -35,8 +35,6 @@ class _BodyLoginState extends State<BodyLogin> {
     try {
       Response response = await Dio().get(url);
       print('resss>>>>>>>>> = $response');
-
-
       var result = jsonDecode(response.data);
       print('resl>>>>>> = $result');
       if (result == null) {
@@ -44,19 +42,19 @@ class _BodyLoginState extends State<BodyLogin> {
       }
       for (var map in result) {
         UserModel userModel = UserModel.fromJson(map);
-        print('$password');
-
-        if (password == userModel.password) {
-          String choseType = userModel.typeuser;
+        if (passworduser == userModel.password) {
+          print('passworddd>>>>>$passworduser');
+          String? choseType = userModel.typeuser;
+          print(choseType);
           if (choseType =='sale') {
-            print('saleeeee$password');
+            print('saleeeee$passworduser');
             routetoservice(HomePageSell(),userModel);
           } else if (choseType =='buy') {
-            print('buyyyyyyy$password');
+            print('buyyyyyyy$passworduser');
             routetoservice(HomePageBay(),userModel);
           }
         } else {
-          normaDiolog(context, 'หมายเลขโทรศัพท หรือ รหัสผ่าน ไม่ถูกต้อง');
+          normaDiolog(context, 'หมายเลขโทรศัพท หรือ รหัสผ่านไม่ถูกต้อง');
         }
       }
     } catch (e) {}
@@ -71,12 +69,26 @@ class _BodyLoginState extends State<BodyLogin> {
     preferences.setString('_lastname', userModel.lastname);
     preferences.setString('_typeuser', userModel.typeuser);
     preferences.setString('_email', userModel.email);
+    preferences.setString('_photo', userModel.photo);
+    preferences.setString('_housenum', userModel.housenum);
+    preferences.setString('_district', userModel.district);
+    preferences.setString('_prefecture', userModel.prefecture);
+    preferences.setString('_city', userModel.city);
+    preferences.setString('_postid', userModel.postid);
+    preferences.setString('_latitude', userModel.latitude);
+    preferences.setString('_longitude', userModel.longitude);
+    preferences.setString('_charge', userModel.charge);
+    preferences.setString('_shop', userModel.shop);
+    preferences.setString('_time', userModel.time);
+
+
+
 
     MaterialPageRoute route = MaterialPageRoute(
       builder: (context) => myWidget,
     );
     Navigator.pushAndRemoveUntil(context, route, (route) => false);
-  }
+  }//ค่าที่ถูกlogin
 
   final formKey = GlobalKey<FormState>();
   bool isHidden = true;
@@ -179,7 +191,7 @@ class _BodyLoginState extends State<BodyLogin> {
                           }
                           return null;
                         },
-                        onChanged: (value) => password = value.trim(),
+                        onChanged: (value) => passworduser = value.trim(),
                         obscureText: isHidden,
                         keyboardType: TextInputType.visiblePassword,
                         cursorColor: kPrimaryColor,

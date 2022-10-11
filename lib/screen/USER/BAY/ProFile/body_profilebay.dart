@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:project/configs/services/api.dart';
+import 'package:project/screen/USER/BAY/ProFile/editprofile.dart';
 import 'package:project/screen/USER/BAY/backgroundbay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../constants.dart';
 import '../../../../future_All.dart';
 import '../../../../my_style.dart';
 import '../HOME/components/home_screenbay.dart';
+import '../HomePageBay.dart';
 
 class BodyProFileBay extends StatefulWidget {
   const BodyProFileBay({Key? key}) : super(key: key);
@@ -15,7 +17,6 @@ class BodyProFileBay extends StatefulWidget {
 }
 
 class _BodyProFileBayState extends State<BodyProFileBay> {
-
   // UserBayModel?  userBayModel;
   //
   // @override
@@ -35,7 +36,6 @@ class _BodyProFileBayState extends State<BodyProFileBay> {
   //
   // }
 
-
   @override
   Widget build(BuildContext context) {
     return BackgroundHomePageBay(
@@ -44,7 +44,49 @@ class _BodyProFileBayState extends State<BodyProFileBay> {
           padding: const EdgeInsets.all(20.0),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                MyStyle(). usernamestlyeprofile('userbay.png'),
+            // MyStyle().usernamestlyeprofile('$userphoto'),
+            Row(
+              children: [
+                Container(
+                  child: Column(children: [
+                    CircleAvatar(
+                        backgroundColor: kPrimaryColor,
+                        maxRadius: 50,
+                        child: userphoto == null
+                            ? Image.asset('assets/icons/userbay.png')
+                            : CircleAvatar(
+                                maxRadius: 50,
+                                backgroundImage:
+                                    NetworkImage(API.BASE_URL + '$userphoto'))),
+                  ]),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Container(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '$username $userlastname',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 30),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct(),));
+                          },
+                          child: Text(
+                            'เเก้ไขข้อมูล  >',
+                            style: TextStyle(
+                                fontSize: 16, color: kPrimaryblckColor),
+                          ),
+                        ),
+                      ]),
+                ),
+              ],
+            ),
             SizedBox(
               height: 20,
             ),
@@ -52,18 +94,37 @@ class _BodyProFileBayState extends State<BodyProFileBay> {
               'บัญชีขอฉัน',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
             ),
-            TextButton(onPressed: () {}, child:  MyStyle(). ManuProflie('manu')),
-            TextButton(onPressed: () {}, child:   MyStyle().ManuProflie('manu')),
-            TextButton(onPressed: () {}, child:  MyStyle(). ManuProflie('manu')),
-            TextButton(onPressed: () {}, child:   MyStyle().ManuProflie('manu')),
+            TextButton(
+                onPressed: () {},
+                child: MyStyle().ManuProflie('ชื่อ: $username')),
+            TextButton(
+                onPressed: () {},
+                child: MyStyle().ManuProflie('นามสกุล: $userlastname')),
+            TextButton(
+                onPressed: () {},
+                child: MyStyle().ManuProflie('เบอร์โทรศัพท์: $userphone')),
+            TextButton(
+                onPressed: () {},
+                child: MyStyle().ManuProflie('อีเมล: $useremail')),
+            SizedBox(
+              height: 20,
+            ),
             Text(
               'ระบบ',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
             ),
-            TextButton(onPressed: () {}, child:   MyStyle().ManuProflie('manu')),
-            TextButton(onPressed: () {}, child:   MyStyle().ManuProflie('manu')),
-            TextButton(onPressed: () {}, child:   MyStyle().ManuProflie('manu')),
-            TextButton(onPressed: () {}, child:  MyStyle(). ManuProflie('manu')),
+            TextButton(
+                onPressed: () {},
+                child: MyStyle().ManuProflie('ร้านค้า: $usershop')),
+            TextButton(
+                onPressed: () {},
+                child: MyStyle().ManuProflie('ค่าบริการ: $usercharge')),
+            TextButton(
+                onPressed: () {},
+                child: MyStyle().ManuProflie('เวลาทำการ: $usertime')),
+            SizedBox(
+              height: 20,
+            ),
             Text(
               'ออกจากระบบ',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
@@ -74,5 +135,4 @@ class _BodyProFileBayState extends State<BodyProFileBay> {
       ),
     );
   }
-
 }

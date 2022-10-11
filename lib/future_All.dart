@@ -80,6 +80,49 @@ Future<void> normaDiolog(BuildContext context, String message) async {
 double? lat;
 double? lng;
 
+String? userid;
+String? userphone;
+String? usertype;
+String? username;
+String? userlastname;
+String? useremail;
+String? userphoto;
+String? userhousenum;
+String? userdistrict;
+String? userprefecture;
+String? usercity;
+String? userpostid;
+String? userlatitude;
+String? userlongitude;
+String? usercharge;
+String? usershop;
+String? usertime;
+
+
+Future<Null> finduser() async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  userid = preferences.getString('_id');
+  userphone = preferences.getString('_phone');
+  usertype = preferences.getString('_typeuser');
+  username = preferences.getString('_name');
+  userlastname = preferences.getString('_lastname');
+  useremail = preferences.getString('_email');
+  userphoto = preferences.getString('_photo');
+  userhousenum = preferences.getString('_housenum');
+  userdistrict = preferences.getString('_district');
+  userprefecture = preferences.getString('_prefecture');
+  usercity = preferences.getString('_city');
+  userpostid = preferences.getString('_postid');
+  userlatitude = preferences.getString('_latitude');
+  userlongitude = preferences.getString('_longitude');
+  usercharge= preferences.getString('_charge');
+  usershop = preferences.getString('_shop');
+  usertime = preferences.getString('_time');
+
+
+
+}//หาค่าที่เเชร์มา
+
 
 
 // Future<Null> checkPhoneNumber() async {
