@@ -189,8 +189,15 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                 onPressed: () {
                   final isValidFrom = formKey.currentState!.validate();
                   if (isValidFrom) {
-                  //  chackUser();
                   uplodeimageusersaveuserbuy();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return OtpScreen();
+                      },
+                    ),
+                  );
                   }
                 },
                 child: const Text('ถัดไป'),
@@ -236,6 +243,8 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
         print('nameimage ======= $buyuser_photo');
         print('user_photo>>>>>$buyuser_photo');
         getHttpBuyuser();
+
+
       });
     } catch (e) {}
   } //บันทึกข้อมูลผู้ซื้อเละรูป
@@ -255,7 +264,8 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
         '/kongkao/insertuserphone.php?isAdd=true&phone=$buyuser_phone';
     try {
       Response response = await Dio().get(url);
-      if (response.toString() == "null") {
+      print(response);
+      if (response.toString() == 'null') {
         uplodeimageusersaveuserbuy();
         Navigator.push(
           context,

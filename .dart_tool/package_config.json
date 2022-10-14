@@ -86,6 +86,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "dots_indicator",
+      "rootUri": "file:///C:/Users/lenovo/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/dots_indicator-2.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "email_validator",
       "rootUri": "file:///C:/Users/lenovo/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/email_validator-2.1.17",
       "packageUri": "lib/",
@@ -150,6 +156,12 @@
       "rootUri": "file:///C:/Users/lenovo/flutter/packages/flutter_web_plugins",
       "packageUri": "lib/",
       "languageVersion": "2.17"
+    },
+    {
+      "name": "get",
+      "rootUri": "file:///C:/Users/lenovo/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/get-4.6.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
     },
     {
       "name": "google_maps_flutter",
@@ -530,7 +542,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-10-05T12:05:55.945119Z",
+  "generated": "2022-10-14T19:31:47.281393Z",
   "generator": "pub",
   "generatorVersion": "2.19.0-133.0.dev"
 }

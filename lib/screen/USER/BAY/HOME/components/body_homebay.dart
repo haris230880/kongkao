@@ -70,288 +70,290 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Column(
+        child: SingleChildScrollView(
+          child: Column(
       children: [
-        HeaderHomePageBay(),
-        Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      height: 120,
-                      width: 120,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                                offset: Offset(0, 10),
-                                blurRadius: 10,
-                                color: kPrimaryColor.withOpacity(0.20)),
-                          ]),
-                      child: OutlinedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return OrderListShop();
-                              },
-                            ),
-                          );
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Image.asset('assets/icons/plasticbottle.png'),
-                            Text(
-                              'พลาสติก',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: kPrimaryblckColor,
-                                  fontSize: 18),
-                            ),
-                          ],
+          HeaderHomePageBay(),
+          Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        height: 120,
+                        width: 120,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                  offset: Offset(0, 10),
+                                  blurRadius: 10,
+                                  color: kPrimaryColor.withOpacity(0.20)),
+                            ]),
+                        child: OutlinedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return OrderListShop();
+                                },
+                              ),
+                            );
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Image.asset('assets/icons/plasticbottle.png'),
+                              Text(
+                                'พลาสติก',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: kPrimaryblckColor,
+                                    fontSize: 18),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      height: 120,
-                      width: 120,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                                offset: Offset(0, 10),
-                                blurRadius: 10,
-                                color: kPrimaryColor.withOpacity(0.20)),
-                          ]),
-                      child: OutlinedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return OrderListShop();
-                              },
-                            ),
-                          );
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Image.asset(
-                              'assets/icons/paper.png',
-                              scale: 20,
-                            ),
-                            Text(
-                              'กระดาษ',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: kPrimaryblckColor,
-                                  fontSize: 18),
-                            ),
-                          ],
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        height: 120,
+                        width: 120,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                  offset: Offset(0, 10),
+                                  blurRadius: 10,
+                                  color: kPrimaryColor.withOpacity(0.20)),
+                            ]),
+                        child: OutlinedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return OrderListShop();
+                                },
+                              ),
+                            );
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Image.asset(
+                                'assets/icons/paper.png',
+                                scale: 20,
+                              ),
+                              Text(
+                                'กระดาษ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: kPrimaryblckColor,
+                                    fontSize: 18),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  margin: EdgeInsets.all(10),
+                  height: 120,
+                  width: 120,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                            offset: Offset(0, 10),
+                            blurRadius: 10,
+                            color: kPrimaryColor.withOpacity(0.20)),
+                      ]),
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return OrderListShop();
+                          },
+                        ),
+                      );
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Image.asset('assets/icons/plasticbottle.png'),
+                        Text(
+                          'พลาสติก',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: kPrimaryblckColor,
+                              fontSize: 18),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-        Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                margin: EdgeInsets.all(10),
-                height: 120,
-                width: 120,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                          offset: Offset(0, 10),
-                          blurRadius: 10,
-                          color: kPrimaryColor.withOpacity(0.20)),
-                    ]),
-                child: OutlinedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return OrderListShop();
-                        },
-                      ),
-                    );
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Image.asset('assets/icons/plasticbottle.png'),
-                      Text(
-                        'พลาสติก',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: kPrimaryblckColor,
-                            fontSize: 18),
-                      ),
-                    ],
                   ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.all(10),
-                height: 120,
-                width: 120,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                          offset: Offset(0, 10),
-                          blurRadius: 10,
-                          color: kPrimaryColor.withOpacity(0.20)),
-                    ]),
-                child: OutlinedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return OrderListShop();
-                        },
-                      ),
-                    );
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Image.asset(
-                        'assets/icons/paper.png',
-                        scale: 20,
-                      ),
-                      Text(
-                        'กระดาษ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: kPrimaryblckColor,
-                            fontSize: 18),
-                      ),
-                    ],
+                Container(
+                  margin: EdgeInsets.all(10),
+                  height: 120,
+                  width: 120,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                            offset: Offset(0, 10),
+                            blurRadius: 10,
+                            color: kPrimaryColor.withOpacity(0.20)),
+                      ]),
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return OrderListShop();
+                          },
+                        ),
+                      );
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Image.asset(
+                          'assets/icons/paper.png',
+                          scale: 20,
+                        ),
+                        Text(
+                          'กระดาษ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: kPrimaryblckColor,
+                              fontSize: 18),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                margin: EdgeInsets.all(10),
-                height: 120,
-                width: 120,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                          offset: Offset(0, 10),
-                          blurRadius: 10,
-                          color: kPrimaryColor.withOpacity(0.20)),
-                    ]),
-                child: OutlinedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return OrderListShop();
-                        },
-                      ),
-                    );
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Image.asset('assets/icons/plasticbottle.png'),
-                      Text(
-                        'พลาสติก',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: kPrimaryblckColor,
-                            fontSize: 18),
-                      ),
-                    ],
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  margin: EdgeInsets.all(10),
+                  height: 120,
+                  width: 120,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                            offset: Offset(0, 10),
+                            blurRadius: 10,
+                            color: kPrimaryColor.withOpacity(0.20)),
+                      ]),
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return OrderListShop();
+                          },
+                        ),
+                      );
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Image.asset('assets/icons/plasticbottle.png'),
+                        Text(
+                          'พลาสติก',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: kPrimaryblckColor,
+                              fontSize: 18),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.all(10),
-                height: 120,
-                width: 120,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                          offset: Offset(0, 10),
-                          blurRadius: 10,
-                          color: kPrimaryColor.withOpacity(0.20)),
-                    ]),
-                child: OutlinedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return OrderListShop();
-                        },
-                      ),
-                    );
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Image.asset(
-                        'assets/icons/paper.png',
-                        scale: 20,
-                      ),
-                      Text(
-                        'กระดาษ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: kPrimaryblckColor,
-                            fontSize: 18),
-                      ),
-                    ],
+                Container(
+                  margin: EdgeInsets.all(10),
+                  height: 120,
+                  width: 120,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                            offset: Offset(0, 10),
+                            blurRadius: 10,
+                            color: kPrimaryColor.withOpacity(0.20)),
+                      ]),
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return OrderListShop();
+                          },
+                        ),
+                      );
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Image.asset(
+                          'assets/icons/paper.png',
+                          scale: 20,
+                        ),
+                        Text(
+                          'กระดาษ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: kPrimaryblckColor,
+                              fontSize: 18),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
 
       ],
-    )
+    ),
+        )
 
         );
   }
 
   Container HeaderHomePageBay() {
     return Container(
-      margin: EdgeInsets.only(bottom: 1, top: 0),
-      height: 200,
+      margin: EdgeInsets.only(bottom: 0, top: 0),
+      height: 260,
       child: Stack(
         children: [
           Container(
-            height: 130,
+            height: 150,
             padding: EdgeInsets.only(left: 10, right: 10, bottom: 50, top: 1),
             decoration: BoxDecoration(
                 color: kPrimaryColor,

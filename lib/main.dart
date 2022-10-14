@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project/constants.dart';
 import 'package:project/screen/Welcome/components/welcomeScreen.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -10,7 +11,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "My App",
       theme: ThemeData(

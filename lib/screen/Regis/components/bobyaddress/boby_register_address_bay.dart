@@ -12,7 +12,6 @@ import '../background_regis.dart';
 import '../regis.dart';
 
 
-
 class BobyRegisterAddressBay extends StatefulWidget {
   const BobyRegisterAddressBay({Key? key}) : super(key: key);
 
@@ -34,7 +33,8 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
     print('lat=$lat , lng=$lng');
     setState(() {
       MyStyle().showmap();
-    });
+    }
+    );
 
   }//หาค่าlatlng
 
@@ -148,6 +148,8 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                                 'เวลาทำการ',
                                 style: TextStyle(color: kPrimaryblckColor),
                               ),
+                          hintText: '8:00'
+
                             ),
                           ),
                         ),
@@ -155,6 +157,9 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                           height: 50,
                           width: 140,
                           child: TextFormField(
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(3),
+                            ],
                             validator: (value) {
                               if (value != null && value.isEmpty) {
                                 return "กรอก ค่าบริการ";
@@ -166,6 +171,7 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                             cursorColor: kPrimaryColor,
                             textAlignVertical: TextAlignVertical.center,
                             decoration: InputDecoration(
+
                               filled: true,
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,

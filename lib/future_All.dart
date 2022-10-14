@@ -1,7 +1,3 @@
-
-
-
-
 import 'dart:math';
 
 import 'package:dio/dio.dart';
@@ -21,7 +17,8 @@ Future<Null> signOutprocess(BuildContext context) async {
   preferences.clear();
   // exit(0);
   MaterialPageRoute route = MaterialPageRoute(
-    builder: (context) => LoginScreen(),);
+    builder: (context) => LoginScreen(),
+  );
   Navigator.pushAndRemoveUntil(context, route, (route) => false);
 }
 
@@ -34,14 +31,14 @@ Future<LocationData?> findlocationData() async {
   }
 }
 
-
-
-
 Future<void> normaDiolog(BuildContext context, String message) async {
   showDialog(
     context: context,
     builder: (context) => SimpleDialog(
-      title: Text(message,style: TextStyle(fontSize: 16),),
+      title: Text(
+        message,
+        style: TextStyle(fontSize: 16),
+      ),
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -76,6 +73,93 @@ Future<void> normaDiolog(BuildContext context, String message) async {
   );
 }
 
+Future<void> Edit(BuildContext context, String message,String savevalo) async {
+  showDialog(
+    context: context,
+    builder: (context) => SimpleDialog(
+      title: Text(
+        message,
+        style: TextStyle(fontSize: 16),
+      ),
+      children: <Widget>[
+        TextFormField(
+
+          onChanged: (value) => savevalo = value.trim(),
+          keyboardType: TextInputType.name,
+          cursorColor: kPrimaryColor,
+          textAlignVertical: TextAlignVertical.center,
+          decoration: InputDecoration(
+            filled: true,
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.all(
+                Radius.circular(20),
+              ),
+            ),
+            contentPadding: EdgeInsets.all(10),
+            label: Text(
+              ' ',
+              style: TextStyle(color: kPrimaryblckColor),
+            ),
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      elevation: 5,
+                      // Foreground color
+                      onPrimary: Colors.white,
+                      // Background color
+                      primary: kPrimaryColor,
+                      minimumSize: Size(10, 30))
+                  .copyWith(elevation: ButtonStyleButton.allOrNull(5.0)),
+              onPressed: () => Navigator.pop(context),
+              child: Row(
+                children: [
+                  const Text(
+                    'ตกลง',
+                    style: TextStyle(fontSize: 14),
+                  ),
+
+                ],
+              ),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  elevation: 5,
+                  // Foreground color
+                  onPrimary: Colors.white,
+                  // Background color
+                  primary: Colors.redAccent,
+                  minimumSize: Size(10, 30))
+                  .copyWith(elevation: ButtonStyleButton.allOrNull(5.0)),
+              onPressed: () => Navigator.pop(context),
+              child: Row(
+                children: [
+                  const Text(
+                    'ยกเลิก',
+                    style: TextStyle(fontSize: 14),
+                  ),
+
+                ],
+              ),
+            ),
+          ],
+        ),
+
+      ],
+    ),
+  );
+}
+
 //>>>>>>>>>>>>>>>>>>>
 double? lat;
 double? lng;
@@ -97,7 +181,7 @@ String? userlongitude;
 String? usercharge;
 String? usershop;
 String? usertime;
-
+String? userpassword;
 
 Future<Null> finduser() async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -115,15 +199,11 @@ Future<Null> finduser() async {
   userpostid = preferences.getString('_postid');
   userlatitude = preferences.getString('_latitude');
   userlongitude = preferences.getString('_longitude');
-  usercharge= preferences.getString('_charge');
+  usercharge = preferences.getString('_charge');
   usershop = preferences.getString('_shop');
   usertime = preferences.getString('_time');
-
-
-
-}//หาค่าที่เเชร์มา
-
-
+  userpassword = preferences.getString('_password');
+} //หาค่าที่เเชร์มา
 
 // Future<Null> checkPhoneNumber() async {
 //   String url = API.BASE_URL +

@@ -67,20 +67,32 @@ class _BodyProFileBayState extends State<BodyProFileBay> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(height: 20,),
                         Text(
-                          '$username $userlastname',
+                          '$usershop',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 30),
+                              fontWeight: FontWeight.bold, fontSize: 25),
                         ),
-                        TextButton(
+                        // Text(
+                        //   '$userlastname',
+                        //   style: TextStyle(
+                        //       fontWeight: FontWeight.bold, fontSize: 30),
+                        // ),
+                        OutlinedButton(
                           onPressed: () {
                             
                             Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct(),));
                           },
-                          child: Text(
-                            'เเก้ไขข้อมูล  >',
-                            style: TextStyle(
-                                fontSize: 16, color: kPrimaryblckColor),
+                          child: Row(
+                            children: [
+
+                              Text(
+                                'เเก้ไขข้อมูล  ',
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.blue),
+                              ),
+                              Icon(Icons.edit,size: 15),
+                            ],
                           ),
                         ),
                       ]),
@@ -95,7 +107,7 @@ class _BodyProFileBayState extends State<BodyProFileBay> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
             ),
             TextButton(
-                onPressed: () {},
+                onPressed:() => Edit(context, 'เเก้ไข', 'sad'),
                 child: MyStyle().ManuProflie('ชื่อ: $username')),
             TextButton(
                 onPressed: () {},

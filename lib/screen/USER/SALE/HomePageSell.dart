@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:project/screen/Login/components/login_screen.dart';
+import 'package:project/screen/USER/BAY/ProFile/body_profilebay.dart';
+import 'package:project/screen/USER/BAY/ProFile/profile_sereenbay.dart';
 import 'package:project/screen/USER/SALE/Home/components/home_screensale.dart';
 import 'package:project/winged/map.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,7 +28,7 @@ class _HomePageSellState extends State<HomePageSell> {
     Center(
       child: Text('profile'),
     ),
-    LoginScreen()
+    ProFileUserBaySreen(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,7 @@ class _HomePageSellState extends State<HomePageSell> {
               label: 'profile',
               backgroundColor: kPrimaryColor),
           BottomNavigationBarItem(
-              icon: Icon(Icons.login),
+              icon: Icon(Icons.person),
               label: 'profile',
               backgroundColor: kPrimaryColor),
         ],

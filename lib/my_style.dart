@@ -6,6 +6,7 @@ import 'package:project/screen/Regis/components/bodyregister/body_register_bay.d
 import 'package:project/screen/Regis/components/bodyregister/body_register_sell.dart';
 import 'package:project/screen/USER/BAY/HOME/components/home_screenbay.dart';
 import 'package:project/screen/USER/BAY/HomePageBay.dart';
+import 'package:project/screen/USER/BAY/ProFile/editprofile.dart';
 
 import 'configs/services/api.dart';
 import 'constants.dart';
@@ -94,6 +95,21 @@ Widget showProgress(){
       child:  CircularProgressIndicator(backgroundColor: kPrimaryLightColor)
     );
 }
+  CircleAvatar CircleAvataruseredit() {
+    return CircleAvatar(
+        backgroundColor: kPrimaryColor,
+        maxRadius: 80,
+        child: editfileuser == null
+            ? CircleAvatar(
+          maxRadius: 80,
+          backgroundImage:
+          NetworkImage(API.BASE_URL + '$userphoto'),
+        )
+            : CircleAvatar(
+          maxRadius: 80,
+          backgroundImage: FileImage(editfileuser!),
+        ));
+  }
 
   CircleAvatar CircleAvataruserbuy() {
     return CircleAvatar(

@@ -80,6 +80,8 @@ class _BodyLoginState extends State<BodyLogin> {
     preferences.setString('_charge', userModel.charge);
     preferences.setString('_shop', userModel.shop);
     preferences.setString('_time', userModel.time);
+    preferences.setString('_password', userModel.password);
+
 
 
 

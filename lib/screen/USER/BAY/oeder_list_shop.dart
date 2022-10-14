@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/constants.dart';
+import 'package:project/screen/USER/SALE/Home/components/productdetle.dart';
 
 class OrderListShop extends StatefulWidget {
   const OrderListShop({Key? key}) : super(key: key);
@@ -17,7 +18,9 @@ class _OrderListShopState extends State<OrderListShop> {
         elevation: 0,
         actions: <Widget>[
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail(),));
+            },
             icon: Icon(Icons.search_rounded),
           ),
           IconButton(
