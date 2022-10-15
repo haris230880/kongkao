@@ -21,6 +21,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class BodyHomePageSall extends StatefulWidget {
   const BodyHomePageSall({Key? key}) : super(key: key);
+
   @override
   State<BodyHomePageSall> createState() => _BodyHomePageSallState();
 }
@@ -34,11 +35,15 @@ class _BodyHomePageSallState extends State<BodyHomePageSall> {
   @override
   void initState() {
     super.initState();
-    pageController.addListener(() {
-      setState(() {
-        _currPageValue = pageController.page!;
-      });
-    });
+    pageController.addListener(
+      () {
+        setState(
+          () {
+            _currPageValue = pageController.page!;
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -53,7 +58,7 @@ class _BodyHomePageSallState extends State<BodyHomePageSall> {
         child: Column(
           children: [
             paheVile(),
-           new DotsIndicator(
+            new DotsIndicator(
               dotsCount: 5,
               position: _currPageValue,
               decorator: DotsDecorator(
@@ -69,12 +74,19 @@ class _BodyHomePageSallState extends State<BodyHomePageSall> {
             ),
             Container(
               margin: EdgeInsets.only(left: 20),
-              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('ร้านค้า', style: TextStyle(fontSize: 18)),
-                  TextButton(onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail(),));
-                  }, child: Text('สินค้า'),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProductDetail(),
+                          ));
+                    },
+                    child: Text('สินค้า'),
                   )
                 ],
               ),
@@ -100,10 +112,8 @@ class _BodyHomePageSallState extends State<BodyHomePageSall> {
                               fit: BoxFit.cover,
                               image: AssetImage('assets/images/hadphone.jpg'),
                             ),
-
                           ),
                         ),
-
                         Expanded(
                           child: Container(
                             margin: EdgeInsets.only(top: 15),
@@ -112,21 +122,28 @@ class _BodyHomePageSallState extends State<BodyHomePageSall> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
                                   topRight: Radius.circular(20),
-                                  bottomRight: Radius.circular(20)
-                              ),
+                                  bottomRight: Radius.circular(20)),
                               color: kPrimaryLightColor,
                             ),
                             child: Padding(
-                              padding: EdgeInsets.only(left: 10,right: 10),
+                              padding: EdgeInsets.only(left: 10, right: 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-
-                                  Text('ฮาริสการค้า', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                  Text(
+                                    'ฮาริสการค้า',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(height: 8,),
-                                  Text('รับซื้อขวด', style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal))
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text('รับซื้อขวด',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.normal))
                                 ],
                               ),
                             ),
@@ -137,11 +154,11 @@ class _BodyHomePageSallState extends State<BodyHomePageSall> {
                   );
                 }),
 
-           // Expanded(
-           //   child: SingleChildScrollView(
-           //     child: FoodPageBody(),
-           //   ),
-           // )
+            // Expanded(
+            //   child: SingleChildScrollView(
+            //     child: FoodPageBody(),
+            //   ),
+            // )
           ],
         ),
       ),
@@ -150,62 +167,67 @@ class _BodyHomePageSallState extends State<BodyHomePageSall> {
 
   Container FoodPageBody() {
     return Container(
-             child:  ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                 itemCount: 20,
-                 itemBuilder: (context, index) {
-                   return Container(
-                     margin: EdgeInsets.only(left: 20, right: 20),
-                     child: Row(
-                       children: [
-                         Container(
-                           margin: EdgeInsets.only(top: 10),
-                           width: Dimensions.listViewImgSize,
-                           height: Dimensions.listViewImgSize,
-                           decoration: BoxDecoration(
-                             borderRadius: BorderRadius.circular(20),
-                             color: kPrimaryColor,
-                             image: DecorationImage(
-                               fit: BoxFit.cover,
-                               image: AssetImage('assets/images/hadphone.jpg'),
-                             ),
-                           ),
-                         ),
-
-                         Expanded(
-                           child: Container(
-                             margin: EdgeInsets.only(top: 15),
-                             height: Dimensions.listviewTextContSize,
-                             width: 200,
-                             decoration: BoxDecoration(
-                               borderRadius: BorderRadius.only(
-                                 topRight: Radius.circular(20),
-                                 bottomRight: Radius.circular(20)
-                               ),
-                               color: kPrimaryLightColor,
-                             ),
-                             child: Padding(
-                               padding: EdgeInsets.only(left: 10,right: 10),
-                               child: Column(
-                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                 mainAxisAlignment: MainAxisAlignment.center,
-                                 children: [
-
-                                   Text('ฮาริสการค้า', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                                   ),
-                                   SizedBox(height: 8,),
-                                   Text('รับซื้อขวด', style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal))
-                                 ],
-                               ),
-                             ),
-                           ),
-                         )
-                       ],
-                     ),
-                   );
-                 }),
-           );
+      child: ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: 20,
+          itemBuilder: (context, index) {
+            return Container(
+              margin: EdgeInsets.only(left: 20, right: 20),
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    width: Dimensions.listViewImgSize,
+                    height: Dimensions.listViewImgSize,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: kPrimaryColor,
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage('assets/images/hadphone.jpg'),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(top: 15),
+                      height: Dimensions.listviewTextContSize,
+                      width: 200,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(20),
+                            bottomRight: Radius.circular(20)),
+                        color: kPrimaryLightColor,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 10, right: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'ฮาริสการค้า',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Text('รับซื้อขวด',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.normal))
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            );
+          }),
+    );
   }
 
   Container paheVile() {

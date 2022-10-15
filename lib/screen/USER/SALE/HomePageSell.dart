@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:project/future_All.dart';
 import 'package:project/screen/Login/components/login_screen.dart';
 import 'package:project/screen/USER/BAY/ProFile/body_profilebay.dart';
 import 'package:project/screen/USER/BAY/ProFile/profile_sereenbay.dart';
@@ -21,6 +22,13 @@ class HomePageSell extends StatefulWidget {
 }
 
 class _HomePageSellState extends State<HomePageSell> {
+  @override
+  void setState(VoidCallback fn) {
+    // TODO: implement setState
+    super.setState(fn);
+
+  }
+
   int currentIndex = 0;
   final screen = [
      HomeScreen(),

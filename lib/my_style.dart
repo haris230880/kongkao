@@ -6,6 +6,7 @@ import 'package:project/screen/Regis/components/bodyregister/body_register_bay.d
 import 'package:project/screen/Regis/components/bodyregister/body_register_sell.dart';
 import 'package:project/screen/USER/BAY/HOME/components/home_screenbay.dart';
 import 'package:project/screen/USER/BAY/HomePageBay.dart';
+import 'package:project/screen/USER/BAY/ProFile/body_profilebay.dart';
 import 'package:project/screen/USER/BAY/ProFile/editprofile.dart';
 
 import 'configs/services/api.dart';
@@ -61,20 +62,7 @@ class MyStyle {
   //   );
   // }
 
-  TextButton SingoutButtonProfile(BuildContext context) {
-    return TextButton(
-        onPressed: () =>
-            signOutprocess(context),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('ผู้ใช้: $userphone',
-              style: TextStyle(color: kPrimaryblckColor),
-            ),
-            Text('ออกจากระบบ', style: TextStyle(color: kPrimaryblckColor))
-          ],
-        ));
-  }
+
 
 
   Row ManuProflie(String NamuProflie) {
@@ -95,21 +83,7 @@ Widget showProgress(){
       child:  CircularProgressIndicator(backgroundColor: kPrimaryLightColor)
     );
 }
-  CircleAvatar CircleAvataruseredit() {
-    return CircleAvatar(
-        backgroundColor: kPrimaryColor,
-        maxRadius: 80,
-        child: editfileuser == null
-            ? CircleAvatar(
-          maxRadius: 80,
-          backgroundImage:
-          NetworkImage(API.BASE_URL + '$userphoto'),
-        )
-            : CircleAvatar(
-          maxRadius: 80,
-          backgroundImage: FileImage(editfileuser!),
-        ));
-  }
+
 
   CircleAvatar CircleAvataruserbuy() {
     return CircleAvatar(
@@ -161,4 +135,38 @@ Widget showProgress(){
       ),
     );
   }
+
+  TextButton SingoutButtonProfile(BuildContext context) {
+    return TextButton(
+        onPressed: () =>
+            signOutprocess(context),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('ผู้ใช้: $userphone',
+              style: TextStyle(color: kPrimaryblckColor),
+            ),
+            Text('ออกจากระบบ', style: TextStyle(color: kPrimaryblckColor))
+          ],
+        ));
+  }
+
+//   Container showmapuser() {
+//     double latuser = double.parse(userModel!.lastname);
+//     double lnguser = double.parse(userModel!.latitude);
+// print('lat$latuser, lng$lnguser ');
+//
+// LatLng latLng = LatLng(latuser, lnguser);
+//     CameraPosition cameraPosition = CameraPosition(target: latLng, zoom: 18);
+//     return Container(
+//       height: 300,
+//       width: 300,
+//       color: kPrimaryblckColor,
+//       child: GoogleMap(
+//         initialCameraPosition: cameraPosition,
+//         mapType: MapType.normal,
+//         onMapCreated: (controller) {},
+//       ),
+//     );
+//   }
 }//end

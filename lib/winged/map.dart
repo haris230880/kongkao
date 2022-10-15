@@ -13,6 +13,7 @@ class WingetMaps extends StatefulWidget {
 }
 
 class _WingetMapsState extends State<WingetMaps> {
+
   Completer<GoogleMapController> _controller = Completer();
   late LocationData currentLocation;
 

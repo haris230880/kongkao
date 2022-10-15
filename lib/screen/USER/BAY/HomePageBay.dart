@@ -1,14 +1,19 @@
 
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:project/my_style.dart';
 import 'package:project/screen/USER/BAY/HOME/components/home_screenbay.dart';
 import 'package:project/screen/USER/BAY/NotiFication/notificationBayScreen.dart';
 import 'package:project/screen/USER/BAY/OrderScreen/OrderSreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../configs/services/api.dart';
 import '../../../constants.dart';
 import '../../../future_All.dart';
+import '../../../model/usermodel.dart';
 import 'ProFile/profile_sereenbay.dart';
-
 
 
 
@@ -20,10 +25,14 @@ class HomePageBay extends StatefulWidget {
 }
 
 class _HomePageBayState extends State<HomePageBay> {
-@override
+
+  @override
   void initState() {
     super.initState();
-    finduser();
+setState(() {
+  finduser();
+
+});
   }
 
   int currentIndex = 0;
@@ -37,7 +46,7 @@ class _HomePageBayState extends State<HomePageBay> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screen[currentIndex],
+      body:screen[currentIndex],
       bottomNavigationBar: BayBottomNavigationBar(),
     );
   }

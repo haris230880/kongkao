@@ -1,6 +1,19 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:project/configs/services/api.dart';
 import 'package:project/constants.dart';
+import 'package:project/future_All.dart';
+import 'package:project/model/usermodel.dart';
 import 'package:project/screen/USER/SALE/Home/components/productdetle.dart';
+
+
+
+
+
+
+
+
+
 
 class OrderListShop extends StatefulWidget {
   const OrderListShop({Key? key}) : super(key: key);
@@ -9,7 +22,17 @@ class OrderListShop extends StatefulWidget {
   State<OrderListShop> createState() => _OrderListShopState();
 }
 
+
+
+
 class _OrderListShopState extends State<OrderListShop> {
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,8 +69,8 @@ class _OrderListShopState extends State<OrderListShop> {
             height: 10,
           ),
           Categories(),
-          ItemCard(),
-          ItemCard(),
+          // ItemCard(),
+          // ItemCard(),
         ],
       ),
     );

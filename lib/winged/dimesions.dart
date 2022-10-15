@@ -15,6 +15,9 @@ class Dimensions{
   static double listviewTextContSize = screenWidth/3.9;
 
 
+
+  static double height50 = screenHeight/3.9;
+
   static double TextContSize50 = screenHeight/3.9;
 
 

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:project/constants.dart';
 import 'package:project/future_All.dart';
+import 'package:project/my_style.dart';
+import 'package:project/winged/dimesions.dart';
+
+import '../../../BAY/HomePageBay.dart';
 
 class ProductDetail extends StatefulWidget {
   const ProductDetail({Key? key}) : super(key: key);
@@ -71,7 +75,7 @@ class _ProductDetailState extends State<ProductDetail> {
               child: Column(
                 children: [
                   Text(
-                    '$usershop',
+                    'ร้าน',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
@@ -79,14 +83,38 @@ class _ProductDetailState extends State<ProductDetail> {
                   ),
                   Text('รับซื้อขวด',
                       style: TextStyle(
-                          fontSize: 15, fontWeight: FontWeight.normal))
-                  
+                          fontSize: 15, fontWeight: FontWeight.normal)),
                 ],
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+
+class AppColumn extends StatelessWidget {
+  const AppColumn({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context){
+    return Column(
+      children: [
+        MyStyle().CircleAvatarusersale(),
+        Text(
+          'ร้าน',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 8,
+        ),
+        Text('รับซื้อขวด',
+            style: TextStyle(
+                fontSize: 15, fontWeight: FontWeight.normal))
+
+      ],
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:dio/dio.dart';
@@ -6,11 +7,13 @@ import 'package:location/location.dart';
 import 'package:project/my_style.dart';
 import 'package:project/screen/Login/components/login_screen.dart';
 import 'package:project/screen/Regis/components/bodyregister/body_register_bay.dart';
+import 'package:project/screen/USER/BAY/HomePageBay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'configs/datauserbay.dart';
 import 'configs/services/api.dart';
 import 'constants.dart';
+import 'model/usermodel.dart';
 
 Future<Null> signOutprocess(BuildContext context) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -163,46 +166,32 @@ Future<void> Edit(BuildContext context, String message,String savevalo) async {
 //>>>>>>>>>>>>>>>>>>>
 double? lat;
 double? lng;
-
+String? usertype;
 String? userid;
 String? userphone;
-String? usertype;
-String? username;
-String? userlastname;
-String? useremail;
-String? userphoto;
-String? userhousenum;
-String? userdistrict;
-String? userprefecture;
-String? usercity;
-String? userpostid;
-String? userlatitude;
-String? userlongitude;
-String? usercharge;
-String? usershop;
-String? usertime;
-String? userpassword;
+
 
 Future<Null> finduser() async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
   userid = preferences.getString('_id');
-  userphone = preferences.getString('_phone');
   usertype = preferences.getString('_typeuser');
-  username = preferences.getString('_name');
-  userlastname = preferences.getString('_lastname');
-  useremail = preferences.getString('_email');
-  userphoto = preferences.getString('_photo');
-  userhousenum = preferences.getString('_housenum');
-  userdistrict = preferences.getString('_district');
-  userprefecture = preferences.getString('_prefecture');
-  usercity = preferences.getString('_city');
-  userpostid = preferences.getString('_postid');
-  userlatitude = preferences.getString('_latitude');
-  userlongitude = preferences.getString('_longitude');
-  usercharge = preferences.getString('_charge');
-  usershop = preferences.getString('_shop');
-  usertime = preferences.getString('_time');
-  userpassword = preferences.getString('_password');
+  userphone = preferences.getString('_phone');
+
+  // username = preferences.getString('_name');
+  // userlastname = preferences.getString('_lastname');
+  // useremail = preferences.getString('_email');
+  // userphoto = preferences.getString('_photo');
+  // userhousenum = preferences.getString('_housenum');
+  // userdistrict = preferences.getString('_district');
+  // userprefecture = preferences.getString('_prefecture');
+  // usercity = preferences.getString('_city');
+  // userpostid = preferences.getString('_postid');
+  // userlatitude = preferences.getString('_latitude');
+  // userlongitude = preferences.getString('_longitude');
+  // usercharge = preferences.getString('_charge');
+  // usershop = preferences.getString('_shop');
+  // usertime = preferences.getString('_time');
+  // userpassword = preferences.getString('_password');
 } //หาค่าที่เเชร์มา
 
 // Future<Null> checkPhoneNumber() async {
@@ -232,3 +221,32 @@ Future<Null> finduser() async {
 //     print(e);
 //   }
 // }
+
+//..........................
+
+
+
+// Future<Null> readDatauser() async {
+//   String url = API.BASE_URL + '/kongkao/showuser.php?isAdd=true&id=$userid';
+//   await Dio().get(url).then(
+//         (value) {
+//       var result = json.decode(value.data);
+//       print('$result');
+//       for(var map in result){
+//         userModel = UserModel.fromJson(map);
+//
+//       }
+//     },
+//   );
+// }
+
+
+Future<Null> findLatLngBuy() async {
+  LocationData? locationData = await findlocationData();
+  lat = locationData!.latitude!;
+  lng = locationData!.longitude!;
+  print('lat=$lat , lng=$lng');
+
+    MyStyle().showmap();
+
+} //หาค่าlatlng

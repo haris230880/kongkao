@@ -33,6 +33,7 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
     super.initState();
 //    getProductType();
 
+
   }
   // Future<void> getProductType() async {
   //   String path =
@@ -363,7 +364,7 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
             child: Row(
               children: [
                 Text(
-                  'Hi!! $username',
+                  'Hi!!}',
                   style: TextStyle(
                       fontSize: 25,
                       color: Colors.white,
@@ -371,7 +372,7 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
                 ),
                 Spacer(),
                 Text(
-                  'Phone: $userphone',
+                  'Shop:',
                   style: TextStyle(
                       fontSize:16,
                       color: Colors.white,
