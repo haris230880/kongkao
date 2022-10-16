@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project/configs/datausersale.dart';
+import 'package:project/future_All.dart';
 import 'package:project/my_style.dart';
 import 'package:project/screen/Regis/components/regis.dart';
 
@@ -202,7 +203,10 @@ class _BodyRegisterSaleState extends State<BodyRegisterSale> {
                       onPressed: () {
                         final isValidFrom = formKey.currentState!.validate();
                         if (isValidFrom) {
-                          Navigator.push(
+                          if(fileusersell==null){
+                            normaDiolog(context, 'กรุณาเลือกรูปภาพ');
+                          }else{
+                            Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) {
@@ -210,6 +214,7 @@ class _BodyRegisterSaleState extends State<BodyRegisterSale> {
                               },
                             ),
                           );
+                          }
                         }
                       },
                       child: const Text('ถัดไป'),

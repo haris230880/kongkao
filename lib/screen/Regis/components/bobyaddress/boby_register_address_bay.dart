@@ -366,7 +366,7 @@ class _BobyRegisterAddressBayState extends State<BobyRegisterAddressBay> {
                     SizedBox(
                       height: 10,
                     ),
-                    MyStyle().showmap(),
+                    Container(child: lat==null?MyStyle().showProgress() :MyStyle().showmap(),),
                     SizedBox(
                       height: 20,
                     ),

@@ -24,7 +24,7 @@ import '../../../../my_style.dart';
 import '../../../Regis/components/bodyregister/body_register_bay.dart';
 import '../HomePageBay.dart';
 
-File? editfileuser;
+
 
 class EditProduct extends StatefulWidget {
   const EditProduct({Key? key}) : super(key: key);
@@ -34,6 +34,7 @@ class EditProduct extends StatefulWidget {
 }
 
 class _EditProductState extends State<EditProduct> {
+  File? editfileuser;
   String? username;
   String? userlastname;
   String? useremail;
@@ -101,21 +102,7 @@ class _EditProductState extends State<EditProduct> {
   }
 
 
-  Future<Null> chooseImageuserbuy(ImageSource imageSource) async {
-    Random random = Random();
-    int i = random.nextInt(100000);
-    String nameimage = 'userbuy$i.jpg';
-    try {
-      var object = await ImagePicker.platform.pickImage(
-        source: imageSource,
-        maxHeight: 800.0,
-        maxWidth: 800.0,
-      );
-      setState(() {
-        editfileuser = File(object!.path);
-      });
-    } catch (e) {}
-  } //เก็บรูปในเเครื่อง
+
 
   @override
   Widget build(BuildContext context) {
@@ -141,9 +128,11 @@ class _EditProductState extends State<EditProduct> {
                           children: [CircleAvataruseredit()],
                         ),
                       ),
+                      IconButton( onPressed: () =>
+                          chooseImageuserbuy(ImageSource.camera), icon: Icon(Icons.add_a_photo,color: kPrimaryColor,)),
                       TextButton(
                           onPressed: () =>
-                              chooseImageuserbuy(ImageSource.camera),
+                              chooseImageuserbuy(ImageSource.gallery),
                           child: Text(
                             'เปลี่ยนรูป',
                             style: TextStyle(color: kPrimaryColor),
@@ -706,7 +695,25 @@ class _EditProductState extends State<EditProduct> {
     );
   }
 
+  Future<Null> chooseImageuserbuy(ImageSource imageSource) async {
+    // Random random = Random();
+    // int i = random.nextInt(100000);
+    // String nameimage = 'userbuy$i.jpg';
+    try {
+      var object = await ImagePicker.platform.pickImage(
+        source: imageSource,
+        maxHeight: 800.0,
+        maxWidth: 800.0,
+      );
+      setState(() {
+        editfileuser = File(object!.path);
+      });
+    } catch (e) {}
+  } //เก็บรูปในเเครื่อง
+
+
   void getHttpEdituser() async {
+
     print(username);
     try {
       var response = await Dio().get(API.BASE_URL +

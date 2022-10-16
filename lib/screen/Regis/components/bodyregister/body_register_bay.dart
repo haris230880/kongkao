@@ -208,17 +208,19 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
                               elevation: ButtonStyleButton.allOrNull(5.0)),
                       onPressed: () {
                         final isValidFrom = formKey.currentState!.validate();
-                        if (isValidFrom || fileuserbuy == null) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return RegisterAddressBay();
-                              },
-                            ),
-                          );
-                        } else {
-                          normaDiolog(context, "กรุณากรอกข้อมูลให้ครบถ้วนค่ะ");
+                        if (isValidFrom ) {
+                          if(fileuserbuy == null){
+                            normaDiolog(context, 'กรุณาเลือกรูปภาพ');
+                          }else{
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return RegisterAddressBay();
+                                },
+                              ),
+                            );
+                          }
                         }
                       },
                       child: const Text('ถัดไป'),

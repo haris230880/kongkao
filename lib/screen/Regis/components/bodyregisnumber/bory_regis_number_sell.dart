@@ -21,6 +21,15 @@ class BodyRegisNumberSale extends StatefulWidget {
 }
 
 class _BodyRegisNumberSaleState extends State<BodyRegisNumberSale> {
+
+  @override
+  void setState(VoidCallback fn) {
+    // TODO: implement setState
+    super.setState(fn);
+    print('fileusersell   $fileusersell');
+  }
+
+
   bool isHidden = false;//กำหนดซ่อนรหัส
   final formKey = GlobalKey<FormState>();
   @override
