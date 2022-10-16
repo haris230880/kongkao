@@ -27,12 +27,13 @@ const List<String> list = <String>[
   '2',
   '3',
   '4',
-  '5',
-  ''
+  '5'
 ];
 final formKey = GlobalKey<FormState>();
+
 class AddProduct extends StatefulWidget {
   const AddProduct({Key? key}) : super(key: key);
+
   @override
   State<AddProduct> createState() => _AddProductState();
 }
@@ -41,9 +42,6 @@ class _AddProductState extends State<AddProduct> {
   String? product_price, product_photo, product_name;
   File? file;
   String protype_id = list.last;
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +66,10 @@ class _AddProductState extends State<AddProduct> {
                       height: 200,
                       child: file == null
                           ? Image.asset('assets/images/no_photo.png')
-                          : Image.file(file!)),
+                          : Container(
+                              height: 400,
+                              width: 400,
+                              child: Image.file(file!))),
                   SizedBox(
                     height: 10,
                   ),
@@ -82,17 +83,38 @@ class _AddProductState extends State<AddProduct> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
+                                Icons.add_a_photo,
+                                color: kPrimaryblckColor,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              // Text(
+                              //   'เพิ่มรูป',
+                              //   style: TextStyle(
+                              //       color: kPrimaryblckColor, fontSize: 14),
+                              // ),
+                            ],
+                          )),
+                      Text('||'),
+                      TextButton(
+                          onPressed: () =>
+                              chooseImage(ImageSource.gallery), //เพิ่มรูป
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
                                 Icons.photo_size_select_actual,
                                 color: kPrimaryblckColor,
                               ),
                               SizedBox(
                                 width: 5,
                               ),
-                              Text(
-                                'เพิ่มรูป',
-                                style: TextStyle(
-                                    color: kPrimaryblckColor, fontSize: 14),
-                              ),
+                              // Text(
+                              //   'เพิ่มรูป',
+                              //   style: TextStyle(
+                              //       color: kPrimaryblckColor, fontSize: 14),
+                              // ),
                             ],
                           )),
                     ],
@@ -136,11 +158,19 @@ class _AddProductState extends State<AddProduct> {
                         onPressed: () {
                           final isValidFrom = formKey.currentState!.validate();
                           if (isValidFrom) {
-                            if (file != null) {
-                              uplodeimageandsave();
-                               Navigator.push(context, MaterialPageRoute(builder: (context) =>HomePageBay(),));
+                            if (protype_id != null) {
+                              if (file != null) {
+                                uplodeimageandsave();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => HomePageBay(),
+                                    ));
+                              } else {
+                                normaDiolog(context, 'เลือกรูป');
+                              }
                             } else {
-                              normaDiolog(context, 'เลือกรูป');
+                              normaDiolog(context, 'เลือกประเภท');
                             }
                           } else {
                             normaDiolog(context, 'กรอกข้อมูลให้ครบ');
@@ -173,7 +203,11 @@ class _AddProductState extends State<AddProduct> {
                             .copyWith(
                                 elevation: ButtonStyleButton.allOrNull(2.0)),
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => HomePageBay(),));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomePageBay(),
+                              ));
                         },
                         child: Row(
                           children: [
@@ -196,7 +230,9 @@ class _AddProductState extends State<AddProduct> {
     );
   }
 
-  Widget nameFrom(String namefile,) {
+  Widget nameFrom(
+    String namefile,
+  ) {
     return Container(
       height: 50,
       width: 350,
@@ -229,7 +265,9 @@ class _AddProductState extends State<AddProduct> {
     );
   }
 
-  Widget prictFrom(String prictfile,) {
+  Widget prictFrom(
+    String prictfile,
+  ) {
     return Container(
       height: 50,
       width: 350,
@@ -275,8 +313,6 @@ class _AddProductState extends State<AddProduct> {
       });
     } catch (e) {}
   }
-
-
 
   Widget dropdown() {
     return Container(
@@ -324,7 +360,9 @@ class _AddProductState extends State<AddProduct> {
             items: list.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: Text(value, style: TextStyle(fontSize: 16),
+                child: Text(
+                  value,
+                  style: TextStyle(fontSize: 16),
                 ),
               );
             }).toList(),
@@ -333,22 +371,6 @@ class _AddProductState extends State<AddProduct> {
       ),
     );
   }
-// Future<Null> editPeodcut()async{
-// SharedPreferences preferences = await SharedPreferences.getInstance();
-//
-// String? id = preferences.getString('PhoneNumber');
-//
-//     String url = API.BASE_URL+'/flutterApiProjeck/insertDataproduct.php?isAdd=true&product_name=$product_name&product_photo=$product_photo&product_price=$product_price&protype_id=$protype_id');
-//
-// await Dio().get(url).then((value) {
-//   if(value.toString()=='true'){
-//     Navigator.pop(context);
-//
-//   }else{
-//     normaDiolog(context, 'ไม่สามารถ');
-//   }
-//   });
-//   }
 
 
 
@@ -361,18 +383,19 @@ class _AddProductState extends State<AddProduct> {
     try {
       Map<String, dynamic> map = Map();
       map['file'] =
-      await MultipartFile.fromFile(file!.path, filename: nameimage);
+          await MultipartFile.fromFile(file!.path, filename: nameimage);
       FormData formData = FormData.fromMap(map);
       await Dio().post(url, data: formData).then((value) {
         print('$value');
+
+        product_photo = '/kongkao/imageproduct/$nameimage';
         print('$product_photo');
-        product_photo =  '/kongkao/imageproduct/$nameimage';
         getHttpProduct();
       });
     } catch (e) {}
   }
-  void getHttpProduct() async {
 
+  void getHttpProduct() async {
     try {
       var response = await Dio().get(API.BASE_URL +
           '/kongkao/insertproduct.php?isAdd=true&productid=NULL&productname=$product_name&productprice=$product_price&idtypeproduct=$protype_id&id=$userid&productphoto=$product_photo');
