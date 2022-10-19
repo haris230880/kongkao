@@ -47,8 +47,6 @@ class _BodyProFileBayState extends State<BodyProFileBay> {
           setState(() {
             userModel = UserModel.fromJson(map);
           });
-
-
         }
       },
     );
@@ -62,7 +60,6 @@ class _BodyProFileBayState extends State<BodyProFileBay> {
           padding: const EdgeInsets.all(20.0),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            // MyStyle().usernamestlyeprofile('$userphoto'),
             Row(
               children: [
                 Container(
@@ -96,10 +93,9 @@ class _BodyProFileBayState extends State<BodyProFileBay> {
 
                         OutlinedButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
+                            Navigator.push(context,
                                 MaterialPageRoute(
-                                  builder: (context) => EditProduct(),
+                                  builder: (context) => EditProfileBuy(),
                                 )).then((value) => readDatauser());//กลับมาบลละรีข้อมูล
                           },
                           child: Row(
@@ -121,7 +117,7 @@ class _BodyProFileBayState extends State<BodyProFileBay> {
               height: 20,
             ),
             Text(
-              'บัญชีขอฉัน',
+              'บัญชีของฉัน',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
             ),
                 TextButton(

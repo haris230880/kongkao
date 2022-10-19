@@ -14,24 +14,24 @@ class ProductModel {
     required this.productname,
     required this.productprice,
     required this.productphoto,
+    required this.typeproductname,
     required this.idtypeproduct,
-    required this.id,
   });
 
   String productid;
   String productname;
   String productprice;
   String productphoto;
+  String typeproductname;
   String idtypeproduct;
-  String id;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
     productid: json["productid"],
     productname: json["productname"],
     productprice: json["productprice"],
     productphoto: json["productphoto"],
+    typeproductname: json["typeproductname"],
     idtypeproduct: json["idtypeproduct"],
-    id: json["id"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -39,7 +39,7 @@ class ProductModel {
     "productname": productname,
     "productprice": productprice,
     "productphoto": productphoto,
+    "typeproductname": typeproductname,
     "idtypeproduct": idtypeproduct,
-    "id": id,
   };
 }

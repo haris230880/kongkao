@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
@@ -8,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:project/configs/datauserbay.dart';
 import 'package:project/constants.dart';
 import 'package:project/future_All.dart';
+import 'package:project/model/producttypemodel.dart';
 import 'package:project/screen/Login/components/bodylogin.dart';
 import 'package:project/screen/USER/BAY/HOME/components/home_screenbay.dart';
 import 'package:project/screen/USER/BAY/HomePageBay.dart';
@@ -16,20 +18,9 @@ import 'package:project/screen/USER/BAY/oeder_list_shop.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../configs/services/api.dart';
+import '../../../../model/productmodel.dart';
 
-const List<String> list = <String>[
-  // 'พลาสติก',
-  // 'กระดาษ',
-  // 'อลูมิเนียม',
-  // 'แก้ว',
-  // 'อื่น ๆ'
-  '1',
-  '2',
-  '3',
-  '4',
-  '5'
-];
-final formKey = GlobalKey<FormState>();
+const List<String> list = <String>['1', '2', '3', '4', '5'];
 
 class AddProduct extends StatefulWidget {
   const AddProduct({Key? key}) : super(key: key);
@@ -39,9 +30,45 @@ class AddProduct extends StatefulWidget {
 }
 
 class _AddProductState extends State<AddProduct> {
+  final formKey = GlobalKey<FormState>();
   String? product_price, product_photo, product_name;
   File? file;
-  String protype_id = list.last;
+  String? protype_id;
+
+  List<TypeProductModel> typeProducts = [];
+  List data = [];
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      finduser();
+      readTypeProduct();
+    });
+  }
+
+  Future<Null> readTypeProduct() async {
+    String url = API.BASE_URL + '/kongkao/showtypeproduct.php?isAdd=true';
+
+    Response response = await Dio().get(url);
+    //print('response$response');
+    var result = jsonDecode(response.data); //ดึงข้อมูลมา
+    // print("result>>>>$result");
+    if (result.toString() != 'null') {
+      // print("have");
+      for (var map in result) {
+        TypeProductModel typeProductModel = TypeProductModel.fromJson(map);
+        setState(() {
+          typeProducts.add(typeProductModel);
+          data = result;
+        });
+        print(data);
+      }
+    } else {
+      normaDiolog(context, 'Error');
+      print("nohave");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +78,11 @@ class _AddProductState extends State<AddProduct> {
           backgroundColor: kPrimaryColor,
           title: Text('AddProduct'),
         ),
-        body: SingleChildScrollView(
-          child: Form(
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            key: formKey,
-            child: Center(
+        body: Form(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          key: formKey,
+          child: Center(
+            child: SingleChildScrollView(
               child: Column(
                 children: [
                   SizedBox(
@@ -130,12 +157,8 @@ class _AddProductState extends State<AddProduct> {
                   SizedBox(
                     height: 10,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      dropdown(),
-                    ],
-                  ),
+                 dropdown(),
+                  // Center(child: dropdown()),
                   SizedBox(
                     height: 50,
                   ),
@@ -161,11 +184,7 @@ class _AddProductState extends State<AddProduct> {
                             if (protype_id != null) {
                               if (file != null) {
                                 uplodeimageandsave();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => HomePageBay(),
-                                    ));
+                                Navigator.pop(context);
                               } else {
                                 normaDiolog(context, 'เลือกรูป');
                               }
@@ -203,11 +222,7 @@ class _AddProductState extends State<AddProduct> {
                             .copyWith(
                                 elevation: ButtonStyleButton.allOrNull(2.0)),
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomePageBay(),
-                              ));
+                          Navigator.pop(context);
                         },
                         child: Row(
                           children: [
@@ -316,63 +331,38 @@ class _AddProductState extends State<AddProduct> {
 
   Widget dropdown() {
     return Container(
-      padding: EdgeInsets.only(right: 10, left: 10),
-      margin: EdgeInsets.all(10),
-      height: 50,
-      width: 340,
-      decoration: BoxDecoration(
-          color: Colors.transparent,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-                offset: Offset(0, 10),
-                blurRadius: 10,
-                color: kPrimaryColor.withOpacity(0.0)),
-          ]),
-      child: Row(
-        children: [
-          Text(
-            'ประเภท:    ',
-            style: TextStyle(fontSize: 16, color: kPrimaryblckColor),
+      width: 300,
+      child: DropdownButtonFormField(
+        hint: Text('เลือกประเภท'),
+        icon: Padding(
+          //Icon at tail, arrow bottom is default icon
+          padding: EdgeInsets.only(left: 100),
+          child: Icon(
+            Icons.arrow_drop_down_circle,
+            color: kPrimaryColor,
           ),
-          DropdownButton(
-            icon: Padding(
-              //Icon at tail, arrow bottom is default icon
-              padding: EdgeInsets.only(left: 150),
-              child: Icon(
-                Icons.arrow_drop_down_circle,
-                color: kPrimaryColor,
-              ),
+        ),
+        value: protype_id,
+        elevation: 5,
+        style: TextStyle(color: kPrimaryblckColor),
+        onChanged: (String? value) {
+          // This is called when the user selects an item.
+          setState(() {
+            protype_id = value!;
+          });
+        },
+        items: list.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(
+              value,
+              style: TextStyle(fontSize: 16),
             ),
-            value: protype_id,
-            elevation: 16,
-            style: TextStyle(color: kPrimaryblckColor),
-            underline: Container(
-              height: 3,
-              color: kPrimaryColor,
-            ),
-            onChanged: (String? value) {
-              // This is called when the user selects an item.
-              setState(() {
-                protype_id = value!;
-              });
-            },
-            items: list.map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(
-                  value,
-                  style: TextStyle(fontSize: 16),
-                ),
-              );
-            }).toList(),
-          ),
-        ],
+          );
+        }).toList(),
       ),
     );
   }
-
-
 
   Future<Null> uplodeimageandsave() async {
     Random random = Random();

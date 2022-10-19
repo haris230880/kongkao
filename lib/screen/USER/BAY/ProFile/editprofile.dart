@@ -26,14 +26,16 @@ import '../HomePageBay.dart';
 
 
 
-class EditProduct extends StatefulWidget {
-  const EditProduct({Key? key}) : super(key: key);
+class EditProfileBuy extends StatefulWidget {
+  const EditProfileBuy({Key? key}) : super(key: key);
 
   @override
-  State<EditProduct> createState() => _EditProductState();
+  State<EditProfileBuy> createState() => _EditProfileBuyState();
 }
 
-class _EditProductState extends State<EditProduct> {
+class _EditProfileBuyState extends State<EditProfileBuy> {
+  final formKey = GlobalKey<FormState>();
+
   File? editfileuser;
   String? username;
   String? userlastname;
@@ -289,7 +291,8 @@ class _EditProductState extends State<EditProduct> {
                                 .copyWith(
                                     elevation:
                                         ButtonStyleButton.allOrNull(2.0)),
-                            onPressed: () =>  confirmDialog(),
+                            onPressed: () =>
+                                confirmDialog(),
                               // uplodeimageusersaveuserbuyedit();
                               // getHttpEdituser();
                               // Navigator.pop(context);
@@ -320,11 +323,7 @@ class _EditProductState extends State<EditProduct> {
                                         ButtonStyleButton.allOrNull(2.0)),
                             onPressed: () {
                               editfileuser = null;
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => HomePageBay(),
-                                  ));
+                              Navigator.pop(context);
                             },
                             child: Row(
                               children: [

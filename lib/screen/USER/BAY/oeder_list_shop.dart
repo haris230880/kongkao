@@ -5,12 +5,13 @@ import 'package:project/configs/services/api.dart';
 import 'package:project/constants.dart';
 import 'package:project/future_All.dart';
 import 'package:project/model/productmodel.dart';
+import 'package:project/model/producttypemodel.dart';
 import 'package:project/model/usermodel.dart';
 import 'package:project/my_style.dart';
 import 'package:project/screen/USER/BAY/Product/addproduct.dart';
-import 'package:project/screen/USER/SALE/Home/components/productdetle.dart';
-
-import '../../../winged/dimesions.dart';
+import 'package:project/screen/USER/BAY/Product/editproduct.dart';
+import 'package:project/screen/USER/SALE/components/productdetle.dart';
+import 'package:project/winged/itemcard.dart';
 
 class OrderListShop extends StatefulWidget {
   const OrderListShop({Key? key}) : super(key: key);
@@ -21,6 +22,9 @@ class OrderListShop extends StatefulWidget {
 
 class _OrderListShopState extends State<OrderListShop> {
   List<ProductModel> productModels = [];
+  // List<TypeProductModel> typeproductmodels = [];
+
+  List<Widget> productitem = [];
   bool status = true;
   bool lodestatus = true;
 
@@ -29,6 +33,7 @@ class _OrderListShopState extends State<OrderListShop> {
     // TODO: implement initState
     super.initState();
     readProduct();
+    // readTypeProduct();
   }
 
   Future<Null> readProduct() async {
@@ -45,6 +50,7 @@ class _OrderListShopState extends State<OrderListShop> {
         ProductModel productModel = ProductModel.fromJson(map);
         setState(() {
           productModels.add(productModel);
+          productitem.add(creatCard(productModel));
         });
       }
     } else {
@@ -55,8 +61,33 @@ class _OrderListShopState extends State<OrderListShop> {
     }
   }
 
+  // Future<Null> readTypeProduct() async {
+  //   String url = API.BASE_URL + '/kongkao/showtypeproduct.php?isAdd=true';
+  //
+  //   Response response = await Dio().get(url);
+  //   //print('response$response');
+  //   var result = jsonDecode(response.data); //ดึงข้อมูลมา
+  //   //print("result>>>>$result");
+  //   if (result.toString() != 'null') {
+  //     // print("have");
+  //     for (var map in result) {
+  //       TypeProductModel typeProductModel = TypeProductModel.fromJson(map);
+  //       setState(() {
+  //         typeproductmodels.add(typeProductModel);
+  //       });
+  //     }
+  //   } else {
+  //     normaDiolog(context, 'Error');
+  //     print("nohave");
+  //   }
+  // }
+
+
+
+
   @override
   Widget build(BuildContext context) {
+    print("width ==> " + MediaQuery.of(context).size.width.toString());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
@@ -67,7 +98,7 @@ class _OrderListShopState extends State<OrderListShop> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ProductDetail(),
+                    builder: (context) => ShopDetait(),
                   ));
             },
             icon: Icon(Icons.search_rounded),
@@ -87,7 +118,8 @@ class _OrderListShopState extends State<OrderListShop> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
+      body: Padding(
+        padding: const EdgeInsets.all(6.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -102,178 +134,49 @@ class _OrderListShopState extends State<OrderListShop> {
               height: 10,
             ),
             Categories(),
-            // Container(
-            //   height: 800,
-            //   child:Center(
-            //     child:  lodestatus ? showContrnt() :  showContrnt()
-            // ),),
-            ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: productModels.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.only(left: 20, right: 20),
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(top: 10),
-                          width: Dimensions.listViewImgSize,
-                          height: Dimensions.listViewImgSize,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: kPrimaryColor,
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(API.BASE_URL+productModels[index].productphoto),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            margin: EdgeInsets.only(top: 15),
-                            height: Dimensions.listviewTextContSize,
-                            width: 200,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(20),
-                                  bottomRight: Radius.circular(20)),
-                              color: kPrimaryLightColor,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 10, right: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(productModels[index].productname,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  Text('ราคา ${productModels[index].productprice}',
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.normal))
-                                ],
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
+
+            productitem.length == 0
+                ? MyStyle().showProgress()
+                : Expanded(
+                    child: SizedBox(
+                      height: 190,
+                      child: GridView.extent(
+                        maxCrossAxisExtent: 180,
+                        mainAxisSpacing: kDefaultPaddin,
+                        crossAxisSpacing: kDefaultPaddin,
+                        children: productitem,
+                      ),
                     ),
-                  );
-                })
+                  ),
 
 
-            //ItemCard(),
-            // ItemCard(),
           ],
         ),
       ),
     );
   }
 
-  Widget showContrnt() {
-    return  status
-          ? showListProduct()
-          : Center(
-              child: Text('ไม่มีราบการสินค้า'),
 
-    );
-  }
 
-  Widget showListProduct() => ListView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return Container(
-          margin: EdgeInsets.only(left: 20, right: 20),
-          child: Row(
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: 10),
-                width: Dimensions.listViewImgSize,
-                height: Dimensions.listViewImgSize,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: kPrimaryColor,
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage('assets/images/hadphone.jpg'),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.only(top: 15),
-                  height: Dimensions.listviewTextContSize,
-                  width: 200,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(20),
-                        bottomRight: Radius.circular(20)),
-                    color: kPrimaryLightColor,
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 10, right: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'ฮาริสการค้า',
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Text('รับซื้อขวด',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.normal))
-                      ],
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        );
-      });
 
-  Column ItemCard() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: EdgeInsetsDirectional.all(kDefaultPaddin),
-          height: 180,
-          width: 160,
-          decoration: BoxDecoration(
-            color: kPrimaryLightColor,
-            borderRadius: BorderRadius.circular(16),
+  Widget creatCard(ProductModel productModel) {
+    return Card(
+      child: Column(
+        children: [
+          Container(
+            height: 100,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(API.BASE_URL + productModel.productphoto),
+                )),
+
           ),
-          child: Image.asset('assets/icons/userbay.png'),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: kDefaultPaddin / 4),
-          child: Text(
-            'products',
-            style: TextStyle(fontSize: 12),
-          ),
-        ),
-        Text(
-          "\$123",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ],
+          Text(productModel.productname),
+          Text('ราคา ${productModel.productprice}'),
+          Text('ประเภท ${productModel.typeproductname}'),
+        ],
+      ),
     );
   }
 }

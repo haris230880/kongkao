@@ -36,11 +36,11 @@ AppBar HomeAppBarBay() {
         ),
       ],
     ),
-    actions: [
-      Container(
-        child: IconButton(onPressed: () {
-        }, icon: Icon(Icons.settings)),
-      )
-    ],
+    // actions: [
+    //   Container(
+    //     child: IconButton(onPressed: () {
+    //     }, icon: Icon(Icons.settings)),
+    //   )
+    // ],
   );
 }

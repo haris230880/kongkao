@@ -1,15 +1,21 @@
 
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:project/future_All.dart';
 import 'package:project/screen/Login/components/login_screen.dart';
 import 'package:project/screen/USER/BAY/ProFile/body_profilebay.dart';
 import 'package:project/screen/USER/BAY/ProFile/profile_sereenbay.dart';
 import 'package:project/screen/USER/SALE/Home/components/home_screensale.dart';
+import 'package:project/screen/USER/SALE/ProFile/profile_sereenbay.dart';
 import 'package:project/winged/map.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
 import '../../../../constants.dart';
+import '../../../configs/services/api.dart';
+import '../../../model/usermodel.dart';
 import '../BAY/HOME/components/home_screenbay.dart';
 
 
@@ -22,28 +28,24 @@ class HomePageSell extends StatefulWidget {
 }
 
 class _HomePageSellState extends State<HomePageSell> {
-  @override
-  void setState(VoidCallback fn) {
-    // TODO: implement setState
-    super.setState(fn);
-
-  }
 
   int currentIndex = 0;
   final screen = [
-     HomeScreen(),
-    WingetMaps(),
+    HomeScreen(),
     Center(
       child: Text('profile'),
     ),
-    ProFileUserBaySreen(),
+    Center(
+      child: Text('profile'),
+    ),
+    ProFileUserSaleSreen(),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: screen[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white70,
+        backgroundColor: Colors.white,
         type: BottomNavigationBarType.fixed,
         currentIndex: currentIndex,
         onTap: (index) => setState(() => currentIndex = index),
@@ -51,21 +53,21 @@ class _HomePageSellState extends State<HomePageSell> {
         unselectedItemColor: kPrimaryblckColor,
         items: [ 
           BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle_outlined),
-              label: 'Home',
+              icon: Icon(Icons.home),
+              label: 'หน้าเเรก',
               backgroundColor: kPrimaryColor),
           BottomNavigationBarItem(
-              icon: Icon(Icons.add_a_photo),
-              label: 'Manu',
+              icon: Icon(Icons.library_books_sharp),
+              label: 'รายการ',
               backgroundColor: kPrimaryColor),
          
           BottomNavigationBarItem(
-              icon: Icon(Icons.login),
-              label: 'profile',
+              icon: Icon(Icons.add_alert),
+              label: 'เเจ้งเตือน',
               backgroundColor: kPrimaryColor),
           BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              label: 'profile',
+              label: 'ผู้ใช้',
               backgroundColor: kPrimaryColor),
         ],
       ),

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:project/constants.dart';
-import 'package:project/model/product_type_model.dart';
+import 'package:project/model/producttypemodel.dart';
 import 'package:project/screen/USER/BAY/HomePageBay.dart';
 import 'package:project/screen/USER/BAY/OrderScreen/OrderSreen.dart';
 import 'package:project/screen/USER/BAY/backgroundbay.dart';
@@ -25,337 +25,257 @@ class BodyHomePageBay extends StatefulWidget {
 }
 
 class _BodyHomePageBayState extends State<BodyHomePageBay> {
+  List<TypeProductModel> typeProductModels = [];
 
+  Future<Null> readTypeProduct() async {
+    String url = API.BASE_URL + '/kongkao/showtypeproduct.php?isAdd=true';
+
+    Response response = await Dio().get(url);
+    print('response$response');
+    var result = jsonDecode(response.data); //ดึงข้อมูลมา
+    // print("result>>>>$result");
+    if (result.toString() != 'null') {
+      // print("have");
+      for (var map in result) {
+        TypeProductModel typeProductModel = TypeProductModel.fromJson(map);
+        setState(() {
+          typeProductModels.add(typeProductModel);
+        });
+      }
+    } else {
+      normaDiolog(context, 'Error');
+      print("nohave");
+    }
+  }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-//    getProductType();
-
-
+  void setState(VoidCallback fn) {
+    // TODO: implement setState
+    super.setState(fn);
+    readTypeProduct();
+    print(typeProductModels);
   }
-  // Future<void> getProductType() async {
-  //   String path =
-  //       API.BASE_URL + '/flutterApiProjeck/SELECTTypeProduct.php?isAdd=true';
-  //
-  //   await Dio().get(path).then((value) {
-  //     print("value === $value");
-  //
-  //     var result = jsonDecode(value.data);
-  //     int index = 0;
-  //     print("result ==> $result ");
-  //
-  //     for (var map in result) {
-  //       ProductTypeModel model = ProductTypeModel.fromJson(map);
-  //       print(" imageproduct ===> ${model.protypeImage}");
-  //
-  //       setState(() {
-  //         products.add(model);
-  //         imagesproducts.add(buildbody(model, index));
-  //         index++;
-  //       });
-  //     }
-  //     // var result = json.decode(value.data);
-  //     // int index = 0;
-  //     // for (var map in result) {
-  //     //   ProductTypeModel model = ProductTypeModel.fromJson(map);
-  //     //   String _productImage = model.protypeImage;
-  //
-  //     // if (_productImage.isNotEmpty) {
-  //     //
-  //     // }
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: SingleChildScrollView(
-          child: Column(
-      children: [
+      child: Column(
+        children: [
           HeaderHomePageBay(),
-          Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  //Categories()
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Container(
-                        margin: EdgeInsets.all(10),
-                        height: 120,
-                        width: 120,
+                        height: fixsixe.witht80,
+                        width: fixsixe.height80,
                         decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                  offset: Offset(0, 10),
-                                  blurRadius: 10,
-                                  color: kPrimaryColor.withOpacity(0.20)),
-                            ]),
-                        child: OutlinedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return OrderListShop();
-                                },
-                              ),
-                            );
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset('assets/icons/plasticbottle.png'),
-                              Text(
-                                'พลาสติก',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: kPrimaryblckColor,
-                                    fontSize: 18),
-                              ),
-                            ],
-                          ),
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.home),
+                            Text('text'),
+                          ],
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.all(10),
-                        height: 120,
-                        width: 120,
+                        height: fixsixe.witht80,
+                        width: fixsixe.height80,
                         decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                  offset: Offset(0, 10),
-                                  blurRadius: 10,
-                                  color: kPrimaryColor.withOpacity(0.20)),
-                            ]),
-                        child: OutlinedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return OrderListShop();
-                                },
-                              ),
-                            );
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset(
-                                'assets/icons/paper.png',
-                                scale: 20,
-                              ),
-                              Text(
-                                'กระดาษ',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: kPrimaryblckColor,
-                                    fontSize: 18),
-                              ),
-                            ],
-                          ),
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.home),
+                            Text('text'),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: fixsixe.witht80,
+                        width: fixsixe.height80,
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.home),
+                            Text('text'),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: fixsixe.witht80,
+                        width: fixsixe.height80,
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.home),
+                            Text('text'),
+                          ],
                         ),
                       ),
                     ],
                   ),
-                ),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  margin: EdgeInsets.all(10),
-                  height: 120,
-                  width: 120,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                            offset: Offset(0, 10),
-                            blurRadius: 10,
-                            color: kPrimaryColor.withOpacity(0.20)),
-                      ]),
-                  child: OutlinedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return OrderListShop();
-                          },
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        height: fixsixe.witht80,
+                        width: fixsixe.height80,
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.home),
+                            Text('text'),
+                          ],
                         ),
-                      );
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Image.asset('assets/icons/plasticbottle.png'),
-                        Text(
-                          'พลาสติก',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: kPrimaryblckColor,
-                              fontSize: 18),
+                      ),
+                      Container(
+                        height: fixsixe.witht80,
+                        width: fixsixe.height80,
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.home),
+                            Text('text'),
+                          ],
                         ),
-                      ],
+                      ),
+                      Container(
+                        height: fixsixe.witht80,
+                        width: fixsixe.height80,
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.home),
+                            Text('text'),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: fixsixe.witht80,
+                        width: fixsixe.height80,
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.home),
+                            Text('text'),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  Container(height: fixsixe.height250,
+                    child: ListView.builder(
+                      itemCount: typeProductModels.length,
+                      itemBuilder: (context, index) {
+                        return Text('${typeProductModels[index].typeproductname}');
+                      },
                     ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(10),
-                  height: 120,
-                  width: 120,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                            offset: Offset(0, 10),
-                            blurRadius: 10,
-                            color: kPrimaryColor.withOpacity(0.20)),
-                      ]),
-                  child: OutlinedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return OrderListShop();
-                          },
-                        ),
-                      );
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Image.asset(
-                          'assets/icons/paper.png',
-                          scale: 20,
-                        ),
-                        Text(
-                          'กระดาษ',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: kPrimaryblckColor,
-                              fontSize: 18),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+
+                  // ListView.builder(
+                  //    physics: NeverScrollableScrollPhysics(),
+                  //    shrinkWrap: true,
+                  //    itemCount: TypeProductModels.length,
+                  //    itemBuilder: (context, index) {
+                  //      return Container(
+                  //        margin: EdgeInsets.only(left: 20, right: 20),
+                  //        child: Row(
+                  //          children: [
+                  //            Container(
+                  //              margin: EdgeInsets.only(top: 10),
+                  //              width: Dimensions.listViewImgSize,
+                  //              height: Dimensions.listViewImgSize,
+                  //              decoration: BoxDecoration(
+                  //                borderRadius: BorderRadius.circular(20),
+                  //                color: kPrimaryColor,
+                  //                image: DecorationImage(
+                  //                  fit: BoxFit.cover,
+                  //                  image: NetworkImage(API.BASE_URL+productModels[index].productphoto),
+                  //                ),
+                  //              ),
+                  //            ),
+                  //
+                  //            Expanded(
+                  //              child: Container(
+                  //                margin: EdgeInsets.only(top: 15),
+                  //                height: Dimensions.listviewTextContSize,
+                  //                width: Dimensions.listviewTextContSize,
+                  //                decoration: BoxDecoration(
+                  //                  borderRadius: BorderRadius.circular(20),
+                  //                  color: kPrimaryLightColor,
+                  //                ),
+                  //                child: Padding(
+                  //                  padding: EdgeInsets.only(left: 10, right: 10),
+                  //                  child: Column(
+                  //                    crossAxisAlignment: CrossAxisAlignment.start,
+                  //                    mainAxisAlignment: MainAxisAlignment.center,
+                  //                    children: [
+                  //                      Text('ชื่อ: ${productModels[index].productname}',
+                  //                        style: TextStyle(
+                  //                            fontSize: 20,
+                  //                            fontWeight: FontWeight.bold),
+                  //                      ),
+                  //                      SizedBox(
+                  //                        height: 8,
+                  //                      ),
+                  //                      Text('ราคา: ${productModels[index].productprice}',
+                  //                          style: TextStyle(
+                  //                              fontSize: 15,
+                  //                              fontWeight: FontWeight.normal))
+                  //                    ],
+                  //                  ),
+                  //                ),
+                  //              ),
+                  //            )
+                  //          ],
+                  //        ),
+                  //      );
+                  //    })
+                ],
+              ),
             ),
           ),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  margin: EdgeInsets.all(10),
-                  height: 120,
-                  width: 120,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                            offset: Offset(0, 10),
-                            blurRadius: 10,
-                            color: kPrimaryColor.withOpacity(0.20)),
-                      ]),
-                  child: OutlinedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return OrderListShop();
-                          },
-                        ),
-                      );
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Image.asset('assets/icons/plasticbottle.png'),
-                        Text(
-                          'พลาสติก',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: kPrimaryblckColor,
-                              fontSize: 18),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(10),
-                  height: 120,
-                  width: 120,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                            offset: Offset(0, 10),
-                            blurRadius: 10,
-                            color: kPrimaryColor.withOpacity(0.20)),
-                      ]),
-                  child: OutlinedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return OrderListShop();
-                          },
-                        ),
-                      );
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Image.asset(
-                          'assets/icons/paper.png',
-                          scale: 20,
-                        ),
-                        Text(
-                          'กระดาษ',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: kPrimaryblckColor,
-                              fontSize: 18),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-      ],
-    ),
-        )
-
-        );
+        ],
+      ),
+    );
   }
 
   Container HeaderHomePageBay() {
     return Container(
-      margin: EdgeInsets.only(bottom: 0, top: 0),
-      height: 260,
+      height: 200,
       child: Stack(
         children: [
           Container(
-            height: 150,
-            padding: EdgeInsets.only(left: 10, right: 10, bottom: 50, top: 1),
+            padding: EdgeInsets.only(left: 10, right: 10, bottom: 50, top: 10),
             decoration: BoxDecoration(
                 color: kPrimaryColor,
                 borderRadius: BorderRadius.only(
@@ -374,7 +294,7 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
                 Text(
                   'Shop:',
                   style: TextStyle(
-                      fontSize:16,
+                      fontSize: 16,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
@@ -384,9 +304,8 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
           Positioned(
             child: Center(
               child: Container(
-                margin: EdgeInsets.all(50),
-                height: 80,
-                width: 400,
+                height: 70,
+                width: 280,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(50),
@@ -394,7 +313,7 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
                       BoxShadow(
                           offset: Offset(0, 10),
                           blurRadius: 10,
-                          color: kPrimaryColor.withOpacity(0.4)),
+                          color: kPrimaryColor.withOpacity(0.1)),
                     ]),
                 child: TextButton(
                   onPressed: () {
@@ -428,6 +347,7 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
       ),
     );
   }
+
   void getHttpBuyuser() async {
     try {
       var response = await Dio().get(
@@ -437,6 +357,4 @@ class _BodyHomePageBayState extends State<BodyHomePageBay> {
       print(e);
     }
   }
-
-
 } //end

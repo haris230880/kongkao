@@ -1,25 +1,32 @@
-//import 'dart:html';//เม้น
 
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:project/constants.dart';
 import 'package:project/screen/Login/components/login_screen.dart';
 import 'package:project/screen/Regis/components/regis.dart';
 import 'package:project/screen/USER/BAY/HOME/components/home_screenbay.dart';
 import 'package:project/screen/USER/SALE/Home/components/backgroundhomesale.dart';
-import 'package:project/screen/USER/SALE/Home/components/productdetle.dart';
-import 'package:project/winged/dimesions.dart';
+import 'package:project/screen/USER/SALE/Home/components/home_screensale.dart';
 import 'package:project/screen/Welcome/components/backgroundwelcome.dart';
 import 'package:project/winged/categoryitemmanu.dart';
 import 'package:project/future_All.dart';
 import 'package:project/winged/searchbox.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../../configs/services/api.dart';
+import '../../../../../model/producttypemodel.dart';
+import '../../../../../model/usermodel.dart';
+import '../../../../../my_style.dart';
+import '../../components/productdetle.dart';
+import 'appbarhomepagesale.dart';
+
 class BodyHomePageSall extends StatefulWidget {
+
   const BodyHomePageSall({Key? key}) : super(key: key);
 
   @override
@@ -27,18 +34,20 @@ class BodyHomePageSall extends StatefulWidget {
 }
 
 class _BodyHomePageSallState extends State<BodyHomePageSall> {
-  PageController pageController = PageController(viewportFraction: 0.90);
-  var _currPageValue = 0.0;
-  double _scaleFactor = 0.8;
-  double _height = Dimensions.pageViewContainer;
+
+  List<UserModel> usermodels = [];
+  List<TypeProductModel> typeProductModels = [];
+  bool status = true;
+
 
   @override
   void initState() {
     super.initState();
+    readUserbuy();
     pageController.addListener(
-      () {
-        setState(
           () {
+        setState(
+              () {
             _currPageValue = pageController.page!;
           },
         );
@@ -51,15 +60,64 @@ class _BodyHomePageSallState extends State<BodyHomePageSall> {
     pageController.dispose();
   }
 
+  Future<Null> readUserbuy() async {
+    String url =
+        API.BASE_URL + '/kongkao/showusershop.php?isAdd=true';
+
+    Response response = await Dio().get(url);
+    // print('response$response');
+    var result = jsonDecode(response.data); //ดึงข้อมูลมา
+    if (result.toString() != 'null') {
+      for (var map in result) {
+        print(result);
+        UserModel userModel = UserModel.fromJson(map);
+        setState(() {
+          usermodels.add(userModel);
+        });
+      }
+    } else {
+      normaDiolog(context, 'Error');
+    }
+  }
+  Future<Null> readTypeProduct() async {
+    String url = API.BASE_URL + '/kongkao/showtypeproduct.php?isAdd=true';
+
+    Response response = await Dio().get(url);
+    print('response$response');
+    var result = jsonDecode(response.data); //ดึงข้อมูลมา
+    // print("result>>>>$result");
+    if (result.toString() != 'null') {
+      // print("have");
+      for (var map in result) {
+        TypeProductModel typeProductModel = TypeProductModel.fromJson(map);
+        setState(() {
+          typeProductModels.add(typeProductModel);
+          status = false;
+        });
+      }
+    } else {
+      normaDiolog(context, 'Error');
+      print("nohave");
+    }
+  }
+
+  PageController pageController = PageController(viewportFraction: 0.90);
+  var _currPageValue = 0.0;
+  double _scaleFactor = 0.8;
+  double _height = fixsixe.pageViewContainer;
+
+
+
   @override
   Widget build(BuildContext context) {
-    return BackgroundHomePageSell(
-      child: SingleChildScrollView(
+    return Scaffold(
+      appBar: HomeAppBarSall(),
+      body: status ? MyStyle().showProgress() : SingleChildScrollView(
         child: Column(
           children: [
             paheVile(),
-            new DotsIndicator(
-              dotsCount: 5,
+            DotsIndicator(
+              dotsCount: typeProductModels.length,
               position: _currPageValue,
               decorator: DotsDecorator(
                 activeColor: kPrimaryColor,
@@ -83,7 +141,7 @@ class _BodyHomePageSallState extends State<BodyHomePageSall> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ProductDetail(),
+                            builder: (context) => ShopDetait(),
                           ));
                     },
                     child: Text('สินค้า'),
@@ -95,7 +153,7 @@ class _BodyHomePageSallState extends State<BodyHomePageSall> {
             ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 10,
+                itemCount: usermodels.length,
                 itemBuilder: (context, index) {
                   return Container(
                     margin: EdgeInsets.only(left: 20, right: 20),
@@ -103,21 +161,21 @@ class _BodyHomePageSallState extends State<BodyHomePageSall> {
                       children: [
                         Container(
                           margin: EdgeInsets.only(top: 10),
-                          width: Dimensions.listViewImgSize,
-                          height: Dimensions.listViewImgSize,
+                          width: fixsixe.listViewImgSize,
+                          height: fixsixe.listViewImgSize,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             color: kPrimaryColor,
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage('assets/images/hadphone.jpg'),
+                              image: NetworkImage(API.BASE_URL + usermodels[index].photo),
                             ),
                           ),
                         ),
                         Expanded(
                           child: Container(
                             margin: EdgeInsets.only(top: 15),
-                            height: Dimensions.listviewTextContSize,
+                            height: fixsixe.listviewTextContSize,
                             width: 200,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
@@ -132,18 +190,21 @@ class _BodyHomePageSallState extends State<BodyHomePageSall> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'ฮาริสการค้า',
+                                    usermodels[index].shop,
                                     style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                                        fontSize: 20, fontWeight: FontWeight.bold),
                                   ),
                                   SizedBox(
                                     height: 8,
                                   ),
-                                  Text('รับซื้อขวด',
+                                  Text('เวลา: ${usermodels[index].time}   ',
                                       style: TextStyle(
                                           fontSize: 15,
-                                          fontWeight: FontWeight.normal))
+                                          fontWeight: FontWeight.normal)),
+                                  Text('ค่าบริการ: ${usermodels[index].charge} บาท ',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.normal)),
                                 ],
                               ),
                             ),
@@ -154,88 +215,21 @@ class _BodyHomePageSallState extends State<BodyHomePageSall> {
                   );
                 }),
 
-            // Expanded(
-            //   child: SingleChildScrollView(
-            //     child: FoodPageBody(),
-            //   ),
-            // )
           ],
         ),
       ),
     );
   }
 
-  Container FoodPageBody() {
-    return Container(
-      child: ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: 20,
-          itemBuilder: (context, index) {
-            return Container(
-              margin: EdgeInsets.only(left: 20, right: 20),
-              child: Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    width: Dimensions.listViewImgSize,
-                    height: Dimensions.listViewImgSize,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: kPrimaryColor,
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('assets/images/hadphone.jpg'),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(top: 15),
-                      height: Dimensions.listviewTextContSize,
-                      width: 200,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(20),
-                            bottomRight: Radius.circular(20)),
-                        color: kPrimaryLightColor,
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 10, right: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'ฮาริสการค้า',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Text('รับซื้อขวด',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.normal))
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            );
-          }),
-    );
-  }
+
+
 
   Container paheVile() {
     return Container(
-      height: Dimensions.pageView,
+      height: fixsixe.pageView,
       child: PageView.builder(
         controller: pageController,
-        itemCount: 5,
+        itemCount: typeProductModels.length,
         itemBuilder: (context, position) {
           return _buildpageItem(position);
         },
@@ -274,30 +268,30 @@ class _BodyHomePageSallState extends State<BodyHomePageSall> {
       child: Stack(
         children: [
           Container(
-            height: Dimensions.pageViewContainer,
+            height: fixsixe.pageViewContainer,
             margin: EdgeInsets.only(left: 5, right: 5, top: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               color: index.isEven ? kPrimaryColor : kPrimaryLightColor,
               image: DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage('assets/images/Pinterestpg.jpg'),
+                // fit: BoxFit.cover,
+                image: NetworkImage(API.BASE_URL+typeProductModels[index].typeproductcolphoto),
               ),
             ),
           ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              height: Dimensions.pageViewTextContainer,
+              height: fixsixe.pageViewTextContainer,
               margin: EdgeInsets.only(left: 40, right: 40, bottom: 15),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                        color: kPrimaryLightColor,
+                        color: Colors.black12,
                         //color: Colors.lightGreen,
-                        blurRadius: 3.0,
+                        blurRadius: 1.0,
                         offset: Offset(0, 5)),
                     BoxShadow(color: Colors.white, offset: Offset(-5, 0)),
                     BoxShadow(color: Colors.white, offset: Offset(5, 0))
@@ -308,9 +302,9 @@ class _BodyHomePageSallState extends State<BodyHomePageSall> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'สินค้า',
+                      '${typeProductModels[index].typeproductname}',
                       style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 10,
@@ -336,6 +330,73 @@ class _BodyHomePageSallState extends State<BodyHomePageSall> {
           ),
         ],
       ),
+    );
+  }
+
+  //------------------------------//
+
+  Container FoodPageBody() {
+    return Container(
+      child: ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: usermodels.length,
+          itemBuilder: (context, index) {
+            return Container(
+              margin: EdgeInsets.only(left: 20, right: 20),
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    width: fixsixe.listViewImgSize,
+                    height: fixsixe.listViewImgSize,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: kPrimaryColor,
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage(usermodels[index].photo),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(top: 15),
+                      height: fixsixe.listviewTextContSize,
+                      width: 200,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(20),
+                            bottomRight: Radius.circular(20)),
+                        color: kPrimaryLightColor,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 10, right: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'ฮาริสการค้า',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Text('รับซื้อขวด',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.normal))
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            );
+          }),
     );
   }
 }
