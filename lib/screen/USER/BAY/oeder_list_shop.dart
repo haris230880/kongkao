@@ -22,7 +22,6 @@ class OrderListShop extends StatefulWidget {
 
 class _OrderListShopState extends State<OrderListShop> {
   List<ProductModel> productModels = [];
-  // List<TypeProductModel> typeproductmodels = [];
 
   List<Widget> productitem = [];
   bool status = true;
@@ -33,57 +32,39 @@ class _OrderListShopState extends State<OrderListShop> {
     // TODO: implement initState
     super.initState();
     readProduct();
-    // readTypeProduct();
   }
+
 
   Future<Null> readProduct() async {
+    if (productModels.length != 0){
+      productModels.clear();
+    }
     String url =
         API.BASE_URL + '/kongkao/showproduct.php?isAdd=true&id=$userid';
+    await Dio().get(url).then((value)  {
+      setState(() {
+        lodestatus =  false;
+      });
+      if(value.toString()!= 'null'){
+        var result = jsonDecode(value.data);
+        for (var map in result){
+          ProductModel productModel = ProductModel.fromJson(map);
+          setState(() {
+            productModels.add(productModel);
+            productitem.add(creatCard(productModel));
+            status = false;
+          });
 
-    Response response = await Dio().get(url);
-    print('response$response');
-    var result = jsonDecode(response.data); //ดึงข้อมูลมา
-    // print("result>>>>$result");
-    if (result.toString() != 'null') {
-      // print("have");
-      for (var map in result) {
-        ProductModel productModel = ProductModel.fromJson(map);
+        }
+
+      } else{
         setState(() {
-          productModels.add(productModel);
-          productitem.add(creatCard(productModel));
+          status = true;
         });
       }
-    } else {
-      setState(() {
-        status = false;
-      });
-      print("nohave");
-    }
+
+        });
   }
-
-  // Future<Null> readTypeProduct() async {
-  //   String url = API.BASE_URL + '/kongkao/showtypeproduct.php?isAdd=true';
-  //
-  //   Response response = await Dio().get(url);
-  //   //print('response$response');
-  //   var result = jsonDecode(response.data); //ดึงข้อมูลมา
-  //   //print("result>>>>$result");
-  //   if (result.toString() != 'null') {
-  //     // print("have");
-  //     for (var map in result) {
-  //       TypeProductModel typeProductModel = TypeProductModel.fromJson(map);
-  //       setState(() {
-  //         typeproductmodels.add(typeProductModel);
-  //       });
-  //     }
-  //   } else {
-  //     normaDiolog(context, 'Error');
-  //     print("nohave");
-  //   }
-  // }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -95,11 +76,9 @@ class _OrderListShopState extends State<OrderListShop> {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ShopDetait(),
-                  ));
+              // Navigator.push(context,
+              //         MaterialPageRoute(builder: (context) => ShopDetait()))
+              //     .then((value) => readProduct());
             },
             icon: Icon(Icons.search_rounded),
           ),
@@ -109,7 +88,7 @@ class _OrderListShopState extends State<OrderListShop> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => AddProduct(),
-                  ));
+                  )).then((value) => readProduct());
             },
             icon: Icon(Icons.add_box),
           ),
@@ -134,48 +113,66 @@ class _OrderListShopState extends State<OrderListShop> {
               height: 10,
             ),
             Categories(),
-
-            productitem.length == 0
-                ? MyStyle().showProgress()
-                : Expanded(
-                    child: SizedBox(
-                      height: 190,
-                      child: GridView.extent(
-                        maxCrossAxisExtent: 180,
-                        mainAxisSpacing: kDefaultPaddin,
-                        crossAxisSpacing: kDefaultPaddin,
-                        children: productitem,
+            lodestatus
+                ? Column(
+                    children: [
+                      Center(
+                        child: Text(
+                          'ไม่มีสินค้า',
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                  ),
-
-
+                    ],
+                  )
+                : status
+                    ? MyStyle().showProgress()
+                    : Expanded(
+                        child: SizedBox(
+                          height: 190,
+                          child: GridView.extent(
+                            maxCrossAxisExtent: 200,
+                            mainAxisSpacing: 1,
+                            crossAxisSpacing: 1,
+                            children: productitem,
+                          ),
+                        ),
+                      ),
           ],
         ),
       ),
     );
   }
 
-
-
-
   Widget creatCard(ProductModel productModel) {
     return Card(
-      child: Column(
-        children: [
-          Container(
-            height: 100,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(API.BASE_URL + productModel.productphoto),
+      child: TextButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Editproduct(productModel: productModel),
+              )).then((value) => readProduct());
+        },
+        child: Column(
+          children: [
+            Container(
+              height: 100,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(API.BASE_URL + productModel.productphoto),
+              )),
+            ),
+            Text(productModel.productname),
+            Text('ราคา ${productModel.productprice}',
+                style: TextStyle(
+                  color: kPrimaryblckColor,
                 )),
-
-          ),
-          Text(productModel.productname),
-          Text('ราคา ${productModel.productprice}'),
-          Text('ประเภท ${productModel.typeproductname}'),
-        ],
+            Text('ประเภท ${productModel.typeproductname}',
+                style: TextStyle(color: kPrimaryblckColor, fontSize: 16)),
+          ],
+        ),
       ),
     );
   }

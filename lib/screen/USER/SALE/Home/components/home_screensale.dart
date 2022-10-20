@@ -17,8 +17,6 @@ import '../../components/productdetle.dart';
 import 'appbarhomepagesale.dart';
 import 'body_homesale.dart';
 
-
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -26,56 +24,36 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-
-
 class _HomeScreenState extends State<HomeScreen> {
-  // List<UserModel> usermodels = [];
   List<TypeProductModel> typeProductModels = [];
   List<ProductModel> productModels = [];
-bool status = true;
+  bool status = true;
+
+
+  List<Widget> productDetel = [];
 
   @override
   void initState() {
     super.initState();
-    // readUserbuy();
     readTypeProduct();
     readProduct();
 
     pageController.addListener(
-          () {
+      () {
         setState(
-              () {
+          () {
             _currPageValue = pageController.page!;
           },
         );
       },
     );
   }
+
   @override
   void dispose() {
     pageController.dispose();
   }
 
-
-  // Future<Null> readUserbuy() async {
-  //   String url =
-  //       API.BASE_URL + '/kongkao/showusershop.php?isAdd=true';
-  //
-  //   Response response = await Dio().get(url);
-  //   // print('response$response');
-  //   var result = jsonDecode(response.data); //ดึงข้อมูลมา
-  //   if (result.toString() != 'null') {
-  //     for (var map in result) {
-  //       print(result);
-  //       UserModel userModel = UserModel.fromJson(map);
-  //       setState(() {
-  //         usermodels.add(userModel);
-  //       });
-  //     }
-  //   } else {
-  //     normaDiolog(context, 'Error');
-  //   }
-  // }
   Future<Null> readTypeProduct() async {
     String url = API.BASE_URL + '/kongkao/showtypeproduct.php?isAdd=true';
 
@@ -97,9 +75,9 @@ bool status = true;
       print("nohave");
     }
   }
+
   Future<Null> readProduct() async {
-    String url =
-        API.BASE_URL + '/kongkao/showproductAll.php?isAdd=true';
+    String url = API.BASE_URL + '/kongkao/showproductAll.php?isAdd=true';
 
     Response response = await Dio().get(url);
     print('response$response');
@@ -111,6 +89,7 @@ bool status = true;
         ProductModel productModel = ProductModel.fromJson(map);
         setState(() {
           productModels.add(productModel);
+          // productDetel.add(creatListvile(productModel));
         });
       }
     } else {
@@ -121,182 +100,168 @@ bool status = true;
     }
   }
 
-
   PageController pageController = PageController(viewportFraction: 0.90);
   var _currPageValue = 0.0;
   double _scaleFactor = 0.8;
   double _height = fixsixe.pageViewContainer;
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HomeAppBarSall(),
-      body: status ? MyStyle().showProgress()
+      body: status
+          ? MyStyle().showProgress()
           : SingleChildScrollView(
-            child: Column(
-        children: [
-            paheVile(),
-            DotsIndicator(
-              dotsCount: typeProductModels.length,
-              position: _currPageValue,
-              decorator: DotsDecorator(
-                activeColor: kPrimaryColor,
-                size: const Size.square(9.0),
-                activeSize: const Size(18.0, 9.0),
-                activeShape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
                 children: [
-                  Text('ร้านค้า', style: TextStyle(fontSize: 18)),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ShopDetait(),
-                          ));
-                    },
-                    child: Text('สินค้า'),
-                  )
+                  paheVile(),
+                  DotsIndicator(
+                    dotsCount: typeProductModels.length,
+                    position: _currPageValue,
+                    decorator: DotsDecorator(
+                      activeColor: kPrimaryColor,
+                      size: const Size.square(9.0),
+                      activeSize: const Size(18.0, 9.0),
+                      activeShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('ร้านค้า', style: TextStyle(fontSize: 18)),
+                      ],
+                    ),
+                  ),
+                  showlistProduct(),
+
+
+
+
+                  // SizedBox(
+                  //   height: 200,
+                  //   child: GridView.extent(
+                  //     maxCrossAxisExtent: 200,
+                  //     mainAxisSpacing: 1,
+                  //     crossAxisSpacing: 1,
+                  //     children: productDetel,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
-            //List of food and images
-            // Expanded(
-            //   child: SizedBox(
-            //     height: 100,
-            //     child: GridView.builder(
-            //       itemCount: productModels.length,
-            //       gridDelegate:
-            //       SliverGridDelegateWithFixedCrossAxisCount(
-            //         crossAxisCount: 2,
-            //         mainAxisSpacing: kDefaultPaddin,
-            //         crossAxisSpacing: kDefaultPaddin,
-            //         childAspectRatio: 0.65,
-            //       ),
-            //       itemBuilder: (context, index) => Column(
-            //         crossAxisAlignment: CrossAxisAlignment.center,
-            //         children: <Widget>[
-            //           Container(
-            //             padding: EdgeInsetsDirectional.all(kDefaultPaddin),
-            //             height: 150,
-            //             width: fixsixe.listViewImgSize200,
-            //             decoration: BoxDecoration(
-            //                 color: kPrimaryblckColor,
-            //                 borderRadius: BorderRadius.circular(16),
-            //                 image: DecorationImage(
-            //                   fit: BoxFit.cover,
-            //                   image: NetworkImage(API.BASE_URL + productModels[index].productphoto),
-            //                 )),
-            //           ),
-            //           Padding(
-            //             padding: const EdgeInsets.symmetric(vertical: kDefaultPaddin / 2),
-            //             child: Column(
-            //               children: [
-            //                 Text(
-            //                   'ชื่อ: ${productModels[index].productname}',
-            //                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            //                 ),
-            //                 Text(
-            //                   'ประเภท: ${productModels[index].idtypeproduct}',
-            //                   style: TextStyle(fontSize: 16),
-            //                 ),
-            //                 Text(
-            //                   "ราคา: ${productModels[index].productprice} ต่อกิโลกรัม",
-            //                   style: TextStyle(fontSize: 16),
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
-
-
-            ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: productModels.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.only(left: 20, right: 20),
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(top: 10),
-                          width: fixsixe.listViewImgSize,
-                          height: fixsixe.listViewImgSize,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: kPrimaryColor,
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(API.BASE_URL + productModels[index].productphoto),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            margin: EdgeInsets.only(top: 15),
-                            height: fixsixe.listviewTextContSize,
-                            width: 200,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(20),
-                                  bottomRight: Radius.circular(20)),
-                              color: kPrimaryLightColor,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 10, right: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    productModels[index].productname,
-                                    style: TextStyle(
-                                        fontSize: 20, fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  Text('เวลา: ${productModels[index].productprice}   ',
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.normal)),
-                                  Text('ค่าบริการ: ${productModels[index].typeproductname} บาท ',
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.normal)),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  );
-                }),
-
-        ],
-      ),
-          ),
     );
   }
 
+ Widget  showlistProduct() {
+    return ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: productModels.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: EdgeInsets.only(left: 20, right: 20),
+                        child: TextButton(
+                          onPressed: () {
+                            MaterialPageRoute route = MaterialPageRoute(builder: (context) => ShopDetait(productModel: productModels[index],),);//ส้งค่า
+                            Navigator.push(context, route).then((value) => readProduct());
+                          },
+                          child: Row(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(top: 10),
+                                width: fixsixe.listViewImgSize,
+                                height: fixsixe.listViewImgSize,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(API.BASE_URL +
+                                          productModels[index].productphoto),
+                                    ),
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: kPrimaryLightColor,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black12,
+                                          //color: Colors.lightGreen,
+                                          blurRadius: 1.0,
+                                          offset: Offset(0, 5)),
+                                      BoxShadow(color: Colors.white, offset: Offset(-5, 0)),
+                                      BoxShadow(color: Colors.white, offset: Offset(5, 0))
+                                    ]),
+
+                              ),
+                              Expanded(
+                                child: Container(
+                                  margin: EdgeInsets.only(top: 15,left: 10),
+                                  height: fixsixe.listviewTextContSize,
+                                  width: 200,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.black12,
+                                            //color: Colors.lightGreen,
+                                            blurRadius: 1.0,
+                                            offset: Offset(0, 5)),
+                                        BoxShadow(color: Colors.white, offset: Offset(-5, 0)),
+                                        BoxShadow(color: Colors.white, offset: Offset(5, 0))
+                                      ]),
+                                  child: Padding(
+                                    padding:
+                                    EdgeInsets.only(left: 10, right: 10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      children: [
+                                        Center(
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                '${productModels[index].productname}',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                              SizedBox(
+                                                height: 8,
+                                              ),
+                                              Text(
+                                                  'ราคา: ${productModels[index].productprice} บาท',
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.normal)),
+                                              Text(
+                                                  'ประเภท: ${productModels[index].typeproductname}',
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.normal)),
+                                            ],
+                                          ),
+                                        ),
+
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    });
+  }
 
   Container paheVile() {
     return Container(
@@ -346,10 +311,11 @@ bool status = true;
             margin: EdgeInsets.only(left: 5, right: 5, top: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
-               color: index.isEven ? kPrimaryColor : kPrimaryLightColor,
+              color: index.isEven ? kPrimaryColor : kPrimaryLightColor,
               image: DecorationImage(
-               // fit: BoxFit.cover,
-                image: NetworkImage(API.BASE_URL+typeProductModels[index].typeproductcolphoto),
+                // fit: BoxFit.cover,
+                image: NetworkImage(API.BASE_URL +
+                    typeProductModels[index].typeproductcolphoto),
               ),
             ),
           ),
@@ -378,7 +344,7 @@ bool status = true;
                     Text(
                       '${typeProductModels[index].typeproductname}',
                       style:
-                      TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 10,
@@ -406,4 +372,37 @@ bool status = true;
       ),
     );
   }
+
+  // Widget creatListvile(ProductModel productModel) {
+  //   return Card(
+  //     child: TextButton(
+  //       onPressed: () {
+  //         Navigator.push(
+  //             context,
+  //             MaterialPageRoute(
+  //               builder: (context) => ShopDetait(productModel: productModel),
+  //             )).then((value) => readProduct());
+  //       },
+  //       child: Column(
+  //         children: [
+  //           Container(
+  //             height: 100,
+  //             decoration: BoxDecoration(
+  //                 image: DecorationImage(
+  //               fit: BoxFit.cover,
+  //               image: NetworkImage(API.BASE_URL + productModel.productphoto),
+  //             )),
+  //           ),
+  //           Text(productModel.productname),
+  //           Text('ราคา ${productModel.productprice}',
+  //               style: TextStyle(
+  //                 color: kPrimaryblckColor,
+  //               )),
+  //           Text('ประเภท ${productModel.typeproductname}',
+  //               style: TextStyle(color: kPrimaryblckColor, fontSize: 16)),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 }

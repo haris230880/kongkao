@@ -136,16 +136,16 @@ class _BodyHomePageSallState extends State<BodyHomePageSall> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('ร้านค้า', style: TextStyle(fontSize: 18)),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ShopDetait(),
-                          ));
-                    },
-                    child: Text('สินค้า'),
-                  )
+                  // TextButton(
+                  //   onPressed: () {
+                  //     Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //           builder: (context) => ShopDetait(),
+                  //         ));
+                  //   },
+                  //   child: Text('สินค้า'),
+                  // )
                 ],
               ),
             ),

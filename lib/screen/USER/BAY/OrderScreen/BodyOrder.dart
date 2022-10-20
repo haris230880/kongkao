@@ -24,7 +24,7 @@ class _BodyOrderState extends State<BodyOrder> {
               height: 200,
             ),
             Image.asset('assets/images/no_photo.png'),
-            Text('ไม่มีอะไรเลยย', style: TextStyle(fontSize: 30)),
+            Text('ไม่มีการเเจ้งเตือน', style: TextStyle(fontSize: 30)),
             OutlinedButton(
               onPressed: () {
                 Navigator.push(

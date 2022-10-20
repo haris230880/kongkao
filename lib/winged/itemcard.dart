@@ -10,12 +10,14 @@ import '../screen/USER/BAY/Product/editproduct.dart';
 
 class ItemCard extends StatelessWidget {
   final ProductModel productModel;
+  final TypeProductModel typeProductModel;
   final Function press;
 
   const ItemCard({
     super.key,
     required this.productModel,
     required this.press,
+    required this.typeProductModel,
   });
 
   @override

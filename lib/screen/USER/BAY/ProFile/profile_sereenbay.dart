@@ -4,7 +4,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../../../../configs/services/api.dart';
-import '../../../../future_All.dart';import '../../../../model/usermodel.dart';
+import '../../../../future_All.dart';
+import '../../../../model/usermodel.dart';
 import '../../../../my_style.dart';
 
 

@@ -17,6 +17,8 @@ import '../../../../constants.dart';
 import '../../../configs/services/api.dart';
 import '../../../model/usermodel.dart';
 import '../BAY/HOME/components/home_screenbay.dart';
+import '../BAY/NotiFication/notificationBayScreen.dart';
+import '../BAY/OrderScreen/OrderSreen.dart';
 
 
 
@@ -32,12 +34,8 @@ class _HomePageSellState extends State<HomePageSell> {
   int currentIndex = 0;
   final screen = [
     HomeScreen(),
-    Center(
-      child: Text('profile'),
-    ),
-    Center(
-      child: Text('profile'),
-    ),
+    OrderScreen(),
+    NotiFicationBayScreen(),
     ProFileUserSaleSreen(),
   ];
   @override

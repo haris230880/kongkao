@@ -411,7 +411,9 @@ class _EditproductState extends State<Editproduct> {
 
 
   Future<Null> deleteProduct ()async{
-    
+
+    String url =API.BASE_URL+'/kongkao/deleteproduct%20.php?isAdd=true&productid=$product_id';
+
     try{
       var response =await Dio().get(API.BASE_URL+'/kongkao/deleteproduct%20.php?isAdd=true&productid=$product_id');
     }catch (e){
@@ -477,7 +479,7 @@ class _EditproductState extends State<Editproduct> {
                       elevation:
                       ButtonStyleButton.allOrNull(2.0)),
                   onPressed: () {
-                    Navigator.of(dialogContext).pop(); // Dismiss alert dialog
+                   Navigator.pop(context); // Dismiss alert dialog
                   },
                   child: Row(
                     children: [
