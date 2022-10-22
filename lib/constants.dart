@@ -5,6 +5,12 @@ import 'package:get/get_core/src/get_main.dart';
 const kPrimaryColor = Color(0xFF72A92A);
 const kPrimaryLightColor = Color.fromARGB(255, 183, 225, 83);
 const kPrimaryblckColor =  Color(0xFF807E7E);
+const kPrimarybackgron =  Color.fromARGB(71, 164, 232, 168);
+const kPrimarybackgron2 =  Color.fromARGB(155, 70, 138, 97);
+
+
+
+
 const TextStyleblodgreen = TextStyle(fontWeight: FontWeight.bold, fontSize: 19, color: kPrimaryColor);
 
 

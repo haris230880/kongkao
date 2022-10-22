@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'dart:io';
 import 'dart:math';
 
@@ -44,22 +46,44 @@ class _EditproductState extends State<Editproduct> {
   final formKey = GlobalKey<FormState>();
   String? product_price, product_photo, product_name,product_id;
   File? file;
-  String ? protype_id  ;
-
+  String ? protype_id , selectvalue ;
+  List<TypeProductModel> typeProducts = [];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    productModel = widget.productModel;
 
+    productModel = widget.productModel;
     product_photo = productModel.productphoto;
     product_price = productModel.productprice;
     product_name = productModel.productname;
     product_id = productModel.productid;
-    protype_id = productModel.idtypeproduct;
+    protype_id = productModel.typeproductname;
 
+    readTypeProduct();
   }
+  Future<Null> readTypeProduct() async {
+    String url = API.BASE_URL + '/kongkao/showtypeproduct.php?isAdd=true';
 
+    Response response = await Dio().get(url);
+    //print('response$response');
+    var result = jsonDecode(response.data); //ดึงข้อมูลมา
+     print("result>>>>$result");
+    if (result.toString() != 'null') {
+      // print("have");
+      for (var map in result) {
+        TypeProductModel typeProductModel = TypeProductModel.fromJson(map);
+        setState(() {
+          typeProducts.add(typeProductModel);
+
+        });
+
+      }
+    } else {
+      normaDiolog(context, 'Error');
+      print("nohave");
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return BackgroundHomePageBay(
@@ -167,7 +191,7 @@ class _EditproductState extends State<Editproduct> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      dropdown(),
+                     dropdown1(),
                     ],
                   ),
                   SizedBox(
@@ -249,9 +273,55 @@ class _EditproductState extends State<Editproduct> {
             ),
           ),
         ),
+
+
+
       ),
     );
+
   }
+  // Widget DropdownTypeProduct() {
+  //   return Container(
+  //     width: 300,
+  //     child: DropdownButtonFormField(
+  //         hint: Text('เลือกประเภท'),
+  //         value: selectvalue,
+  //         items: typeProducts.map((TypeProductModel model) {
+  //           return DropdownMenuItem(
+  //             value: model.idtypeproduct,
+  //             child: Text(model.typeproductname),
+  //           );
+  //         }).toList(),
+  //         onChanged: (String? value) {
+  //           setState(() {
+  //             protype_id = value;
+  //           });
+  //         }),
+  //   );
+  // }
+
+
+
+  // Widget dropdown() {
+  //   return Container(
+  //     width: 300,
+  //     child: DropdownButtonFormField(
+  //         hint: Text('sdads'),
+  //         value: selectvalue,
+  //         items: typeProducts.map((TypeProductModel model) {
+  //           return DropdownMenuItem(
+  //             value: model.idtypeproduct,
+  //             child: Text(model.typeproductname),
+  //           );
+  //         }).toList(),
+  //         onChanged: (String? value) {
+  //           setState(() {
+  //             protype_id = value;
+  //           });
+  //         }),
+  //   );
+  // }
+
 
   Future<Null> chooseImage(ImageSource imageSource) async {
     try {
@@ -339,11 +409,11 @@ class _EditproductState extends State<Editproduct> {
     );
   }
 
-  Widget dropdown() {
+  Widget dropdown1() {
     return Container(
       width: 300,
       child: DropdownButtonFormField(
-        hint: Text('เลือกประเภท'),
+
         icon: Padding(
           //Icon at tail, arrow bottom is default icon
           padding: EdgeInsets.only(left: 100),
@@ -352,27 +422,36 @@ class _EditproductState extends State<Editproduct> {
             color: kPrimaryColor,
           ),
         ),
-        value: protype_id,
+
+    value: selectvalue,
         elevation: 5,
         style: TextStyle(color: kPrimaryblckColor),
-        onChanged: (String? value) {
-          // This is called when the user selects an item.
-          setState(() {
-            protype_id = value!;
-          });
-        },
-        items: list.map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
+        items: typeProducts.map((TypeProductModel model) {
+          return DropdownMenuItem(
+            value: model.idtypeproduct,
             child: Text(
-              value,
+              model.typeproductname,
               style: TextStyle(fontSize: 16),
             ),
           );
         }).toList(),
+        onChanged: (String? value) {
+          // This is called when the user selects an item.
+          setState(() {
+            protype_id = value!;
+
+          });
+        },
       ),
     );
   }
+
+
+
+
+
+
+
 
   Future<Null> uplodeimageandsave() async {
     Random random = Random();
@@ -499,4 +578,5 @@ class _EditproductState extends State<Editproduct> {
       },
     );
   }
+
 }

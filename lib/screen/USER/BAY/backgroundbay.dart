@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../constants.dart';
+
 
 class BackgroundHomePageBay extends StatelessWidget {
   final Widget child;
@@ -14,7 +16,7 @@ class BackgroundHomePageBay extends StatelessWidget {
     return Container(
       height: size.height,
       width: double.infinity,
-      color: Colors.lightGreen.shade50,
+      color:kPrimarybackgron,
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[

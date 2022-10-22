@@ -56,7 +56,7 @@ class ItemCard extends StatelessWidget {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  'ประเภท: ${productModel.idtypeproduct}',
+                  'ประเภท: ${productModel.typeproductname}',
                   style: TextStyle(fontSize: 16),
                 ),
                 Text(

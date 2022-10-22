@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:project/model/productmodel.dart';
 import 'package:project/model/producttypemodel.dart';
 import 'package:project/my_style.dart';
+import 'package:project/screen/USER/SALE/components/showtype.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../configs/services/api.dart';
 import '../../../../../constants.dart';
@@ -13,7 +14,7 @@ import '../../../../../future_All.dart';
 import '../../../../../model/usermodel.dart';
 import '../../../../../winged/itemcard.dart';
 import '../../../BAY/Product/editproduct.dart';
-import '../../components/productdetle.dart';
+import '../../components/shopdetait.dart';
 import 'appbarhomepagesale.dart';
 import 'body_homesale.dart';
 
@@ -27,6 +28,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<TypeProductModel> typeProductModels = [];
   List<ProductModel> productModels = [];
+  List<UserModel> userModels =[];
+
   bool status = true;
 
 
@@ -37,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     readTypeProduct();
     readProduct();
-
+    readUser();
     pageController.addListener(
       () {
         setState(
@@ -100,6 +103,30 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Future<Null> readUser() async {
+    String url = API.BASE_URL + '/kongkao/showusershop.php?isAdd=true';
+
+    Response response = await Dio().get(url);
+    print('response$response');
+    var result = jsonDecode(response.data); //ดึงข้อมูลมา
+    // print("result>>>>$result");
+    if (result.toString() != 'null') {
+      // print("have");
+      for (var map in result) {
+        UserModel userModel = UserModel.fromJson(map);
+        setState(() {
+          userModels.add(userModel);
+          // productDetel.add(creatListvile(productModel));
+        });
+      }
+    } else {
+      setState(() {
+        status = false;
+      });
+      print("nohave");
+    }
+  }
+
   PageController pageController = PageController(viewportFraction: 0.90);
   var _currPageValue = 0.0;
   double _scaleFactor = 0.8;
@@ -108,6 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kPrimarybackgron,
       appBar: HomeAppBarSall(),
       body: status
           ? MyStyle().showProgress()
@@ -134,24 +162,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('ร้านค้า', style: TextStyle(fontSize: 18)),
+                        Text('สินค้า', style: TextStyle(fontSize: 18)),
                       ],
                     ),
                   ),
-                  showlistProduct(),
-
-
-
-
-                  // SizedBox(
-                  //   height: 200,
-                  //   child: GridView.extent(
-                  //     maxCrossAxisExtent: 200,
-                  //     mainAxisSpacing: 1,
-                  //     crossAxisSpacing: 1,
-                  //     children: productDetel,
-                  //   ),
-                  // ),
+                  // showlistProduct(),
+showlistUser(),
                 ],
               ),
             ),
@@ -168,8 +184,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         margin: EdgeInsets.only(left: 20, right: 20),
                         child: TextButton(
                           onPressed: () {
-                            MaterialPageRoute route = MaterialPageRoute(builder: (context) => ShopDetait(productModel: productModels[index],),);//ส้งค่า
-                            Navigator.push(context, route).then((value) => readProduct());
+                            MaterialPageRoute route = MaterialPageRoute(builder: (context) => ShopDetait( userModel: userModels[index],),);//ส้งค่า
+                            Navigator.push(context, route);
                           },
                           child: Row(
                             children: [
@@ -199,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Expanded(
                                 child: Container(
                                   margin: EdgeInsets.only(top: 15,left: 10),
-                                  height: fixsixe.listviewTextContSize,
+                                  height: fixsixe.listViewImgSize,
                                   width: 200,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
@@ -215,40 +231,40 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ]),
                                   child: Padding(
                                     padding:
-                                    EdgeInsets.only(left: 10, right: 10),
+                                    EdgeInsets.only(left: 20, right: 10),
                                     child: Column(
                                       crossAxisAlignment:
                                       CrossAxisAlignment.start,
                                       mainAxisAlignment:
                                       MainAxisAlignment.center,
                                       children: [
-                                        Center(
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                '${productModels[index].productname}',
+                                        Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              '${productModels[index].productname}',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            SizedBox(
+                                              height: 8,
+                                            ),
+                                            Text(
+                                                'ร้าน: ${productModels[index].shop}',
                                                 style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.bold),
-                                              ),
-                                              SizedBox(
-                                                height: 8,
-                                              ),
-                                              Text(
-                                                  'ราคา: ${productModels[index].productprice} บาท',
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 15,
-                                                      fontWeight: FontWeight.normal)),
-                                              Text(
-                                                  'ประเภท: ${productModels[index].typeproductname}',
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 15,
-                                                      fontWeight: FontWeight.normal)),
-                                            ],
-                                          ),
+                                                    fontSize: 14,
+                                                    )),
+                                            Text(
+                                                'ราคา: ${productModels[index].productprice} บาท',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                   )),
+
+
+                                          ],
                                         ),
 
                                       ],
@@ -263,10 +279,114 @@ class _HomeScreenState extends State<HomeScreen> {
                     });
   }
 
-  Container paheVile() {
+  Widget  showlistUser() {
+    return ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: userModels.length,
+        itemBuilder: (context, index) {
+          return Container(
+            margin: EdgeInsets.only(left: 20, right: 20),
+            child: TextButton(
+              onPressed: () {
+                MaterialPageRoute route = MaterialPageRoute(builder: (context) => ShopDetait( userModel: userModels[index],),);//ส้งค่า
+                Navigator.push(context, route);
+              },
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    width: fixsixe.listViewImgSize,
+                    height: fixsixe.listViewImgSize,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(API.BASE_URL +
+                              userModels[index].photo),
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                        color: kPrimaryLightColor,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black12,
+                              //color: Colors.lightGreen,
+                              blurRadius: 1.0,
+                              offset: Offset(0, 5)),
+                          BoxShadow(color: Colors.white, offset: Offset(-5, 0)),
+                          BoxShadow(color: Colors.white, offset: Offset(5, 0))
+                        ]),
+
+                  ),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(top: 15,left: 10),
+                      height: fixsixe.listViewImgSize,
+                      width: 200,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black12,
+                                //color: Colors.lightGreen,
+                                blurRadius: 1.0,
+                                offset: Offset(0, 5)),
+                            BoxShadow(color: Colors.white, offset: Offset(-5, 0)),
+                            BoxShadow(color: Colors.white, offset: Offset(5, 0))
+                          ]),
+                      child: Padding(
+                        padding:
+                        EdgeInsets.only(left: 20, right: 10),
+                        child: Column(
+                          crossAxisAlignment:
+                          CrossAxisAlignment.start,
+                          mainAxisAlignment:
+                          MainAxisAlignment.center,
+                          children: [
+                            Column(crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${userModels[index].shop}',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Text('ค่าบริการ: ${userModels[index].charge}',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    )),
+                                Text('เวลาทำการ: ${userModels[index].time}',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    )),
+
+
+                              ],
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  Widget paheVile() {
     return Container(
       height: fixsixe.pageView,
       child: PageView.builder(
+        scrollDirection: Axis.horizontal,
         controller: pageController,
         itemCount: typeProductModels.length,
         itemBuilder: (context, position) {
@@ -304,105 +424,77 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Transform(
       transform: matrix,
-      child: Stack(
-        children: [
-          Container(
-            height: fixsixe.pageViewContainer,
-            margin: EdgeInsets.only(left: 5, right: 5, top: 20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              color: index.isEven ? kPrimaryColor : kPrimaryLightColor,
-              image: DecorationImage(
-                // fit: BoxFit.cover,
-                image: NetworkImage(API.BASE_URL +
-                    typeProductModels[index].typeproductcolphoto),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: fixsixe.pageViewTextContainer,
-              margin: EdgeInsets.only(left: 40, right: 40, bottom: 15),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black12,
-                        //color: Colors.lightGreen,
-                        blurRadius: 1.0,
-                        offset: Offset(0, 5)),
-                    BoxShadow(color: Colors.white, offset: Offset(-5, 0)),
-                    BoxShadow(color: Colors.white, offset: Offset(5, 0))
-                  ]),
-              child: Container(
-                padding: EdgeInsets.only(top: 15, left: 15, right: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '${typeProductModels[index].typeproductname}',
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Wrap(
-                          children: List.generate(5, (index) {
-                            return Icon(
-                              Icons.star,
-                              color: Colors.red,
-                              size: 15,
-                            );
-                          }),
-                        )
-                      ],
-                    )
-                  ],
+      child: TextButton(onPressed:() {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ShowList(typeProductModel: typeProductModels[index],),));
+        },
+        child: Stack(
+            children: [
+              Container(
+                height: fixsixe.pageViewContainer,
+                margin: EdgeInsets.only(left: 5, right: 5, top: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: index.isEven ? kPrimaryColor : kPrimaryLightColor,
+                  image: DecorationImage(
+                    // fit: BoxFit.cover,
+                    image: NetworkImage(API.BASE_URL +
+                        typeProductModels[index].typeproductcolphoto),
+                  ),
                 ),
               ),
-            ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: fixsixe.pageViewTextContainer,
+                  margin: EdgeInsets.only(left: 40, right: 40, bottom: 15),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black12,
+                            //color: Colors.lightGreen,
+                            blurRadius: 1.0,
+                            offset: Offset(0, 5)),
+                        BoxShadow(color: Colors.white, offset: Offset(-5, 0)),
+                        BoxShadow(color: Colors.white, offset: Offset(5, 0))
+                      ]),
+                  child: Container(
+                    padding: EdgeInsets.only(top: 15, left: 15, right: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${typeProductModels[index].typeproductname}',
+                          style:
+                              TextStyle(fontSize: 30, fontWeight: FontWeight.bold,color: Colors.black),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Wrap(
+                              children: List.generate(5, (index) {
+                                return Icon(
+                                  Icons.star,
+                                  color: Colors.red,
+                                  size: 15,
+                                );
+                              }),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
       ),
     );
   }
 
-  // Widget creatListvile(ProductModel productModel) {
-  //   return Card(
-  //     child: TextButton(
-  //       onPressed: () {
-  //         Navigator.push(
-  //             context,
-  //             MaterialPageRoute(
-  //               builder: (context) => ShopDetait(productModel: productModel),
-  //             )).then((value) => readProduct());
-  //       },
-  //       child: Column(
-  //         children: [
-  //           Container(
-  //             height: 100,
-  //             decoration: BoxDecoration(
-  //                 image: DecorationImage(
-  //               fit: BoxFit.cover,
-  //               image: NetworkImage(API.BASE_URL + productModel.productphoto),
-  //             )),
-  //           ),
-  //           Text(productModel.productname),
-  //           Text('ราคา ${productModel.productprice}',
-  //               style: TextStyle(
-  //                 color: kPrimaryblckColor,
-  //               )),
-  //           Text('ประเภท ${productModel.typeproductname}',
-  //               style: TextStyle(color: kPrimaryblckColor, fontSize: 16)),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 }

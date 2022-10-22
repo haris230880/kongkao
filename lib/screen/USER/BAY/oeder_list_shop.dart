@@ -10,10 +10,13 @@ import 'package:project/model/usermodel.dart';
 import 'package:project/my_style.dart';
 import 'package:project/screen/USER/BAY/Product/addproduct.dart';
 import 'package:project/screen/USER/BAY/Product/editproduct.dart';
-import 'package:project/screen/USER/SALE/components/productdetle.dart';
+import 'package:project/screen/USER/SALE/components/shopdetait.dart';
 import 'package:project/winged/itemcard.dart';
 
 class OrderListShop extends StatefulWidget {
+
+
+
   const OrderListShop({Key? key}) : super(key: key);
 
   @override
@@ -21,9 +24,11 @@ class OrderListShop extends StatefulWidget {
 }
 
 class _OrderListShopState extends State<OrderListShop> {
-  List<ProductModel> productModels = [];
+  // List<ProductModel> productModels = [];
 
   List<Widget> productitem = [];
+
+
   bool status = true;
   bool lodestatus = true;
 
@@ -36,8 +41,8 @@ class _OrderListShopState extends State<OrderListShop> {
 
 
   Future<Null> readProduct() async {
-    if (productModels.length != 0){
-      productModels.clear();
+    if (productitem.length != 0){
+      productitem.clear();
     }
     String url =
         API.BASE_URL + '/kongkao/showproduct.php?isAdd=true&id=$userid';
@@ -50,7 +55,7 @@ class _OrderListShopState extends State<OrderListShop> {
         for (var map in result){
           ProductModel productModel = ProductModel.fromJson(map);
           setState(() {
-            productModels.add(productModel);
+            // productModels.add(productModel);
             productitem.add(creatCard(productModel));
             status = false;
           });
@@ -154,6 +159,7 @@ class _OrderListShopState extends State<OrderListShop> {
                 builder: (context) => Editproduct(productModel: productModel),
               )).then((value) => readProduct());
         },
+
         child: Column(
           children: [
             Container(

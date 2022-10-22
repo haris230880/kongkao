@@ -22,7 +22,7 @@ import '../../../../../configs/services/api.dart';
 import '../../../../../model/producttypemodel.dart';
 import '../../../../../model/usermodel.dart';
 import '../../../../../my_style.dart';
-import '../../components/productdetle.dart';
+import '../../components/shopdetait.dart';
 import 'appbarhomepagesale.dart';
 
 class BodyHomePageSall extends StatefulWidget {

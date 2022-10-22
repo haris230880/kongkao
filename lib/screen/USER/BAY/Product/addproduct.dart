@@ -42,7 +42,7 @@ class _AddProductState extends State<AddProduct> {
   final formKey = GlobalKey<FormState>();
   String? product_price, product_photo, product_name;
   File? file;
-  String? protype_id;
+  String? protype_id,selectvalue;
 
   List<TypeProductModel> typeProducts = [];
   List dataproduct = [];
@@ -180,7 +180,11 @@ class _AddProductState extends State<AddProduct> {
                   ),
                    // dropdown2(),
 
-                  dropdown(),
+                  // dropdown(),
+
+                  DropdownTypeProduct(
+                  ),
+
                   // Center(child: dropdown()),
                   SizedBox(
                     height: 50,
@@ -267,6 +271,27 @@ class _AddProductState extends State<AddProduct> {
       ),
     );
   }
+
+  Widget DropdownTypeProduct() {
+    return Container(
+      width: 300,
+      child: DropdownButtonFormField(
+          hint: Text('เลือกประเภท'),
+          value: selectvalue,
+          items: typeProducts.map((TypeProductModel model) {
+            return DropdownMenuItem(
+              value: model.idtypeproduct,
+              child: Text(model.typeproductname),
+            );
+          }).toList(),
+          onChanged: (String? value) {
+            setState(() {
+              protype_id = value;
+            });
+          }),
+    );
+  }
+
 
   Container dropdown2() {
     return Container(
