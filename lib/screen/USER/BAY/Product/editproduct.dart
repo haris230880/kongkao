@@ -26,28 +26,30 @@ class Editproduct extends StatefulWidget {
   State<Editproduct> createState() => _EditproductState();
 }
 
-List<String> list = <String>[
-  // 'พลาสติก',
-  // 'กระดาษ',
-  // 'อลูมิเนียม',
-  // 'แก้ว',
-  // 'อื่น ๆ'
-  '1',
-  '2',
-  '3',
-  '4',
-  '5'
-];
+// List<String> list = <String>[
+//   // 'พลาสติก',
+//   // 'กระดาษ',
+//   // 'อลูมิเนียม',
+//   // 'แก้ว',
+//   // 'อื่น ๆ'
+//   '1',
+//   '2',
+//   '3',
+//   '4',
+//   '5'
+// ];
 
 class _EditproductState extends State<Editproduct> {
   late ProductModel productModel;
   late TypeProductModel typeProductModel;
 
   final formKey = GlobalKey<FormState>();
-  String? product_price, product_photo, product_name,product_id;
+  String? product_price, product_photo, product_name, product_id;
   File? file;
-  String ? protype_id , selectvalue ;
+  String? protype_id, selectvalue;
+
   List<TypeProductModel> typeProducts = [];
+
   @override
   void initState() {
     // TODO: implement initState
@@ -61,35 +63,40 @@ class _EditproductState extends State<Editproduct> {
     protype_id = productModel.typeproductname;
 
     readTypeProduct();
+
+    print('selectvalue???$selectvalue');
   }
+
   Future<Null> readTypeProduct() async {
     String url = API.BASE_URL + '/kongkao/showtypeproduct.php?isAdd=true';
 
     Response response = await Dio().get(url);
     //print('response$response');
     var result = jsonDecode(response.data); //ดึงข้อมูลมา
-     print("result>>>>$result");
+    print("result>>>>$result");
     if (result.toString() != 'null') {
       // print("have");
       for (var map in result) {
         TypeProductModel typeProductModel = TypeProductModel.fromJson(map);
         setState(() {
           typeProducts.add(typeProductModel);
-
         });
-
       }
     } else {
       normaDiolog(context, 'Error');
       print("nohave");
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return BackgroundHomePageBay(
       child: Scaffold(
         appBar: AppBar(
-          actions: [IconButton(onPressed:() => confirmDialog(),icon: Icon(Icons.delete))],
+          actions: [
+            IconButton(
+                onPressed: () => confirmDialog(), icon: Icon(Icons.delete))
+          ],
           backgroundColor: kPrimaryColor,
           title: Text('EditProduct'),
         ),
@@ -191,7 +198,7 @@ class _EditproductState extends State<Editproduct> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                     dropdown1(),
+                      dropdown1(),
                     ],
                   ),
                   SizedBox(
@@ -216,7 +223,7 @@ class _EditproductState extends State<Editproduct> {
                         onPressed: () {
                           final isValidFrom = formKey.currentState!.validate();
                           if (isValidFrom) {
-                            uplodeimageandsave(); 
+                            uplodeimageandsave();
                             getHttpProduct();
                             Navigator.pop(context);
                           } else {
@@ -273,13 +280,10 @@ class _EditproductState extends State<Editproduct> {
             ),
           ),
         ),
-
-
-
       ),
     );
-
   }
+
   // Widget DropdownTypeProduct() {
   //   return Container(
   //     width: 300,
@@ -300,8 +304,6 @@ class _EditproductState extends State<Editproduct> {
   //   );
   // }
 
-
-
   // Widget dropdown() {
   //   return Container(
   //     width: 300,
@@ -321,7 +323,6 @@ class _EditproductState extends State<Editproduct> {
   //         }),
   //   );
   // }
-
 
   Future<Null> chooseImage(ImageSource imageSource) async {
     try {
@@ -413,7 +414,7 @@ class _EditproductState extends State<Editproduct> {
     return Container(
       width: 300,
       child: DropdownButtonFormField(
-
+        hint: Text('${protype_id}'),
         icon: Padding(
           //Icon at tail, arrow bottom is default icon
           padding: EdgeInsets.only(left: 100),
@@ -422,8 +423,7 @@ class _EditproductState extends State<Editproduct> {
             color: kPrimaryColor,
           ),
         ),
-
-    value: selectvalue,
+        value: selectvalue,
         elevation: 5,
         style: TextStyle(color: kPrimaryblckColor),
         items: typeProducts.map((TypeProductModel model) {
@@ -439,19 +439,11 @@ class _EditproductState extends State<Editproduct> {
           // This is called when the user selects an item.
           setState(() {
             protype_id = value!;
-
           });
         },
       ),
     );
   }
-
-
-
-
-
-
-
 
   Future<Null> uplodeimageandsave() async {
     Random random = Random();
@@ -484,26 +476,19 @@ class _EditproductState extends State<Editproduct> {
     }
   }
 
+  Future<Null> deleteProduct() async {
+    String url = API.BASE_URL +
+        '/kongkao/deleteproduct%20.php?isAdd=true&productid=$product_id';
 
-
-
-
-
-  Future<Null> deleteProduct ()async{
-
-    String url =API.BASE_URL+'/kongkao/deleteproduct%20.php?isAdd=true&productid=$product_id';
-
-    try{
-      var response =await Dio().get(API.BASE_URL+'/kongkao/deleteproduct%20.php?isAdd=true&productid=$product_id');
-    }catch (e){
+    try {
+      var response = await Dio().get(API.BASE_URL +
+          '/kongkao/deleteproduct%20.php?isAdd=true&productid=$product_id');
+    } catch (e) {
       print(e);
-      
     }
-    
   }
 
-
-  Future <Null> confirmDialog()async{
+  Future<Null> confirmDialog() async {
     showDialog<void>(
       context: context,
       // barrierDismissible: barrierDismissible,
@@ -513,22 +498,21 @@ class _EditproductState extends State<Editproduct> {
           title: Text('ยืนยัน'),
           content: Text('ต้องการที่จะลบข้อมูลใช่หรือไม่ ?'),
           actions: <Widget>[
-            Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      elevation: 5,
-                      // Foreground color
-                      onPrimary: Colors.white,
-                      // Background color
-                      primary: kPrimaryColor,
-                      minimumSize: Size(50, 40))
-                      .copyWith(
-                      elevation:
-                      ButtonStyleButton.allOrNull(2.0)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          elevation: 5,
+                          // Foreground color
+                          onPrimary: Colors.white,
+                          // Background color
+                          primary: kPrimaryColor,
+                          minimumSize: Size(50, 40))
+                      .copyWith(elevation: ButtonStyleButton.allOrNull(2.0)),
                   onPressed: () {
                     deleteProduct();
                     Navigator.pop(context);
@@ -545,20 +529,18 @@ class _EditproductState extends State<Editproduct> {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      elevation: 5,
-                      // Foreground color
-                      onPrimary: Colors.white,
-                      // Background color
-                      primary: Colors.red,
-                      minimumSize: Size(50, 40))
-                      .copyWith(
-                      elevation:
-                      ButtonStyleButton.allOrNull(2.0)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          elevation: 5,
+                          // Foreground color
+                          onPrimary: Colors.white,
+                          // Background color
+                          primary: Colors.red,
+                          minimumSize: Size(50, 40))
+                      .copyWith(elevation: ButtonStyleButton.allOrNull(2.0)),
                   onPressed: () {
-                   Navigator.pop(context); // Dismiss alert dialog
+                    Navigator.pop(context); // Dismiss alert dialog
                   },
                   child: Row(
                     children: [
@@ -570,7 +552,6 @@ class _EditproductState extends State<Editproduct> {
                     ],
                   ),
                 ),
-
               ],
             ),
           ],
@@ -578,5 +559,4 @@ class _EditproductState extends State<Editproduct> {
       },
     );
   }
-
 }
