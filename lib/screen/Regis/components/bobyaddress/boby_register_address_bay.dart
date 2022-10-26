@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:location/location.dart';
 import 'package:project/my_style.dart';
-import '../../../../configs/datauserbay.dart';
+import '../../../../configs/services/datauserbay.dart';
 import '../../../../constants.dart';
 import '../../../../future_All.dart';
 import '../background_regis.dart';

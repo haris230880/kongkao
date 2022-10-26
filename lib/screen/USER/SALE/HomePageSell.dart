@@ -29,11 +29,18 @@ class HomePageSell extends StatefulWidget {
   State<HomePageSell> createState() => _HomePageSellState();
 }
 
+
 class _HomePageSellState extends State<HomePageSell> {
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    finduser();
+  }
 
   int currentIndex = 0;
   final screen = [
-    HomeScreen(),
+    HomeScreensale(),
     OrderScreen(),
     NotiFicationBayScreen(),
     ProFileUserSaleSreen(),

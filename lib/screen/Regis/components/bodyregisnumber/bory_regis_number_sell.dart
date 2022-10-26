@@ -9,7 +9,7 @@ import 'package:project/screen/Regis/components/background_regis.dart';
 import 'package:project/screen/Regis/components/bodyregisnumber/body_regis_number_bay.dart';
 import 'package:project/screen/Regis/components/bodyregister/body_register_sell.dart';
 import 'package:project/screen/Regis/components/regis.dart';
-import '../../../../configs/datausersale.dart';
+import '../../../../configs/services/datausersale.dart';
 import '../../../../constants.dart';
 import 'package:dio/dio.dart';
 
@@ -196,12 +196,12 @@ class _BodyRegisNumberSaleState extends State<BodyRegisNumberSale> {
                 onPressed: () {
                   final isValidFrom = formKey.currentState!.validate();
                   if (isValidFrom) {
-                  uplodeimageusersaveusersale();
+                  // uplodeimageusersaveusersale();
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return OtpScreen();
+                          return OtpScreenSale();
                         },
                       ),
                     );
@@ -239,36 +239,7 @@ class _BodyRegisNumberSaleState extends State<BodyRegisNumberSale> {
 
   void togglePasswordVisibility() => setState(() => isHidden = !isHidden);
 
-  void uplodeimageusersaveusersale() async {
-    Random random = Random();
-    int i = random.nextInt(100000);
-    String nameimage = 'user$i.jpg';
-    String url = API.BASE_URL + '/kongkao/saveimage.php';
-    try {
-      Map<String, dynamic> map = Map();
-      map['file'] = await MultipartFile.fromFile(fileusersell!.path, filename: nameimage);
-      FormData formData = FormData.fromMap(map);
-      await Dio().post(url, data: formData).then((value) {
-        print('value=====$value');
-        selluser_photo = '/kongkao/Image/$nameimage';
-        print('nameimage ======= $selluser_photo');
-        print('user_photo>>>>>$selluser_photo');
-        getHttpSaleuser();
 
-
-
-      });
-    } catch (e) {}
-  }//บันทึกข้อมูลผู้ขายเเละรูป
-  void getHttpSaleuser() async {
-    try {
-      var response = await Dio().get(API.BASE_URL +
-          '/kongkao/insertuser.php?id=3&name=$selluser_name&lastname=$selluser_sname&phone=$selluser_phone&email=$selluser_email&photo=$selluser_photo&typeuser=sale&password=$selluser_password&housenum=$selluser_housenum&district=$selluser_district&prefecture=$selluser_prefecture&city=$selluser_city&postid=$selluser_postid&latitude=$lat&longitude=$lng&charge=NULL&shop=NULL&time=NULL');
-      print(response);
-    } catch (e) {
-      print(e);
-    }
-  }//apiบันทึกข้อมูลผู้ขาย
 }//end
 
 

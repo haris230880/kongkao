@@ -10,7 +10,7 @@ import 'package:project/screen/Regis/components/bodyregister/body_register_bay.d
 import 'package:project/screen/USER/BAY/HomePageBay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'configs/datauserbay.dart';
+import 'configs/services/datauserbay.dart';
 import 'configs/services/api.dart';
 import 'constants.dart';
 import 'model/usermodel.dart';

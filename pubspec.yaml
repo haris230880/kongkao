@@ -46,6 +46,8 @@ dependencies:
   flutter_native_splash: ^2.2.10+1
   dots_indicator: ^2.1.0
   get: ^4.6.5
+  intl: ^0.17.0
+  email_auth: ^1.0.0
 
 
 dev_dependencies:

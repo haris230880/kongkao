@@ -7,7 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:project/future_All.dart';
 import 'package:project/screen/Regis/components/regis.dart';
 
-import '../../../../configs/datauserbay.dart';
+import '../../../../configs/services/datauserbay.dart';
 import '../../../../configs/services/api.dart';
 import '../../../../constants.dart';
 import '../../../../my_style.dart';
@@ -157,39 +157,8 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
                             )),
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      height: 50,
-                      width: 350,
-                      child: TextFormField(
-                        validator: (buyuser_email) =>
-                            EmailValidator.validate(buyuser_email!)
-                                ? null
-                                : "กรอกอีเมล ลงท้ายด้วย@gmail.com",
-                        onChanged: (value) => buyuser_email = value.trim(),
-                        cursorColor: kPrimaryColor,
-                        keyboardType: TextInputType.emailAddress,
-                        textAlignVertical: TextAlignVertical.center,
-                        decoration: InputDecoration(
-                            filled: true,
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
-                            contentPadding: EdgeInsets.all(10),
-                            label: Text(
-                              'อีเมล',
-                              style: TextStyle(color: kPrimaryblckColor),
-                            ),
-                            prefixIcon: Icon(
-                              Icons.email,
-                              size: 25,
-                              color: kPrimaryColor,
-                            )),
-                      ),
-                    ),
+
+
                     SizedBox(
                       height: 30,
                     ),
@@ -227,6 +196,7 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
                     ),
                     TextButton(
                       onPressed: () {
+                        fileuserbuy=null;
                         Navigator.push(
                           context,
                           MaterialPageRoute(

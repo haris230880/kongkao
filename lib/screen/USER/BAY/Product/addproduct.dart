@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:project/configs/datauserbay.dart';
+import 'package:project/configs/services/datauserbay.dart';
 import 'package:project/constants.dart';
 import 'package:project/future_All.dart';
 import 'package:project/model/producttypemodel.dart';
@@ -79,17 +79,9 @@ class _AddProductState extends State<AddProduct> {
     }
   }
 
-  static final List<NewObject> items = <NewObject>[
-    NewObject('1','เเก้ว'),
-    NewObject('2','พลาสติก'),
-    NewObject('3','กระดาษ'),
-    NewObject('4','อลูมิเนียม'),
-    NewObject('5','อิเล็กทรอนิกส์'),
-    NewObject('6','อื่นๆ'),
 
-  ];
 
-  NewObject protype_id2 = items.first;
+
 
   @override
   Widget build(BuildContext context) {
@@ -293,42 +285,7 @@ class _AddProductState extends State<AddProduct> {
   }
 
 
-  Container dropdown2() {
-    return Container(
-                  width: 350,
-                  padding: EdgeInsets.symmetric(horizontal:20, vertical: 2),
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(20),
-                      color: Colors.black12
-                      ),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton<NewObject>(
-                      value: protype_id2,
-                      items: items
-                          .map((item) => DropdownMenuItem<NewObject>(
-                                child: Row(
-                                  children: [
-                                    Text(item.txt),
-                        SizedBox(width: 10,),
-                                    Text(
-                                      item.title,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
-                                    ),
-                                  ],
-                                ),
-                                value: item,
-                              ))
-                          .toList(),
-                      onChanged: ( value) => setState(() {
-                         protype_id2 = value!;
-                         print('protype_id2>>>>$protype_id2');
-                      }),
-                    ),
-                  ),
-                );
-  }
+
 
   Widget nameFrom(
     String namefile,

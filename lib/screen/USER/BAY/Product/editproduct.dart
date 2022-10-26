@@ -198,7 +198,7 @@ class _EditproductState extends State<Editproduct> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      dropdown1(),
+                      dropdown(),
                     ],
                   ),
                   SizedBox(
@@ -284,45 +284,6 @@ class _EditproductState extends State<Editproduct> {
     );
   }
 
-  // Widget DropdownTypeProduct() {
-  //   return Container(
-  //     width: 300,
-  //     child: DropdownButtonFormField(
-  //         hint: Text('เลือกประเภท'),
-  //         value: selectvalue,
-  //         items: typeProducts.map((TypeProductModel model) {
-  //           return DropdownMenuItem(
-  //             value: model.idtypeproduct,
-  //             child: Text(model.typeproductname),
-  //           );
-  //         }).toList(),
-  //         onChanged: (String? value) {
-  //           setState(() {
-  //             protype_id = value;
-  //           });
-  //         }),
-  //   );
-  // }
-
-  // Widget dropdown() {
-  //   return Container(
-  //     width: 300,
-  //     child: DropdownButtonFormField(
-  //         hint: Text('sdads'),
-  //         value: selectvalue,
-  //         items: typeProducts.map((TypeProductModel model) {
-  //           return DropdownMenuItem(
-  //             value: model.idtypeproduct,
-  //             child: Text(model.typeproductname),
-  //           );
-  //         }).toList(),
-  //         onChanged: (String? value) {
-  //           setState(() {
-  //             protype_id = value;
-  //           });
-  //         }),
-  //   );
-  // }
 
   Future<Null> chooseImage(ImageSource imageSource) async {
     try {
@@ -410,7 +371,7 @@ class _EditproductState extends State<Editproduct> {
     );
   }
 
-  Widget dropdown1() {
+  Widget dropdown() {
     return Container(
       width: 300,
       child: DropdownButtonFormField(
@@ -458,7 +419,6 @@ class _EditproductState extends State<Editproduct> {
       FormData formData = FormData.fromMap(map);
       await Dio().post(url, data: formData).then((value) {
         print('$value');
-
         product_photo = '/kongkao/imageproduct/$nameimage';
         print('$product_photo');
         getHttpProduct();

@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:location/location.dart';
 import 'package:project/configs/services/api.dart';
 import 'package:project/constants.dart';
 import 'package:project/future_All.dart';
@@ -26,6 +29,10 @@ class _ShopDetaitState extends State<ShopDetait> {
   List<ProductModel> productModels = [];
   bool status = false;
   String? idshop;
+  int? transport,sum;
+  double? lat1, lng1, lat2, lng2, distincd;
+  String? distincdString,	exphoto;
+
 
   @override
   void initState() {
@@ -33,10 +40,71 @@ class _ShopDetaitState extends State<ShopDetait> {
     super.initState();
     userModel = widget.userModel; //รับค่า
     idshop = userModel.id;
+    findLat1Lng1();
 
     print(idshop);
     readProduct();
   }
+
+
+  Future<LocationData?> findLocation() async {
+    Location location = Location();
+    try {
+      return await location.getLocation();
+    } catch (e) {}
+    return null;
+  }
+
+  Future<Null> findLat1Lng1() async {
+    LocationData? locationData = await findLocation();
+    setState(() {
+      lat1 = locationData!.latitude;
+      lng1 = locationData!.longitude;
+
+      lat2 = double.parse(userModel.latitude);
+      lng2 = double.parse(userModel.longitude);
+
+      print('lat1&lng1: $lat1,$lng1');
+      print('lat2&lng2: $lat2,$lng2');
+
+      distincd = calculateDistance(lat1!, lng1!, lat2!, lng2!);
+      var myformat = NumberFormat('#0.0#', 'en_US'); //กำหนดกิโล
+      distincdString = myformat.format(distincd);
+      print('distincd = $distincd');
+      transport = calcutateTansport(distincd!);
+      print('transport = $transport');
+
+
+
+    });
+  }
+
+  double calculateDistance(double lat1, double lng1, double lat2, double lng2) {
+    double distance = 0;
+
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 -
+        c((lat2 - lat1) * p) / 2 +
+        c(lat1 * p) * c(lat2 * p) * (1 - c((lng2 - lng1) * p)) / 2;
+    distance = 12742 * asin(sqrt(a));
+
+    return distance;
+  } //คำนวนระยะห่าง
+
+  int? calcutateTansport(double distincd) {
+    int transport;
+    if (distincd < 5.0) {
+      transport = 5; //
+      return transport;
+    } else {
+      transport = 5 + (distincd - 5).round() * 10; //เกิน0.5ปัดขึ้น
+      return transport;
+    }
+  } //คำนวนราคาค่าส่ง
+
+
+
 
   Future<Null> readProduct() async {
     String url =
@@ -191,7 +259,7 @@ class _ShopDetaitState extends State<ShopDetait> {
                             style: TextStyle(color: Colors.black, fontSize: 16),
                           ),
                           Text(
-                            '2.8 กม.',
+                            'ค่าส่ง: $transport \$',
                             style: TextStyle(color: Colors.black, fontSize: 16),
                           ),
                         ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:location/location.dart';
-import 'package:project/configs/datausersale.dart';
+import 'package:project/configs/services/datausersale.dart';
 import 'package:project/my_style.dart';
 
 import '../../../../constants.dart';

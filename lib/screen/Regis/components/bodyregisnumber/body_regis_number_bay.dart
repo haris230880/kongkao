@@ -6,7 +6,7 @@ import 'package:project/configs/services/api.dart';
 import 'package:project/screen/Regis/components/bobyaddress/boby_register_address_bay.dart';
 import 'package:project/screen/Regis/components/regis.dart';
 import 'package:project/my_style.dart';
-import '../../../../configs/datauserbay.dart';
+import '../../../../configs/services/datauserbay.dart';
 import '../../../../constants.dart';
 import '../../../../future_All.dart';
 import '../background_regis.dart';
@@ -189,12 +189,11 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                 onPressed: () {
                   final isValidFrom = formKey.currentState!.validate();
                   if (isValidFrom) {
-                  uplodeimageusersaveuserbuy();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return OtpScreen();
+                        return OtpScreenBuy();
                       },
                     ),
                   );
@@ -227,57 +226,7 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
 
   void togglePasswordVisibility() => setState(() => isHidden = !isHidden);
 
-  void uplodeimageusersaveuserbuy() async {
-    Random random = Random();
-    int i = random.nextInt(100000);
-    String nameimage = 'user$i.jpg';
-    String url = API.BASE_URL + '/kongkao/saveimage.php';
-    try {
-      Map<String, dynamic> map = Map();
-      map['file'] =
-          await MultipartFile.fromFile(fileuserbuy!.path, filename: nameimage);
-      FormData formData = FormData.fromMap(map);
-      await Dio().post(url, data: formData).then((value) {
-        print('value=====$value');
-        buyuser_photo = '/kongkao/Image/$nameimage';
-        print('nameimage ======= $buyuser_photo');
-        print('user_photo>>>>>$buyuser_photo');
-        getHttpBuyuser();
 
 
-      });
-    } catch (e) {}
-  } //บันทึกข้อมูลผู้ซื้อเละรูป
 
-  void getHttpBuyuser() async {
-    try {
-      var response = await Dio().get(API.BASE_URL +
-          '/kongkao/insertuser.php?id=3&name=$buyuser_name&lastname=$buyuser_sname&phone=$buyuser_phone&email=$buyuser_email&photo=$buyuser_photo&typeuser=buy&password=$buyuser_password&housenum=$buyuser_housenum&district=$buyuser_district&prefecture=$buyuser_prefecture&city=$buyuser_city&postid=$buyuser_postid&latitude=$lat&longitude=$lng&charge=$buyuser_charge&shop=$buyuser_shop&time=$buyuser_time');
-      print(response);
-    } catch (e) {
-      print(e);
-    }
-  } //apiบันทึกข้อมูลผู้ซื้อ
-
-  Future<Null> chackUser() async {
-    String url = API.BASE_URL +
-        '/kongkao/insertuserphone.php?isAdd=true&phone=$buyuser_phone';
-    try {
-      Response response = await Dio().get(url);
-      print(response);
-      if (response.toString() == 'null') {
-        uplodeimageusersaveuserbuy();
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return OtpScreen();
-            },
-          ),
-        );
-      } else {
-        normaDiolog(context, 'เบอร์ผู้ใช้ซ้ำ');
-      }
-    } catch (e) {}
-  }
 } //end

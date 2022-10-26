@@ -68,7 +68,7 @@ print("${typeProductModel.idtypeproduct}");
         elevation: 0,
         title: Text('${typeProductModel.typeproductname}'),
       ),
-      body: SingleChildScrollView(child: showlistProduct()),
+      body: SingleChildScrollView(child: status ?Text('sadasd') :showlistProduct()),
     );
   }
   Widget  showlistProduct() {

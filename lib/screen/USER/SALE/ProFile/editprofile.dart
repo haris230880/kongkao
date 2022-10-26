@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
-import 'package:project/configs/datauserbay.dart';
+import 'package:project/configs/services/datauserbay.dart';
 import 'package:project/constants.dart';
 import 'package:project/model/usermodel.dart';
 import 'package:project/screen/USER/BAY/HOME/components/appbarhomepagebay.dart';
@@ -54,21 +54,14 @@ class _EditProfilesaleState extends State<EditProfilesale> {
   String? userphone;
 
   UserModel? userModel;
-  Location location = Location();
-  double? lat, lng;
+
 
   @override
   void initState() {
     super.initState();
     readDatauseredit();
 
-    location.onLocationChanged.listen((event) {
-      setState(() {
-        lat = event.latitude;
-        lng = event.longitude;
-         print(lat);
-      });
-    });
+
   }
 
   Future<Null> readDatauseredit() async {
@@ -235,36 +228,11 @@ class _EditProfilesaleState extends State<EditProfilesale> {
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w800),
                             ),
-                            // Container(
-                            //   child: Column(
-                            //       crossAxisAlignment: CrossAxisAlignment.start,
-                            //       children: [
-                            //         SizedBoxprofile(),
-                            //         Container(
-                            //           height: 50,
-                            //           width: 350,
-                            //           child: buildTextFormFieldusershop(),
-                            //         ),
-                            //         SizedBoxprofile(),
-                            //         Container(
-                            //           height: 50,
-                            //           width: 350,
-                            //           child: buildTextFormFieldusercharge(),
-                            //         ),
-                            //         SizedBoxprofile(),
-                            //         Container(
-                            //           height: 50,
-                            //           width: 350,
-                            //           child: buildTextFormFieldusertime(),
-                            //         ),
-                            //
-                            //       ]),
-                            // ),
                           ]),
                       SizedBox(
                         height: 20,
                       ),
-                      Container(child: lat==null ?MyStyle().showProgress() :showmapedit(),),
+                      userModel!.longitude==null?MyStyle().showProgress(): showmapedit(),
                       SizedBox(
                         height: 20,
                       ),
@@ -342,23 +310,31 @@ class _EditProfilesaleState extends State<EditProfilesale> {
   Set <Marker> currenMaker() {
     return <Marker>[
       Marker(
-        markerId: MarkerId('myMaker'),
-        position: LatLng(lat!, lat!),
-        infoWindow: InfoWindow(title: 'ร้านคุณ',snippet: 'Lat: $lat,Lng: $lng'),
+        markerId: MarkerId('myMakerbay'),
+        position: LatLng(double.parse(userModel!.latitude), double.parse(userModel!.longitude)),
+        infoWindow: InfoWindow(title: 'ที่อยู่${userModel!.shop}',snippet: 'Lat: ${userModel!.latitude},Lng: ${userModel!.longitude}'),
       )
     ].toSet();
   }
 
-  Container showmapedit() {
+  Widget showmapedit() {
+
+    double lat = double.parse(userModel!.latitude);
+    double lug = double.parse(userModel!.longitude);
+
+    LatLng latLng = LatLng(lat, lug);
+
+
+
     CameraPosition cameraPosition = CameraPosition(
-      target: LatLng(lat!,lng!),
+      target: latLng,
       zoom: 16,
     );
     return Container(
-      height: 200,
+      height: 300,
       width: 350,
-      child: lat==null?MyStyle().showProgress() :GoogleMap(
-        // myLocationEnabled: true,
+      child: GoogleMap(
+        myLocationEnabled: true,
         initialCameraPosition: cameraPosition,
         mapType: MapType.normal,
         onMapCreated: (controller) {},

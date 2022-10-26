@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:project/configs/datausersale.dart';
+import 'package:project/configs/services/datausersale.dart';
 import 'package:project/future_All.dart';
 import 'package:project/my_style.dart';
 import 'package:project/screen/Regis/components/regis.dart';
@@ -155,37 +155,7 @@ class _BodyRegisterSaleState extends State<BodyRegisterSale> {
                       ),
                     ),
                     SizedBox(height: 10,),
-                    Container(
-                      height: 50,
-                      width: 350,
-                      child: TextFormField(
-                        validator: (selluser_email) =>
-                        EmailValidator.validate(selluser_email!)
-                            ? null
-                            : "กรอกอีเมล ลงท้ายด้วย@gmail.com",
-                        onChanged: (value) => selluser_email = value.trim(),
-                        cursorColor: kPrimaryColor,
-                        keyboardType: TextInputType.emailAddress,
-                        textAlignVertical: TextAlignVertical.center,
-                        decoration: InputDecoration(
-                          filled: true,
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
-                          contentPadding: EdgeInsets.all(10),
-                          label: Text(
-                            'อีเมล',
-                            style: TextStyle(color: kPrimaryblckColor),
-                          ),
-                            prefixIcon:  Icon(
-                              Icons.email,
-                              size: 25,
-                              color: kPrimaryColor,
-                            )
-                        ),
-                      ),
-                    ),
+
                     SizedBox(height: 30,),
 
                     ElevatedButton(
@@ -221,6 +191,7 @@ class _BodyRegisterSaleState extends State<BodyRegisterSale> {
                     ),
                     TextButton(
                       onPressed: () {
+                        fileusersell=null;
                         Navigator.push(
                           context,
                           MaterialPageRoute(

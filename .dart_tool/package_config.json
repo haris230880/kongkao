@@ -92,6 +92,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "email_auth",
+      "rootUri": "file:///C:/Users/lenovo/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/email_auth-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "email_validator",
       "rootUri": "file:///C:/Users/lenovo/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/email_validator-2.1.17",
       "packageUri": "lib/",
@@ -238,6 +244,12 @@
     {
       "name": "image_picker_platform_interface",
       "rootUri": "file:///C:/Users/lenovo/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/image_picker_platform_interface-2.6.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "intl",
+      "rootUri": "file:///C:/Users/lenovo/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/intl-0.17.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -542,7 +554,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-10-16T13:02:37.463369Z",
+  "generated": "2022-10-26T08:31:52.122314Z",
   "generator": "pub",
   "generatorVersion": "2.19.0-133.0.dev"
 }

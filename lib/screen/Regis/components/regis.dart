@@ -4,7 +4,8 @@ import 'package:project/screen/Regis/components/body_regis_select_user.dart';
 import 'package:project/screen/Regis/components/body_set_password.dart';
 import 'package:project/screen/Regis/components/bodyregister/body_register_bay.dart';
 import 'package:project/screen/Regis/components/bodyregister/body_register_sell.dart';
-import 'package:project/screen/Regis/components/otp_regis.dart';
+import 'package:project/screen/Regis/components/otp/otp_regisBuy.dart';
+import 'package:project/screen/Regis/components/otp/otp_regisSale.dart';
 
 
 import 'bobyaddress/boby_register_address_bay.dart';
@@ -37,7 +38,7 @@ class RegisScreenSaleNumber extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Register"),backgroundColor: kPrimaryColor),
+      appBar: AppBar(title: Text("RegisterSale"),backgroundColor: kPrimaryColor),
       body: BodyRegisNumberSale(),
     );
   }
@@ -49,24 +50,39 @@ class RegisScreenBayNumber extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Register"),backgroundColor: kPrimaryColor),
+      appBar: AppBar(title: Text("RegisterBay"),backgroundColor: kPrimaryColor),
       body: BodyRegisNumberBay(),
     );
   }
 }
 
 
-class OtpScreen extends StatelessWidget {
-  const OtpScreen({Key? key}) : super(key: key);
+class OtpScreenSale extends StatelessWidget {
+  const OtpScreenSale({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(title:  Text("OTP"),backgroundColor: kPrimaryColor,),
-      body:  Otp_Regis(),
+      appBar:  AppBar(title:  Text("EmailAuth OTP Sale"),backgroundColor: kPrimaryColor,),
+      body:  Otp_RegisSale(),
     );
   }
 }
+
+
+class OtpScreenBuy extends StatelessWidget {
+  const OtpScreenBuy({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar:  AppBar(title:  Text("EmailAuth OTP Buy"),backgroundColor: kPrimaryColor,),
+      body:  Otp_RegisBuy(),
+    );
+  }
+}
+
+
 
 
 class SetPassWord extends StatefulWidget {
@@ -114,7 +130,7 @@ class _RegisterBayState extends State<RegisterBay> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(title: Text('RegisterSale'),backgroundColor: kPrimaryColor,),
+      appBar:AppBar(title: Text('RegisBuy'),backgroundColor: kPrimaryColor,),
       body: BodyRegisterBay(),
     );
   }

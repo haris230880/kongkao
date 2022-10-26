@@ -158,7 +158,7 @@ class _BodySetPassWordState extends State<BodySetPassWord> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return OtpScreen();
+                            return OtpScreenSale();
                           },
                         ),
                       );
