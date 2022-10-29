@@ -16,6 +16,7 @@ import '../../../../../constants.dart';
 import '../../../../../future_All.dart';
 import '../../../../../model/usermodel.dart';
 import '../../../../../winged/itemcard.dart';
+import '../../../../../winged/seacrch.dart';
 import '../../../BAY/Product/editproduct.dart';
 import '../../components/shopdetait.dart';
 import 'appbarhomepagesale.dart';
@@ -34,8 +35,6 @@ class _HomeScreensaleState extends State<HomeScreensale> {
   List<UserModel> userModels = [];
 
   bool status = true;
-
-  List<Widget> productDetel = [];
 
   @override
   void initState() {
@@ -118,6 +117,7 @@ class _HomeScreensaleState extends State<HomeScreensale> {
         UserModel userModel = UserModel.fromJson(map);
         setState(() {
           userModels.add(userModel);
+
           // productDetel.add(creatListvile(productModel));
         });
       }
@@ -171,7 +171,10 @@ class _HomeScreensaleState extends State<HomeScreensale> {
         actions: [
           IconButton(
               onPressed: () {
-
+                showSearch(
+                  context: context,
+                  delegate: MySearchDelegate(),
+                );
               },
               icon: Icon(
                 Icons.search_rounded,
@@ -543,14 +546,7 @@ class _HomeScreensaleState extends State<HomeScreensale> {
         ),
       ),
     );
-
   }
-
-
-
-
 }
-
-
 
 
