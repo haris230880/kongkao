@@ -90,4 +90,6 @@ class UserModel {
     "shop": shop,
     "time": time,
   };
+
+
 }

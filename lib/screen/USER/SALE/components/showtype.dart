@@ -155,7 +155,7 @@ print("${typeProductModel.idtypeproduct}");
                                     fontSize: 14,
                                   )),
                               Text(
-                                  'ราคา: ${productModels[index].typeproductname} บาท',
+                                  'ประเภท: ${productModels[index].typeproductname} ',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,

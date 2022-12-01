@@ -4,23 +4,17 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_rx/src/rx_workers/utils/debouncer.dart';
 import 'package:project/model/productmodel.dart';
 import 'package:project/model/producttypemodel.dart';
 import 'package:project/my_style.dart';
-import 'package:project/screen/USER/SALE/HomePageSell.dart';
 import 'package:project/screen/USER/SALE/components/showtype.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../configs/services/api.dart';
 import '../../../../../constants.dart';
 import '../../../../../future_All.dart';
 import '../../../../../model/usermodel.dart';
-import '../../../../../winged/itemcard.dart';
 import '../../../../../winged/seacrch.dart';
-import '../../../BAY/Product/editproduct.dart';
 import '../../components/shopdetait.dart';
-import 'appbarhomepagesale.dart';
-import 'body_homesale.dart';
+
 
 class HomeScreensale extends StatefulWidget {
   const HomeScreensale({Key? key}) : super(key: key);
@@ -30,6 +24,7 @@ class HomeScreensale extends StatefulWidget {
 }
 
 class _HomeScreensaleState extends State<HomeScreensale> {
+
   List<TypeProductModel> typeProductModels = [];
   List<ProductModel> productModels = [];
   List<UserModel> userModels = [];
@@ -39,6 +34,7 @@ class _HomeScreensaleState extends State<HomeScreensale> {
   @override
   void initState() {
     super.initState();
+
     readTypeProduct();
     readProduct();
     readUser();
@@ -171,15 +167,32 @@ class _HomeScreensaleState extends State<HomeScreensale> {
         actions: [
           IconButton(
               onPressed: () {
-                showSearch(
-                  context: context,
-                  delegate: MySearchDelegate(),
-                );
+                // showSearch(
+                //   context: context,
+                //   delegate: MySearchDelegate(),
+                // );
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Seacechpage(),));
               },
               icon: Icon(
                 Icons.search_rounded,
                 color: Colors.white,
               )),
+
+
+          IconButton(
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: MySearchDelegate(),
+                );
+
+              },
+              icon: Icon(
+                Icons.search_rounded,
+                color: Colors.white,
+              )),
+
+
         ],
       ),
       body: status
@@ -548,5 +561,8 @@ class _HomeScreensaleState extends State<HomeScreensale> {
     );
   }
 }
+
+
+
 
 

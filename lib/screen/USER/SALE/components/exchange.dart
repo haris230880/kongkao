@@ -16,6 +16,7 @@ import 'package:project/my_style.dart';
 import 'package:project/screen/USER/BAY/ProFile/editprofile.dart';
 import 'package:project/screen/USER/BAY/Product/editproduct.dart';
 import 'package:project/screen/USER/SALE/ProFile/editprofile.dart';
+import 'package:toast/toast.dart';
 
 import '../../../../future_All.dart';
 import '../../../../model/usermodel.dart';
@@ -111,8 +112,8 @@ class _ExchangeState extends State<Exchange> {
         print('$value');
         exphoto = '/kongkao/imageorder/$nameimage';
         print('$exphoto');
-
         getHttpProductorder();
+
       });
     } catch (e) {}
   }
@@ -120,13 +121,16 @@ class _ExchangeState extends State<Exchange> {
   void getHttpProductorder() async {
     try {
       var response = await Dio().get(API.BASE_URL +
-          '/kongkao/insertorder.php?isAdd=true&iduserbuy=$iduserbuy&idusersale=$idusersale&exphoto=$exphoto&distance=$distincd&transport=$transport');
+          '/kongkao/insertorder.php?isAdd=true&iduserbuy=$iduserbuy&idusersale=$idusersale&exphoto=$exphoto&distance=$distincd&transport=$transport&total=$sum');
       print(response);
     } catch (e) {
       print(e);
     }
   }
 
+  void showToast(String msg, {int? duration, int? gravity}) {
+    Toast.show(msg, duration: duration, gravity: gravity);
+  }
 
 
 
@@ -172,6 +176,9 @@ class _ExchangeState extends State<Exchange> {
       distincdString = myformat.format(distincd);
       print('distincd = $distincd');
       transport = calcutateTansport(distincd!);
+      int? change =  int.parse(userModel.charge);
+      sum = (transport! + change)!;
+      print('sum= $sum');
       print('transport = $transport');
 
 
@@ -460,8 +467,12 @@ class _ExchangeState extends State<Exchange> {
                           minimumSize: Size(100, 40))
                       .copyWith(elevation: ButtonStyleButton.allOrNull(2.0)),
                   onPressed: () {
+                    // showToast("Show Long Toast");
                     uplodeimageandsave();
+                    print('object');
+
                     // Navigator.pop(context);
+
                   },
                   child: Text('ยืนยัน'),
                 ),
@@ -484,6 +495,8 @@ class _ExchangeState extends State<Exchange> {
                 ),
               ],
             ),
+
+
             // showmap()
           ]),
         ),
@@ -541,7 +554,11 @@ class _ExchangeState extends State<Exchange> {
             ),
     );
   }
-}
+
+
+
+
+}//end
 
 class LabeledCheckbox extends StatelessWidget {
   const LabeledCheckbox({

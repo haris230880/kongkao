@@ -17,6 +17,7 @@ import 'package:project/screen/USER/BAY/ProFile/profile_sereenbay.dart';
 import 'package:project/screen/USER/BAY/Product/addproduct.dart';
 import 'package:project/screen/USER/BAY/backgroundbay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toast/toast.dart';
 
 import '../../../../configs/services/api.dart';
 import '../../../../future_All.dart';
@@ -254,7 +255,11 @@ class _EditProfilesaleState extends State<EditProfilesale> {
                                     elevation:
                                         ButtonStyleButton.allOrNull(2.0)),
                             onPressed: () =>
-                                confirmDialog(),
+                                 confirmDialog(),
+
+
+
+
                               // uplodeimageusersaveuserbuyedit();
                               // getHttpEdituser();
                               // Navigator.pop(context);
@@ -586,77 +591,7 @@ class _EditProfilesaleState extends State<EditProfilesale> {
     );
   }
 
-  // TextFormField buildTextFormFieldusercharge() {
-  //   return TextFormField(
-  //     onChanged: (value) => usercharge = value.trim(),
-  //     initialValue: userModel!.charge,
-  //     keyboardType: TextInputType.name,
-  //     cursorColor: kPrimaryColor,
-  //     textAlignVertical: TextAlignVertical.center,
-  //     decoration: InputDecoration(
-  //       filled: true,
-  //       border: OutlineInputBorder(
-  //         borderSide: BorderSide.none,
-  //         borderRadius: BorderRadius.all(
-  //           Radius.circular(20),
-  //         ),
-  //       ),
-  //       contentPadding: EdgeInsets.all(10),
-  //       label: Text(
-  //         'ค่าบริการ:',
-  //         style: TextStyle(color: kPrimaryblckColor),
-  //       ),
-  //     ),
-  //   );
-  // }
-  //
-  // TextFormField buildTextFormFieldusershop() {
-  //   return TextFormField(
-  //     onChanged: (value) => usershop = value.trim(),
-  //     initialValue: userModel!.shop,
-  //     keyboardType: TextInputType.name,
-  //     cursorColor: kPrimaryColor,
-  //     textAlignVertical: TextAlignVertical.center,
-  //     decoration: InputDecoration(
-  //       filled: true,
-  //       border: OutlineInputBorder(
-  //         borderSide: BorderSide.none,
-  //         borderRadius: BorderRadius.all(
-  //           Radius.circular(20),
-  //         ),
-  //       ),
-  //       contentPadding: EdgeInsets.all(10),
-  //       label: Text(
-  //         'ร้าน:',
-  //         style: TextStyle(color: kPrimaryblckColor),
-  //       ),
-  //     ),
-  //   );
-  // }
-  //
-  // TextFormField buildTextFormFieldusertime() {
-  //   return TextFormField(
-  //     onChanged: (value) => usertime = value.trim(),
-  //     initialValue: userModel!.time,
-  //     keyboardType: TextInputType.name,
-  //     cursorColor: kPrimaryColor,
-  //     textAlignVertical: TextAlignVertical.center,
-  //     decoration: InputDecoration(
-  //       filled: true,
-  //       border: OutlineInputBorder(
-  //         borderSide: BorderSide.none,
-  //         borderRadius: BorderRadius.all(
-  //           Radius.circular(20),
-  //         ),
-  //       ),
-  //       contentPadding: EdgeInsets.all(10),
-  //       label: Text(
-  //         'เวลาเปิด:',
-  //         style: TextStyle(color: kPrimaryblckColor),
-  //       ),
-  //     ),
-  //   );
-  // }
+
 
   SizedBox SizedBoxprofile() {
     return SizedBox(
@@ -729,7 +664,9 @@ class _EditProfilesaleState extends State<EditProfilesale> {
               ));
   }
 
+
   Future <Null> confirmDialog()async{
+
     showDialog<void>(
       context: context,
       // barrierDismissible: barrierDismissible,
@@ -760,8 +697,6 @@ class _EditProfilesaleState extends State<EditProfilesale> {
                     getHttpEdituser();
                     Navigator.pop(context);
                   },
-
-
                   child: Row(
                     children: [
                       Icon(Icons.check_circle_rounded),
