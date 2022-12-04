@@ -117,25 +117,25 @@ class _HomeBayScreenState extends State<HomeBayScreen> {
                 borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(30),
                     bottomLeft: Radius.circular(30))),
-            child: Row(
-              children: [
-                Text(
-                  'Hi!!}',
-                  style: TextStyle(
-                      fontSize: 25,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ),
-                Spacer(),
-                Text(
-                  'Shop:',
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
+            // child: Row(
+            //   children: [
+            //     Text(
+            //       'Hi!!}',
+            //       style: TextStyle(
+            //           fontSize: 25,
+            //           color: Colors.white,
+            //           fontWeight: FontWeight.bold),
+            //     ),
+            //     Spacer(),
+            //     Text(
+            //       'Shop:',
+            //       style: TextStyle(
+            //           fontSize: 16,
+            //           color: Colors.white,
+            //           fontWeight: FontWeight.bold),
+            //     ),
+            //   ],
+            // ),
           ),
           Positioned(
             child: Center(
