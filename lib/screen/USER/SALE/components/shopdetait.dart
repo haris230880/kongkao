@@ -339,7 +339,7 @@ class _ShopDetaitState extends State<ShopDetait> {
                     ),
                   ));
             },
-            child: Text('${userModel.shop} || สั่งซื้อ'),
+            child: Text('${userModel.shop} || ทำการขาย'),
           ),
         ]),
       ),

@@ -13,9 +13,11 @@ import 'package:location/location.dart';
 import 'package:project/configs/services/api.dart';
 import 'package:project/constants.dart';
 import 'package:project/my_style.dart';
+import 'package:project/screen/USER/BAY/OrderScreen/OrderSreen.dart';
 import 'package:project/screen/USER/BAY/ProFile/editprofile.dart';
 import 'package:project/screen/USER/BAY/Product/editproduct.dart';
 import 'package:project/screen/USER/SALE/ProFile/editprofile.dart';
+import 'package:project/screen/USER/SALE/components/showlist.dart';
 import 'package:toast/toast.dart';
 
 import '../../../../future_All.dart';
@@ -52,6 +54,7 @@ class _ExchangeState extends State<Exchange> {
   bool _isSelected4 = false;
   bool _isSelected5 = false;
   bool _isSelected6 = false;
+  List<String> selectedValues = [];
 
 // Location location = Location();//อัพตลอด
 
@@ -118,10 +121,14 @@ class _ExchangeState extends State<Exchange> {
     } catch (e) {}
   }
 
+
+
+  //เพิ่มตัวเเปร id สินค้า รับเป็น arr [1,3]
+
   void getHttpProductorder() async {
     try {
       var response = await Dio().get(API.BASE_URL +
-          '/kongkao/insertorder.php?isAdd=true&iduserbuy=$iduserbuy&idusersale=$idusersale&exphoto=$exphoto&distance=$distincd&transport=$transport&total=$sum');
+          '/kongkao/insertorder.php?isAdd=true&iduserbuy=$iduserbuy&idusersale=$idusersale&exphoto=$exphoto&distance=$distincd&transport=$transport&total=$sum&detail=$selectedValues&status=null');
       print(response);
     } catch (e) {
       print(e);
@@ -209,18 +216,12 @@ class _ExchangeState extends State<Exchange> {
       return transport;
     }
   } //คำนวนราคาค่าส่ง
-
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
-        title: Text('คำสั่งซื้อ'),
+        title: Text('รายการขาย'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -352,83 +353,179 @@ class _ExchangeState extends State<Exchange> {
                 SizedBox(
                   height: 20,
                 ),
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'ประเภท',
-                    style: txtboldsize16colorback(),
-                  ),
-                  LabeledCheckbox(
-                    label: 'เเก้ว',
-                    padding: const EdgeInsets.only(
-                        right: 50, left: 50, top: 0, bottom: 0),
-                    value: _isSelected1,
-                    onChanged: (bool newValue) {
-                      setState(() {
-                        _isSelected1 = newValue;
-                      });
-                    },
-                  ),
-                  LabeledCheckbox(
-                    label: 'พลาสติก',
-                    padding: const EdgeInsets.only(
-                        right: 50, left: 50, top: 0, bottom: 0),
-                    value: _isSelected2,
-                    onChanged: (bool newValue) {
-                      setState(() {
-                        _isSelected2 = newValue;
-                      });
-                    },
-                  ),
-                  LabeledCheckbox(
-                    label: 'กระดาษ',
-                    padding: const EdgeInsets.only(
-                        right: 50, left: 50, top: 0, bottom: 0),
-                    value: _isSelected3,
-                    onChanged: (bool newValue) {
-                      setState(() {
-                        _isSelected3 = newValue;
-                      });
-                    },
-                  ),
-                  LabeledCheckbox(
-                    label: 'อลูมิเนียม',
-                    padding: const EdgeInsets.only(
-                        right: 50, left: 50, top: 0, bottom: 0),
-                    value: _isSelected4,
-                    onChanged: (bool newValue) {
-                      setState(() {
-                        _isSelected4 = newValue;
-                      });
-                    },
-                  ),
-                  LabeledCheckbox(
-                    label: 'อิเล็กทรอนิกส์',
-                    padding: const EdgeInsets.only(
-                        right: 50, left: 50, top: 0, bottom: 0),
-                    value: _isSelected5,
-                    onChanged: (bool newValue) {
-                      setState(() {
-                        _isSelected5 = newValue;
-                      });
-                    },
-                  ),
-                  LabeledCheckbox(
-                    label: 'อื่นๆ',
-                    padding: const EdgeInsets.only(
-                        right: 50, left: 50, top: 0, bottom: 0),
-                    value: _isSelected6,
-                    onChanged: (bool newValue) {
-                      setState(() {
-                        _isSelected6 = newValue;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
+                CheckboxListTile(
+                  activeColor: kPrimaryColor,
+                  title: Text('เเก้ว'),
+                  value: selectedValues.contains('เเก้ว'),
+                  onChanged: (value) {
+                    setState(() {
+                      if (value==true) {
+                        selectedValues.add('เเก้ว');
+                        print(selectedValues);
+                      } else {
+                        selectedValues.remove('เเก้ว');
+                        print(selectedValues);
+                      }
+                    });
+                  },
+                ),
+                CheckboxListTile(
+                  activeColor: kPrimaryColor,
+                  title: Text('พลาสติก'),
+                  value: selectedValues.contains('พลาสติก'),
+                  onChanged: (value) {
+                    setState(() {
+                      if (value==true) {
+                        selectedValues.add('พลาสติก');
+                        print(selectedValues);
+                      } else {
+                        selectedValues.remove('พลาสติก');
+                        print(selectedValues);
+                      }
+                    });
+                  },
+                ),
+                CheckboxListTile(
+                  activeColor: kPrimaryColor,
+                  title: Text('กระดาษ'),
+                  value: selectedValues.contains('กระดาษ'),
+                  onChanged: (value) {
+                    setState(() {
+                      if (value==true) {
+                        selectedValues.add('กระดาษ');
+                        print(selectedValues);
+                      } else {
+                        selectedValues.remove('กระดาษ');
+                        print(selectedValues);
+                      }
+                    });
+                  },
+                ),
+                CheckboxListTile(
+                  activeColor: kPrimaryColor,
+                  title: Text('อลูมิเนียม'),
+                  value: selectedValues.contains('อลูมิเนียม'),
+                  onChanged: (value) {
+                    setState(() {
+                      if (value==true) {
+                        selectedValues.add('อลูมิเนียม');
+                        print(selectedValues);
+                      } else {
+                        selectedValues.remove('อลูมิเนียม');
+                        print(selectedValues);
+                      }
+                    });
+                  },
+                ),
+                CheckboxListTile(
+                  activeColor: kPrimaryColor,
+                  title: Text('อิเล็กทรอนิกส์'),
+                  value: selectedValues.contains('อิเล็กทรอนิกส์'),
+                  onChanged: (value) {
+                    setState(() {
+                      if (value==true) {
+                        selectedValues.add('อิเล็กทรอนิกส์');
+                        print(selectedValues);
+                      } else {
+                        selectedValues.remove('อิเล็กทรอนิกส์');
+                        print(selectedValues);
+                      }
+                    });
+                  },
+                ),
+                CheckboxListTile(
+                  activeColor: kPrimaryColor,
+                  title: Text('อื่นๆ'),
+                  value: selectedValues.contains('อื่นๆ'),
+                  onChanged: (value) {
+                    setState(() {
+                      if (value==true) {
+                        selectedValues.add('อื่นๆ');
+                        print(selectedValues);
+                      } else {
+                        selectedValues.remove('อื่นๆ');
+                        print(selectedValues);
+                      }
+                    });
+                  },
+                ),
+                // Container(
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Text(
+            //         'ประเภท',
+            //         style: txtboldsize16colorback(),
+            //       ),
+            //       LabeledCheckbox(
+            //         label: 'เเก้ว',
+            //         padding: const EdgeInsets.only(
+            //             right: 50, left: 50, top: 0, bottom: 0),
+            //         value: _isSelected1,
+            //         onChanged: (bool newValue) {
+            //           setState(() {
+            //             _isSelected1 = newValue;
+            //           });
+            //         },
+            //       ),
+            //       LabeledCheckbox(
+            //         label: 'พลาสติก',
+            //         padding: const EdgeInsets.only(
+            //             right: 50, left: 50, top: 0, bottom: 0),
+            //         value: _isSelected2,
+            //         onChanged: (bool newValue) {
+            //           setState(() {
+            //             _isSelected2 = newValue;
+            //           });
+            //         },
+            //       ),
+            //       LabeledCheckbox(
+            //         label: 'กระดาษ',
+            //         padding: const EdgeInsets.only(
+            //             right: 50, left: 50, top: 0, bottom: 0),
+            //         value: _isSelected3,
+            //         onChanged: (bool newValue) {
+            //           setState(() {
+            //             _isSelected3 = newValue;
+            //           });
+            //         },
+            //       ),
+            //       LabeledCheckbox(
+            //         label: 'อลูมิเนียม',
+            //         padding: const EdgeInsets.only(
+            //             right: 50, left: 50, top: 0, bottom: 0),
+            //         value: _isSelected4,
+            //         onChanged: (bool newValue) {
+            //           setState(() {
+            //             _isSelected4 = newValue;
+            //           });
+            //         },
+            //       ),
+            //       LabeledCheckbox(
+            //         label: 'อิเล็กทรอนิกส์',
+            //         padding: const EdgeInsets.only(
+            //             right: 50, left: 50, top: 0, bottom: 0),
+            //         value: _isSelected5,
+            //         onChanged: (bool newValue) {
+            //           setState(() {
+            //             _isSelected5 = newValue;
+            //           });
+            //         },
+            //       ),
+            //       LabeledCheckbox(
+            //         label: 'อื่นๆ',
+            //         padding: const EdgeInsets.only(
+            //             right: 50, left: 50, top: 0, bottom: 0),
+            //         value: _isSelected6,
+            //         onChanged: (bool newValue) {
+            //           setState(() {
+            //             _isSelected6 = newValue;
+            //           });
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
 
             Container(
               child: Center(
@@ -470,8 +567,13 @@ class _ExchangeState extends State<Exchange> {
                     // showToast("Show Long Toast");
                     uplodeimageandsave();
                     print('object');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => OrderScreen()),
+                    );
 
-                    // Navigator.pop(context);
+
+
 
                   },
                   child: Text('ยืนยัน'),

@@ -241,6 +241,7 @@ Future<Null> finduser() async {
 // }
 
 
+
 Future<Null> findLatLngBuy() async {
   LocationData? locationData = await findlocationData();
   lat = locationData!.latitude!;

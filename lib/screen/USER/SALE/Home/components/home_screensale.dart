@@ -15,7 +15,6 @@ import '../../../../../model/usermodel.dart';
 import '../../../../../winged/seacrch.dart';
 import '../../components/shopdetait.dart';
 
-
 class HomeScreensale extends StatefulWidget {
   const HomeScreensale({Key? key}) : super(key: key);
 
@@ -24,7 +23,6 @@ class HomeScreensale extends StatefulWidget {
 }
 
 class _HomeScreensaleState extends State<HomeScreensale> {
-
   List<TypeProductModel> typeProductModels = [];
   List<ProductModel> productModels = [];
   List<UserModel> userModels = [];
@@ -165,19 +163,18 @@ class _HomeScreensaleState extends State<HomeScreensale> {
           ],
         ),
         actions: [
-          IconButton(
-              onPressed: () {
-                // showSearch(
-                //   context: context,
-                //   delegate: MySearchDelegate(),
-                // );
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Seacechpage(),));
-              },
-              icon: Icon(
-                Icons.search_rounded,
-                color: Colors.white,
-              )),
-
+          // IconButton(
+          //     onPressed: () {
+          //       // showSearch(
+          //       //   context: context,
+          //       //   delegate: MySearchDelegate(),
+          //       // );
+          //       Navigator.push(context, MaterialPageRoute(builder: (context) => Seacechpage(),));
+          //     },
+          //     icon: Icon(
+          //       Icons.search_rounded,
+          //       color: Colors.white,
+          //     )),
 
           IconButton(
               onPressed: () {
@@ -185,14 +182,11 @@ class _HomeScreensaleState extends State<HomeScreensale> {
                   context: context,
                   delegate: MySearchDelegate(),
                 );
-
               },
               icon: Icon(
                 Icons.search_rounded,
                 color: Colors.white,
               )),
-
-
         ],
       ),
       body: status
@@ -225,7 +219,7 @@ class _HomeScreensaleState extends State<HomeScreensale> {
                     ),
                   ),
                   // showlistProduct(),//showสินค้า
-                  showlistUser(),//showร้าน
+                  showlistUser(), //showร้าน
                 ],
               ),
             ),
@@ -561,8 +555,3 @@ class _HomeScreensaleState extends State<HomeScreensale> {
     );
   }
 }
-
-
-
-
-

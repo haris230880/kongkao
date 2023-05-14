@@ -87,14 +87,6 @@ class _OrderListShopState extends State<OrderListShop> {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              // Navigator.push(context,
-              //         MaterialPageRoute(builder: (context) => ShopDetait()))
-              //     .then((value) => readProduct());
-            },
-            icon: Icon(Icons.search_rounded),
-          ),
-          IconButton(
-            onPressed: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
