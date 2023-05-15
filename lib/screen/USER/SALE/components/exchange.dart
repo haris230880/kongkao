@@ -13,7 +13,6 @@ import 'package:location/location.dart';
 import 'package:project/configs/services/api.dart';
 import 'package:project/constants.dart';
 import 'package:project/my_style.dart';
-import 'package:project/screen/USER/BAY/OrderScreen/OrderSreen.dart';
 import 'package:project/screen/USER/BAY/ProFile/editprofile.dart';
 import 'package:project/screen/USER/BAY/Product/editproduct.dart';
 import 'package:project/screen/USER/SALE/Home/components/home_screensale.dart';

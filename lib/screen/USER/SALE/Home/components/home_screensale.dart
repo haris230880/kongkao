@@ -163,19 +163,6 @@ class _HomeScreensaleState extends State<HomeScreensale> {
           ],
         ),
         actions: [
-          // IconButton(
-          //     onPressed: () {
-          //       // showSearch(
-          //       //   context: context,
-          //       //   delegate: MySearchDelegate(),
-          //       // );
-          //       Navigator.push(context, MaterialPageRoute(builder: (context) => Seacechpage(),));
-          //     },
-          //     icon: Icon(
-          //       Icons.search_rounded,
-          //       color: Colors.white,
-          //     )),
-
           IconButton(
               onPressed: () {
                 showSearch(

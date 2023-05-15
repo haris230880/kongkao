@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:project/my_style.dart';
 import 'package:project/screen/USER/BAY/HOME/components/home_screenbay.dart';
 import 'package:project/screen/USER/BAY/NotiFication/notificationBayScreen.dart';
-import 'package:project/screen/USER/BAY/OrderScreen/OrderSreen.dart';
+import 'package:project/screen/USER/BAY/OrderScreen/orderSreenBay.dart';
+import 'package:project/screen/USER/SALE/OrderScreen/orderSreenSale.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../configs/services/api.dart';
@@ -38,7 +39,7 @@ setState(() {
   int currentIndex = 0;
   final screen = [
     HomeBayScreen(),
-    OrderScreen(),
+    OrderScreenBay(),
     NotiFicationBayScreen(),
     ProFileUserBaySreen(),
   ];
