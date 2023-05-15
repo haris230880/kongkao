@@ -16,6 +16,8 @@ import 'package:project/my_style.dart';
 import 'package:project/screen/USER/BAY/OrderScreen/OrderSreen.dart';
 import 'package:project/screen/USER/BAY/ProFile/editprofile.dart';
 import 'package:project/screen/USER/BAY/Product/editproduct.dart';
+import 'package:project/screen/USER/SALE/Home/components/home_screensale.dart';
+import 'package:project/screen/USER/SALE/HomePageSell.dart';
 import 'package:project/screen/USER/SALE/ProFile/editprofile.dart';
 import 'package:project/screen/USER/SALE/components/showlist.dart';
 import 'package:toast/toast.dart';
@@ -216,6 +218,8 @@ class _ExchangeState extends State<Exchange> {
       return transport;
     }
   } //คำนวนราคาค่าส่ง
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -449,83 +453,7 @@ class _ExchangeState extends State<Exchange> {
                     });
                   },
                 ),
-                // Container(
-            //   child: Column(
-            //     crossAxisAlignment: CrossAxisAlignment.start,
-            //     children: [
-            //       Text(
-            //         'ประเภท',
-            //         style: txtboldsize16colorback(),
-            //       ),
-            //       LabeledCheckbox(
-            //         label: 'เเก้ว',
-            //         padding: const EdgeInsets.only(
-            //             right: 50, left: 50, top: 0, bottom: 0),
-            //         value: _isSelected1,
-            //         onChanged: (bool newValue) {
-            //           setState(() {
-            //             _isSelected1 = newValue;
-            //           });
-            //         },
-            //       ),
-            //       LabeledCheckbox(
-            //         label: 'พลาสติก',
-            //         padding: const EdgeInsets.only(
-            //             right: 50, left: 50, top: 0, bottom: 0),
-            //         value: _isSelected2,
-            //         onChanged: (bool newValue) {
-            //           setState(() {
-            //             _isSelected2 = newValue;
-            //           });
-            //         },
-            //       ),
-            //       LabeledCheckbox(
-            //         label: 'กระดาษ',
-            //         padding: const EdgeInsets.only(
-            //             right: 50, left: 50, top: 0, bottom: 0),
-            //         value: _isSelected3,
-            //         onChanged: (bool newValue) {
-            //           setState(() {
-            //             _isSelected3 = newValue;
-            //           });
-            //         },
-            //       ),
-            //       LabeledCheckbox(
-            //         label: 'อลูมิเนียม',
-            //         padding: const EdgeInsets.only(
-            //             right: 50, left: 50, top: 0, bottom: 0),
-            //         value: _isSelected4,
-            //         onChanged: (bool newValue) {
-            //           setState(() {
-            //             _isSelected4 = newValue;
-            //           });
-            //         },
-            //       ),
-            //       LabeledCheckbox(
-            //         label: 'อิเล็กทรอนิกส์',
-            //         padding: const EdgeInsets.only(
-            //             right: 50, left: 50, top: 0, bottom: 0),
-            //         value: _isSelected5,
-            //         onChanged: (bool newValue) {
-            //           setState(() {
-            //             _isSelected5 = newValue;
-            //           });
-            //         },
-            //       ),
-            //       LabeledCheckbox(
-            //         label: 'อื่นๆ',
-            //         padding: const EdgeInsets.only(
-            //             right: 50, left: 50, top: 0, bottom: 0),
-            //         value: _isSelected6,
-            //         onChanged: (bool newValue) {
-            //           setState(() {
-            //             _isSelected6 = newValue;
-            //           });
-            //         },
-            //       ),
-            //     ],
-            //   ),
-            // ),
+
 
             Container(
               child: Center(
@@ -553,31 +481,28 @@ class _ExchangeState extends State<Exchange> {
               children: [
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          elevation: 5,
-                          // Foreground color
-                          onPrimary: Colors.white,
-                          // Background color
-                          primary: kPrimaryColor,
-                          minimumSize: Size(100, 40))
-                      .copyWith(elevation: ButtonStyleButton.allOrNull(2.0)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    elevation: 5,
+                    onPrimary: Colors.white,
+                    primary: kPrimaryColor,
+                    minimumSize: Size(100, 40),
+                  ).copyWith(elevation: ButtonStyleButton.allOrNull(2.0)),
                   onPressed: () {
-                    // showToast("Show Long Toast");
                     uplodeimageandsave();
                     print('object');
-                    Navigator.push(
+                    Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => OrderScreen()),
+                      MaterialPageRoute(builder: (context) => HomePageSell()),
+                          (route) => route.isFirst,
                     );
-
-
-
-
                   },
                   child: Text('ยืนยัน'),
                 ),
+
+
+
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(

@@ -41,16 +41,6 @@ class _BodyOrderState extends State<BodyOrder> {
           ],
         ),
       ),
-      // child: Column(
-      //   children: [
-      //     Expanded(
-      //         child: PageView.builder(
-      //           scrollDirection: Axis.horizontal,
-      //           controller: _pageController,
-      //             itemCount: slideList.length,
-      //             itemBuilder: (ctx, i) => SlideItem(i))),
-      //   ],
-      // ),
     );
   }
 }
