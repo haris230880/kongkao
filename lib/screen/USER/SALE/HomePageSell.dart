@@ -21,7 +21,7 @@ import '../BAY/HOME/components/home_screenbay.dart';
 import '../BAY/NotiFication/notificationBayScreen.dart';
 
 
-int currentIndex = 0;
+
 
 class HomePageSell extends StatefulWidget {
   const HomePageSell({Key? key}) : super(key: key);
@@ -38,7 +38,7 @@ class _HomePageSellState extends State<HomePageSell> {
     super.initState();
     finduser();
   }
-
+int currentIndex = 0;
   final screen = [
     HomeScreensale(),
     OrderScreenSale(),
