@@ -35,10 +35,8 @@ class _OrderScreenSaleState extends State<OrderScreenSale> {
       final url = API.BASE_URL +
           '/kongkao/showlistorder.php?isAdd=true&idsale=$userid&orderBy=date DESC';
       final response = await Dio().get(url);
-
       if (response.statusCode == 200) {
         final result = jsonDecode(response.data);
-
         if (result != null) {
           for (final map in result) {
             final exchangemodel = ExchangeModel.fromJson(map);
@@ -86,7 +84,7 @@ class _OrderScreenSaleState extends State<OrderScreenSale> {
                 minRadius: 20,
                 backgroundColor: Colors.white,
                 child: Image.asset(
-                  'assets/icons/userbay.png',
+                  'assets/icons/usersale.png',
                   scale: 10,
                 ),
               ),

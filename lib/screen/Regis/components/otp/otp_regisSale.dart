@@ -214,7 +214,7 @@ class _Otp_RegisSaleState extends State<Otp_RegisSale> {
     );
 
     /// Configuring the remote server
-    // emailAuth.config(remoteServerConfiguration);
+     emailAuth.config({});
   }
 
   /// a void function to verify if the Data provided is true

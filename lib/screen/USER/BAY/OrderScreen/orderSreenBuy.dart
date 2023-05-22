@@ -7,20 +7,21 @@ import 'package:project/future_All.dart';
 import 'package:project/model/exchangemodel.dart';
 import 'package:project/model/usermodel.dart';
 import 'package:project/screen/USER/BAY/HOME/components/appbarhomepagebay.dart';
+import 'package:project/screen/USER/BAY/OrderScreen/detailsScreen.dart';
 import 'package:project/screen/USER/SALE/ProFile/editprofile.dart';
 
 import '../../../../constants.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class OrderScreenBay extends StatefulWidget {
-  const OrderScreenBay({Key? key}) : super(key: key);
+class OrderScreenBuy extends StatefulWidget {
+  const OrderScreenBuy({Key? key}) : super(key: key);
 
   @override
-  State<OrderScreenBay> createState() => _OrderScreenBayState();
+  State<OrderScreenBuy> createState() => _OrderScreenBuyState();
 }
 
-class _OrderScreenBayState extends State<OrderScreenBay> {
+class _OrderScreenBuyState extends State<OrderScreenBuy> {
   List<ExchangeModel> exchangemodels = [];
 
   @override
@@ -33,12 +34,10 @@ class _OrderScreenBayState extends State<OrderScreenBay> {
     print(userid);
     try {
       final url = API.BASE_URL +
-          '/kongkao/showlistorder.php?isAdd=true&idsale=$userid&orderBy=date DESC';
+          '/kongkao/showlistorderbuy.php?isAdd=true&iduserbuy=$userid&orderBy=date DESC';
       final response = await Dio().get(url);
-
       if (response.statusCode == 200) {
         final result = jsonDecode(response.data);
-
         if (result != null) {
           for (final map in result) {
             final exchangemodel = ExchangeModel.fromJson(map);
@@ -61,7 +60,7 @@ class _OrderScreenBayState extends State<OrderScreenBay> {
   void updateListOrderStatus(int exchangeId) async {
     try {
       var response = await Dio().get(API.BASE_URL +
-          '/kongkao/updatelistorderstatus.php?isAdd=true&status=ยกเลิก&exchangeid=$exchangeId');
+          '/kongkao/updatelistorderstatus.php?isAdd=true&status=สำเร็จ&exchangeid=$exchangeId');
       print(response);
 
       setState(() {
@@ -129,20 +128,24 @@ class _OrderScreenBayState extends State<OrderScreenBay> {
                     ),
                   ],
                 ))
-            // Container(
-            //   child: Row(
-            //     children: [
-            //       Text('ประวัติคำสั่งซื้อ'),
-            //       IconButton(onPressed: () {}, icon: Icon(Icons.history)),
-            //     ],
-            //   ),
-            // )
+
           ],
         ),
         body: ListView.builder(
           itemCount: exchangemodels.length,
           itemBuilder: (context, index) {
-            return Card(
+            return GestureDetector(
+                onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailsScreen(exchangemodel: exchangemodels[index]),
+                ),
+              );
+            },
+
+
+              child: Card(
               child: Row(
                 children: [
                   Expanded(
@@ -334,6 +337,7 @@ class _OrderScreenBayState extends State<OrderScreenBay> {
                   ))
                 ],
               ),
+            ),
             );
           },
         ));
