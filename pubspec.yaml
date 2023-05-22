@@ -38,7 +38,6 @@ dependencies:
   flutter_svg: ^1.1.5
   image_picker: ^0.8.5+3
   location: ^4.4.0
-  google_maps_flutter: ^2.2.1
   dio: ^4.0.6
   email_validator: ^2.1.17
   url_launcher: ^6.1.6
@@ -50,6 +49,10 @@ dependencies:
   email_auth: ^1.0.0
   http: ^0.13.5
   toast: ^0.3.0
+  flutter_map: ^0.13.1
+  geolocator: ^8.0.4
+  google_maps_flutter: ^2.0.10
+
 
 
 dev_dependencies:

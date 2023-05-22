@@ -189,9 +189,10 @@ class _OrderScreenBuyState extends State<OrderScreenBuy> {
                                 width: 8,
                               ),
                               Text(
-                                exchangemodels[index].shop!,
+                                exchangemodels[index].name!,
                                 style: TextStyle(fontSize: 14),
                               ),
+
                             ],
                           ),
                           SizedBox(height: 8),
