@@ -317,8 +317,7 @@ class _OrderScreenBuyState extends State<OrderScreenBuy> {
                                             onPressed: () {
                                               // รายละเอียดการยกเลิก
                                               updateListOrderStatus(int.parse(
-                                                  exchangemodels[index]
-                                                      .exchangeid!));
+                                                  exchangemodels[index].exchangeid!));
                                               print(
                                                   '${exchangemodels[index].exchangeid}');
                                               Navigator.of(context).pop();
