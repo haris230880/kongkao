@@ -64,7 +64,7 @@ class OtpScreenSale extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:  AppBar(title:  Text("EmailAuth OTP Sale"),backgroundColor: kPrimaryColor,),
-      body:  Otp_RegisSale(),
+      body:  OtpRegisSale(),
     );
   }
 }
