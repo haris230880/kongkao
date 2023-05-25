@@ -63,8 +63,8 @@ class OtpScreenSale extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(title:  Text("EmailAuth OTP Sale"),backgroundColor: kPrimaryColor,),
-      body:  OtpRegisSale(),
+      appBar:  AppBar(title:  Text("RegisterSale"),backgroundColor: kPrimaryColor,),
+      body:  Otp_RegisSale(),
     );
   }
 }
@@ -76,7 +76,7 @@ class OtpScreenBuy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(title:  Text("EmailAuth OTP Buy"),backgroundColor: kPrimaryColor,),
+      appBar:  AppBar(title:  Text("RegisterBay"),backgroundColor: kPrimaryColor,),
       body:  Otp_RegisBuy(),
     );
   }
