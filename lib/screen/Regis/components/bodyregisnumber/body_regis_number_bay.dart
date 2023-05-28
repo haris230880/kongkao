@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:project/configs/services/api.dart';
@@ -47,7 +48,7 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
               Container(
                 margin: EdgeInsets.all(20),
                 padding:
-                    EdgeInsets.only(left: 50, right: 50, top: 10, bottom: 20),
+                EdgeInsets.all(20),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -62,7 +63,7 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      "ลงทะเบียน ผู้ซื้อ",
+                      "ลงทะเบียน",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
@@ -77,73 +78,50 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: TextFormField(
-                        validator: (value) {
-                          if (value != null && value.length < 10) {
-                            return "กรอก เบอร์โทรศัพท์";
-                          }
-                          return null;
-                        },
+                        validator: (seuser_email) => EmailValidator.validate(buyuser_phone!)
+                            ? null
+                            : "กรอกอีเมล ลงท้ายด้วย@gmail.com",
                         onChanged: (value) => buyuser_phone = value.trim(),
-                        keyboardType: TextInputType.phone,
-                        maxLength: 10,
                         cursorColor: kPrimaryColor,
+                        keyboardType: TextInputType.emailAddress,
                         textAlignVertical: TextAlignVertical.center,
                         decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide: BorderSide(color: kPrimaryColor)),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: kPrimaryLightColor),
-                          ), //เปลียนสีเส้นขอบเมื่อกด
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
+                            filled: true,
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                            contentPadding: EdgeInsets.all(10),
+                            label: Text(
+                              'อีเมล',
+                              style: TextStyle(color: kPrimaryblckColor),
                             ),
-                          ),
-                          contentPadding: EdgeInsets.all(10),
-                          label: Text(
-                            'เบอร์โทรศัพท์ ',
-                            style: TextStyle(color: kPrimaryColor),
-                          ),
-                          prefixIcon: Icon(
-                            Icons.phone,
-                            color: kPrimaryColor,
-                          ),
-                        ),
+                            prefixIcon: Icon(
+                              Icons.email,
+                              size: 25,
+                              color: kPrimaryColor,
+                            )),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
+
                     ),
                     Container(
-                      height: 50,
-                      width: 350,
+                      height: 70,
+                      width: 300,
                       child: TextFormField(
                         validator: (value) {
                           if (value != null && value.length < 6) {
-                            return "enter รหัสผ่าน 6 ตัวขึ้นไป";
-                          }
+                            return "enter รหัสผ่าน 6 ตัวขึ้นไป";}
                           return null;
                         },
                         onChanged: (value) => buyuser_password = value.trim(),
                         obscureText: isHidden,
                         textAlignVertical: TextAlignVertical.center,
                         decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide: BorderSide(color: kPrimaryColor)),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: kPrimaryLightColor),
-                          ),
                           filled: true,
                           border: OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
+                              BorderRadius.all(Radius.circular(20))),
                           contentPadding: EdgeInsets.all(10),
                           label: Text(
                             'รหัสผ่าน ',
@@ -153,18 +131,18 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                             Icons.password,
                             color: kPrimaryColor,
                           ),
-                          suffix: InkWell(
+                          suffixIcon: InkWell(
                             onTap: togglePasswordVisibility,
                             child: IconButton(
                               icon: isHidden
                                   ? Icon(
-                                      Icons.visibility_off,
-                                      color: kPrimaryColor,
-                                    )
+                                Icons.visibility_off,
+                                color: kPrimaryColor,
+                              )
                                   : Icon(
-                                      Icons.visibility,
-                                      color: kPrimaryColor,
-                                    ),
+                                Icons.visibility,
+                                color: kPrimaryColor,
+                              ),
                               onPressed: togglePasswordVisibility,
                             ),
                           ),

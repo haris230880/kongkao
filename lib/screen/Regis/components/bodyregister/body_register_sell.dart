@@ -60,9 +60,9 @@ class _BodyRegisterSaleState extends State<BodyRegisterSale> {
                 child: Text('เปลี่ยนรูป'),
               ),
               Container(
-                margin: EdgeInsets.all(30),
+                margin: EdgeInsets.all(20),
                 padding:
-                    EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                    EdgeInsets.all(20),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -158,7 +158,6 @@ class _BodyRegisterSaleState extends State<BodyRegisterSale> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10,),
 
 
 

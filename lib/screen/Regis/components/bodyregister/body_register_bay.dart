@@ -63,9 +63,9 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
                 child: Text('เปลี่ยนรูป'),
               ),
               Container(
-                margin: EdgeInsets.all(30),
+                margin: EdgeInsets.all(20),
                 padding:
-                    EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                    EdgeInsets.all(20),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -88,7 +88,7 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
                       height: 20,
                     ),
                     Container(
-                      height: 50,
+                      height: 70,
                       width: 350,
                       child: TextFormField(
                         validator: (value) {
@@ -126,7 +126,7 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
                       height: 10,
                     ),
                     Container(
-                      height: 50,
+                      height: 70,
                       width: 350,
                       child: TextFormField(
                         validator: (value) {
@@ -159,9 +159,7 @@ class _BodyRegisterBayState extends State<BodyRegisterBay> {
                     ),
 
 
-                    SizedBox(
-                      height: 30,
-                    ),
+
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(

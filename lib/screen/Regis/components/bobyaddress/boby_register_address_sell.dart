@@ -71,18 +71,11 @@ class _BobyRegisterAddressSellState extends State<BobyRegisterAddressSell> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'ลงทะเบียนผู้ขาย',
+                      'ลงทะเบียนที่อยู่',
                   style: TextStyle(
                       color: kPrimaryblckColor,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      'ที่อยู่',
-                      style: TextStyle(
-                          color: kPrimaryblckColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 20,

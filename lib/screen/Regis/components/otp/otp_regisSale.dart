@@ -8,6 +8,7 @@ import 'package:email_auth/email_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:project/configs/services/datauserbay.dart';
 import 'package:project/screen/Login/components/login_screen.dart';
 import 'package:project/screen/Regis/components/background_regis.dart';
@@ -154,7 +155,7 @@ class _Otp_RegisSaleState extends State<Otp_RegisSale> {
             Container(
               margin: EdgeInsets.all(10),
               padding:
-                  EdgeInsets.only(left: 0, right: 0, top: 20, bottom: 20),
+              EdgeInsets.all(20),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -173,16 +174,27 @@ class _Otp_RegisSaleState extends State<Otp_RegisSale> {
                     height: 10,
                   ),
                   Container(
-                    height: 50,
+                    height: 70,
                     width: 340,
                     child: TextFormField(
                       onChanged: (value) {
                         phone = value;
                       },
+                      // inputFormatters: [
+                      //   LengthLimitingTextInputFormatter(10),
+                      // ],
+                      // validator: (value) {
+                      //   if (value != null && value.length < 10) {
+                      //     return "Please enter a valid phone number";
+                      //   }
+                      //   return null;
+                      // },
                       keyboardType: TextInputType.phone,
                       cursorColor: kPrimaryColor,
                       textAlignVertical: TextAlignVertical.center,
+
                       decoration: InputDecoration(
+
                         filled: true,
                         border: OutlineInputBorder(
                           borderSide: BorderSide.none,
@@ -191,18 +203,23 @@ class _Otp_RegisSaleState extends State<Otp_RegisSale> {
                           ),
                         ),
                         contentPadding: EdgeInsets.all(10),
-                        label: Text(
-                          'phone',
-                          style: TextStyle(color: kPrimaryblckColor),
-                        ),
+                        labelText: 'Phone',
+                        labelStyle: TextStyle(color: kPrimaryblckColor),
+                          prefixIcon:  Icon(
+                            Icons.phone,
+                            size: 25,
+                            color: kPrimaryColor,
+                          )
                       ),
                     ),
+
                   ),
 
                   otpTimeout > 0
                       ? Column(
                     children: [
-                      SizedBox(height: 10),TextFormField(
+                      SizedBox(height: 10),
+                      TextFormField(
                         onChanged: (value) {
                           OTP=value;
 
@@ -221,35 +238,35 @@ class _Otp_RegisSaleState extends State<Otp_RegisSale> {
                         ),
                         style: TextStyle(fontSize: 20),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: List.generate(
-                          6,
-                              (index) => Container(
-                            width: 50,
-                            height: 50,
-                            child: TextFormField(
-                              onChanged: (value) {
-                                OTP=value;
-
-                              },
-                              keyboardType: TextInputType.number,
-                              maxLength: 1,
-                              textAlign: TextAlign.center,
-                              decoration: InputDecoration(
-                                counterText: '', // Hide character count
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                filled: true,
-                                contentPadding: EdgeInsets.all(10),
-                              ),
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //   children: List.generate(
+                      //     6,
+                      //         (index) => Container(
+                      //       width: 50,
+                      //       height: 50,
+                      //       child: TextFormField(
+                      //         onChanged: (value) {
+                      //           OTP=value;
+                      //
+                      //         },
+                      //         keyboardType: TextInputType.number,
+                      //         maxLength: 1,
+                      //         textAlign: TextAlign.center,
+                      //         decoration: InputDecoration(
+                      //           counterText: '', // Hide character count
+                      //           border: OutlineInputBorder(
+                      //             borderSide: BorderSide.none,
+                      //             borderRadius: BorderRadius.circular(20),
+                      //           ),
+                      //           filled: true,
+                      //           contentPadding: EdgeInsets.all(10),
+                      //         ),
+                      //         style: TextStyle(fontSize: 20),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       Text('OTP จะสิ้นสุดใน ${otpTimeout.toString()} วินาที'),
                     ],
                   )
@@ -270,11 +287,10 @@ class _Otp_RegisSaleState extends State<Otp_RegisSale> {
                     onPressed: () async {
                       try {
                         PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verify, smsCode:OTP);
-                        // PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verify, smsCode: otpControllers.map((controller) => controller.text).join());
                         print('$OTP,$phone');
                         await _auth.signInWithCredential(credential);
                         uplodeimageusersaveusersale();
-                        showSuccessMessage("$OTP,$phone");
+                        // showSuccessMessage("$OTP,$phone");
                       } catch (e) { print(e);
                         showErrorMessage('Error sending OTP: $e');
                       }

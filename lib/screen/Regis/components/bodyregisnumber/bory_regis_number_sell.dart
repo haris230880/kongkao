@@ -28,7 +28,6 @@ class _BodyRegisNumberSaleState extends State<BodyRegisNumberSale> {
   void setState(VoidCallback fn) {
     // TODO: implement setState
     super.setState(fn);
-    print('fileusersell   $fileusersell');
   }
 
 
@@ -67,7 +66,7 @@ class _BodyRegisNumberSaleState extends State<BodyRegisNumberSale> {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      "ลงทะเบียน ผู้ขาย",
+                      "ลงทะเบียน",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),

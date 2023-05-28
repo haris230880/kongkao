@@ -153,7 +153,7 @@ class _RegisterAddressBayState extends State<RegisterAddressBay> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(title: Text('RegisterAddressBay'),backgroundColor: kPrimaryColor,),
+      appBar:AppBar(title: Text('RegisBuy'),backgroundColor: kPrimaryColor,),
       body: BobyRegisterAddressBay(),
     );
   }

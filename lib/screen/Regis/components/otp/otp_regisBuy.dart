@@ -170,11 +170,13 @@
 //
 
 
+import 'dart:async';
 import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:email_auth/email_auth.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project/configs/services/datauserbay.dart';
 import 'package:project/screen/Login/components/login_screen.dart';
@@ -198,57 +200,82 @@ class Otp_RegisBuy extends StatefulWidget {
 class _Otp_RegisBuyState extends State<Otp_RegisBuy> {
   /// The boolean to handle the dynamic operations
   bool submitValid = false;
-
+  var phone = "";
+  var OTP = "";
   /// Text editing controllers to get the value from text fields
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _otpcontroller = TextEditingController();
+  TextEditingController countrycode = TextEditingController();
+  static String verify = "";
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // Declare the object
   late EmailAuth emailAuth;
-
+  int otpTimeout = 0;
   @override
   void initState() {
     super.initState();
-    // Initialize the package
-    emailAuth = new EmailAuth(
-      sessionName: "Sample session",
-    );
+    countrycode.text = "+66";
 
-    /// Configuring the remote server
-    // emailAuth.config(remoteServerConfiguration);
-  }
-
-  /// a void function to verify if the Data provided is true
-  /// Convert it into a boolean function to match your needs.
-  void verify() {
-
-    var res = emailAuth.validateOtp(recipientMail: _emailcontroller.text, userOtp: _otpcontroller.text);
-
-    if(res){
-      print('OTP Verify');
-      uplodeimageusersaveuserbuy();
-    }else{
-      normaDiolog(context, "OTP ไม่ถูกต้อง");
-      print('Invalid OTP ');
-    }
-
-
-    print(emailAuth.validateOtp(
-        recipientMail: _emailcontroller.value.text,
-        userOtp: _otpcontroller.value.text));
 
   }
 
-  /// a void funtion to send the OTP to the user
-  /// Can also be converted into a Boolean function and render accordingly for providers
-  void sendOtp() async {
-    bool result = await emailAuth.sendOtp(
-        recipientMail: _emailcontroller.value.text, otpLength:5);
-    if (result) {
+  void startOtpTimer() {
+    const otpTimeoutDuration =
+    Duration(minutes:2); // กำหนดเวลาของ OTP (เช่น 2 นาที)
+    setState(() {
+      otpTimeout = otpTimeoutDuration.inSeconds;
+    });
+    Timer.periodic(Duration(seconds: 1), (Timer timer) {
       setState(() {
-        submitValid = true;
+        otpTimeout--;
       });
-    }
+      if (otpTimeout <= 0) {
+        timer.cancel();
+      }
+    });
+  }
+
+  void showErrorMessage(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Error'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+
+  void showSuccessMessage(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Success'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -259,13 +286,7 @@ class _Otp_RegisBuyState extends State<Otp_RegisBuy> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              "Kongkao",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-            ),
-            SizedBox(
-              height: 10,
-            ),
+
             Image.asset(
               'assets/images/logo.jpg',
               scale: 10,
@@ -276,7 +297,7 @@ class _Otp_RegisBuyState extends State<Otp_RegisBuy> {
             Container(
               margin: EdgeInsets.all(20),
               padding:
-              EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 20),
+              EdgeInsets.all(20),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -297,103 +318,67 @@ class _Otp_RegisBuyState extends State<Otp_RegisBuy> {
 
 
                   Container(
-                    height: 50,
-                    width: 350,
-                    child: TextFormField(
-                      controller: _emailcontroller,
-                      validator: (buyuser_email) => EmailValidator.validate(buyuser_email!)
-                          ? null
-                          : "กรอกอีเมล ลงท้ายด้วย@gmail.com",
-                      onChanged: (value) => buyuser_email = value.trim(),
-                      cursorColor: kPrimaryColor,
-                      keyboardType: TextInputType.emailAddress,
-                      textAlignVertical: TextAlignVertical.center,
-                      decoration: InputDecoration(
-                          filled: true,
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(20))),
-                          contentPadding: EdgeInsets.all(10),
-                          label: Text(
-                            'อีเมล',
-                            style: TextStyle(color: kPrimaryblckColor),
-                          ),
-                          prefixIcon: Icon(
-                            Icons.email,
-                            size: 25,
-                            color: kPrimaryColor,
-                          )),
-                    ),
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        elevation: 5,
-                        // Foreground color
-                        onPrimary: Colors.white,
-                        // Background color
-                        primary: kPrimaryColor,
-                        minimumSize: Size(30, 50))
-                        .copyWith(
-                        elevation: ButtonStyleButton.allOrNull(5.0)),
-                    onPressed: () {},
-                    child:GestureDetector(
-                      onTap: sendOtp,
-                      child: Center(
-                        child: Text(
-                          " ส่งรหัส OTP ",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-
-                  (submitValid)
-                      ? Container(
-                    height: 50,
+                    height: 70,
                     width: 340,
                     child: TextFormField(
-                      validator: (value) {
-                        if (value != null && value.isEmpty) {
-                          return "กรอก OTP";
-                        }
-                        return null;
+                      onChanged: (value) {
+                        phone = value;
                       },
-                      // onChanged: (value) =>  = value.trim(),
-                      controller: _otpcontroller,
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.phone,
                       cursorColor: kPrimaryColor,
                       textAlignVertical: TextAlignVertical.center,
+
                       decoration: InputDecoration(
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20),
+
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
                           ),
-                        ),
-                        contentPadding: EdgeInsets.all(10),
-                        label: Text(
-                          'OTP',
-                          style: TextStyle(color: kPrimaryblckColor),
-                        ),
+                          contentPadding: EdgeInsets.all(10),
+                          labelText: 'Phone',
+                          labelStyle: TextStyle(color: kPrimaryblckColor),
+                          prefixIcon:  Icon(
+                            Icons.phone,
+                            size: 25,
+                            color: kPrimaryColor,
+                          )
                       ),
                     ),
-                  )
-                      : Container(height: 1),
 
-                  (submitValid)
-                      ? ElevatedButton(
+                  ),
+                  otpTimeout > 0
+                      ? Column(
+                    children: [
+                      SizedBox(height: 10),
+                      TextFormField(
+                        onChanged: (value) {
+                          OTP=value;
+
+                        },
+                        keyboardType: TextInputType.number,
+                        maxLength: 6,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          counterText: '', // Hide character count
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          filled: true,
+                          contentPadding: EdgeInsets.all(10),
+                        ),
+                        style: TextStyle(fontSize: 20),
+                      ),
+
+                      Text('OTP จะสิ้นสุดใน ${otpTimeout.toString()} วินาที'),
+                    ],
+                  )
+                      : SizedBox.shrink(),
+                  otpTimeout > 0
+                      ?ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -404,27 +389,70 @@ class _Otp_RegisBuyState extends State<Otp_RegisBuy> {
                         // Background color
                         primary: kPrimaryColor,
                         minimumSize: Size(30, 50))
-                        .copyWith(
-                        elevation: ButtonStyleButton.allOrNull(5.0)),
-                    onPressed: () {
-
-
+                        .copyWith(elevation: ButtonStyleButton.allOrNull(5.0)),
+                    onPressed: () async {
+                      try {
+                        PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verify, smsCode:OTP);
+                        print('$OTP,$phone');
+                        await _auth.signInWithCredential(credential);
+                        uplodeimageusersaveuserbuy();
+                        // showSuccessMessage("$OTP,$phone");
+                      } catch (e) { print(e);
+                      showErrorMessage('Error sending OTP: $e');
+                      }
+                      print(OTP);
 
                     },
-                    child: GestureDetector(
-                      onTap: verify,
-                      child: Center(
-                        child: Text("ยืนยัน",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
-                        ),
+                    child:Text(
+                      "ยืนยัน",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 16,
                       ),
                     ),
-                  )
-                      : SizedBox(height: 1)
+                  )//ส่งotp
+                      :ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        elevation: 5,
+                        // Foreground color
+                        onPrimary: Colors.white,
+                        // Background color
+                        primary: kPrimaryColor,
+                        minimumSize: Size(30, 50))
+                        .copyWith(elevation: ButtonStyleButton.allOrNull(5.0)),
+                    onPressed: () async {
+                      try {
+                        await FirebaseAuth.instance.verifyPhoneNumber(
+                          phoneNumber: '${countrycode.text + phone}',
+                          timeout: Duration(minutes: 2),
+                          verificationCompleted: (PhoneAuthCredential credential) {},
+                          verificationFailed: (FirebaseAuthException e) {
+                            showErrorMessage('OTP verification failed: ${e.message}');
+                          },
+                          codeSent: (String verificationId, int? resendToken) {
+                            verify = verificationId;
+                            startOtpTimer(); // Start the OTP timer
+                            showSuccessMessage('OTP sent successfully');
+                          },
+                          codeAutoRetrievalTimeout: (String verificationId) {},
+                        );
+                      } catch (e) {
+                        showErrorMessage('Error sending OTP: $e');
+                      }
+                    },
+                    child:Text(
+                      " ส่งรหัส OTP",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  )//ส่
 
 
                 ],
