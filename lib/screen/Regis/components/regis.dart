@@ -85,21 +85,6 @@ class OtpScreenBuy extends StatelessWidget {
 
 
 
-class SetPassWord extends StatefulWidget {
-  const SetPassWord({Key? key}) : super(key: key);
-
-  @override
-  State<SetPassWord> createState() => _SetPassWordState();
-}
-class _SetPassWordState extends State<SetPassWord> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar:AppBar(title: Text('Password'),backgroundColor: kPrimaryColor,),
-      body: BodySetPassWord(),
-    );
-  }
-}
 
 
 class RegisterSale extends StatefulWidget {
@@ -148,7 +133,7 @@ class _RegisterAddressSellState extends State<RegisterAddressSell> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(title: Text('RegisterAddressSell'),backgroundColor: kPrimaryColor,),
+       appBar:AppBar(title: Text('RegisSale'),backgroundColor: kPrimaryColor,),
       body: BobyRegisterAddressSell(),
     );
   }

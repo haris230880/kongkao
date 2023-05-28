@@ -79,13 +79,17 @@ class _BodyRegisterSaleState extends State<BodyRegisterSale> {
                   children: <Widget>[
                     Text(
                       'ลงทะเบียนผู้ขาย',
-                      style: TextStyleblodgreen,
+                      style: TextStyle(
+                          color: kPrimaryblckColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
                     ),
+
                     SizedBox(
                       height: 20,
                     ),
                     Container(
-                      height: 50,
+                      height: 70,
                       width: 350,
                       child: TextFormField(
                         validator: (value) {
@@ -122,7 +126,7 @@ class _BodyRegisterSaleState extends State<BodyRegisterSale> {
                     SizedBox(height: 10,),
 
                     Container(
-                      height: 50,
+                      height: 70,
                       width: 350,
                       child: TextFormField(
                         validator: (value) {
@@ -156,7 +160,7 @@ class _BodyRegisterSaleState extends State<BodyRegisterSale> {
                     ),
                     SizedBox(height: 10,),
 
-                    SizedBox(height: 30,),
+
 
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(

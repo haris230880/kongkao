@@ -1,8 +1,10 @@
 import 'dart:math';
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:project/configs/services/api.dart';
+import 'package:project/configs/services/datauserbay.dart';
 import 'package:project/future_All.dart';
 import 'package:project/my_style.dart';
 import 'package:project/screen/Regis/components/background_regis.dart';
@@ -43,10 +45,6 @@ class _BodyRegisNumberSaleState extends State<BodyRegisNumberSale> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
-                "Kongkao",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-              ),
               SizedBox(
                 height: 20,
               ),
@@ -54,7 +52,7 @@ class _BodyRegisNumberSaleState extends State<BodyRegisNumberSale> {
               Container(
                 margin: EdgeInsets.all(20),
                 padding:
-                    EdgeInsets.only(left: 50, right: 50, top: 10, bottom: 20),
+                    EdgeInsets.all(20),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -84,67 +82,45 @@ class _BodyRegisNumberSaleState extends State<BodyRegisNumberSale> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: TextFormField(
-                        validator: (value) {
-                          if (value != null && value.length < 10) {
-                            return "enter เบอร์โทรศัพท์";
-                          }
-                          return null;
-                        },
-                        onChanged: (value) => selluser_phone = value.trim(),
-                        keyboardType: TextInputType.phone,
-                        maxLength: 10,
+                        validator: (seuser_email) => EmailValidator.validate(selluser_email!)
+                            ? null
+                            : "กรอกอีเมล ลงท้ายด้วย@gmail.com",
+                        onChanged: (value) => selluser_email = value.trim(),
                         cursorColor: kPrimaryColor,
+                        keyboardType: TextInputType.emailAddress,
                         textAlignVertical: TextAlignVertical.center,
                         decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide: BorderSide(color: kPrimaryColor)),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: kPrimaryLightColor),
-                          ), //เปลียนสีเส้นขอบเมื่อกด
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
+                            filled: true,
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                            contentPadding: EdgeInsets.all(10),
+                            label: Text(
+                              'อีเมล',
+                              style: TextStyle(color: kPrimaryblckColor),
                             ),
-                          ),
-                          contentPadding: EdgeInsets.all(10),
-                          label: Text(
-                            'เบอร์โทรศัพท์ ',
-                            style: TextStyle(color: kPrimaryColor),
-                          ),
-                          prefixIcon: Icon(
-                            Icons.phone,
-                            color: kPrimaryColor,
-                          ),
-                        ),
+                            prefixIcon: Icon(
+                              Icons.email,
+                              size: 25,
+                              color: kPrimaryColor,
+                            )),
                       ),
+
                     ),
-                    SizedBox(height: 10,),
                     Container(
-                      height: 50,
-                      width: 350,
+                      height: 70,
+                      width: 300,
                       child: TextFormField(
                         validator: (value) {
                           if (value != null && value.length < 6) {
-                            return "enter รหัสผ่าน 6 ตัวขึ้นไป";
-                          }
+                            return "enter รหัสผ่าน 6 ตัวขึ้นไป";}
                           return null;
                         },
                         onChanged: (value) => selluser_password = value.trim(),
-
                         obscureText: isHidden,
                         textAlignVertical: TextAlignVertical.center,
                         decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide: BorderSide(color: kPrimaryColor)),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: kPrimaryLightColor),
-                          ),
                           filled: true,
                           border: OutlineInputBorder(
                               borderSide: BorderSide.none,
@@ -159,7 +135,7 @@ class _BodyRegisNumberSaleState extends State<BodyRegisNumberSale> {
                             Icons.password,
                             color: kPrimaryColor,
                           ),
-                          suffix: InkWell(
+                          suffixIcon: InkWell(
                             onTap: togglePasswordVisibility,
                             child: IconButton(
                               icon: isHidden

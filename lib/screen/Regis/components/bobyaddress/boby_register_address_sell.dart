@@ -53,9 +53,9 @@ class _BobyRegisterAddressSellState extends State<BobyRegisterAddressSell> {
               ),
               MyStyle().CircleAvatarusersale(),
               Container(
-                margin: EdgeInsets.all(30),
+                margin: EdgeInsets.all(20),
                 padding:
-                    EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                    EdgeInsets.all(20),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -72,7 +72,10 @@ class _BobyRegisterAddressSellState extends State<BobyRegisterAddressSell> {
                   children: <Widget>[
                     Text(
                       'ลงทะเบียนผู้ขาย',
-                      style: TextStyleblodgreen,
+                  style: TextStyle(
+                      color: kPrimaryblckColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
                     ),
                     Text(
                       'ที่อยู่',
@@ -85,7 +88,7 @@ class _BobyRegisterAddressSellState extends State<BobyRegisterAddressSell> {
                       height: 20,
                     ),
                     Container(
-                      height: 50,
+                      height: 70,
                       width: 350,
                       child: TextFormField(
                         validator: (value) {
@@ -114,15 +117,12 @@ class _BobyRegisterAddressSellState extends State<BobyRegisterAddressSell> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          height: 50,
-                          width: 140,
+                          height: 70,
+                          width: 150,
                           child: TextFormField(
                             validator: (value) {
                               if (value != null && value.isEmpty) {
@@ -152,8 +152,8 @@ class _BobyRegisterAddressSellState extends State<BobyRegisterAddressSell> {
                           ),
                         ),
                         Container(
-                          height: 50,
-                          width: 140,
+                          height: 70,
+                          width: 150,
                           child: TextFormField(
                             validator: (value) {
                               if (value != null && value.isEmpty) {
@@ -184,15 +184,13 @@ class _BobyRegisterAddressSellState extends State<BobyRegisterAddressSell> {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          height: 50,
-                          width: 140,
+                          height: 70,
+                          width: 150,
                           child: TextFormField(
                             validator: (value) {
                               if (value != null && value.isEmpty) {
@@ -220,9 +218,10 @@ class _BobyRegisterAddressSellState extends State<BobyRegisterAddressSell> {
                             ),
                           ),
                         ),
+
                         Container(
-                          height: 50,
-                          width: 140,
+                          height: 70,
+                          width: 150,
                           child: TextFormField(
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(5),
