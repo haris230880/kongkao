@@ -14,14 +14,14 @@ import '../../../../constants.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class OrderScreenBuy extends StatefulWidget {
-  const OrderScreenBuy({Key? key}) : super(key: key);
+class OrderScreenBuyALL extends StatefulWidget {
+  const OrderScreenBuyALL({Key? key}) : super(key: key);
 
   @override
-  State<OrderScreenBuy> createState() => _OrderScreenBuyState();
+  State<OrderScreenBuyALL> createState() => _OrderScreenBuyALLState();
 }
 
-class _OrderScreenBuyState extends State<OrderScreenBuy> {
+class _OrderScreenBuyALLState extends State<OrderScreenBuyALL> {
   List<ExchangeModel> exchangemodels = [];
 
   @override
@@ -134,7 +134,7 @@ class _OrderScreenBuyState extends State<OrderScreenBuy> {
         body: ListView.builder(
           itemCount: exchangemodels.length,
           itemBuilder: (context, index) {
-            if (exchangemodels[index].status == "null") {
+            if (exchangemodels[index].status != "null") {
               return GestureDetector(
                 onTap: () {
                   Navigator.push(

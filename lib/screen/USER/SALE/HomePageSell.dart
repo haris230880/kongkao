@@ -8,6 +8,7 @@ import 'package:project/screen/Login/components/login_screen.dart';
 import 'package:project/screen/USER/BAY/ProFile/body_profilebay.dart';
 import 'package:project/screen/USER/BAY/ProFile/profile_sereenbay.dart';
 import 'package:project/screen/USER/SALE/Home/components/home_screensale.dart';
+import 'package:project/screen/USER/SALE/NotiFication/orderSreenSaleALL.dart';
 import 'package:project/screen/USER/SALE/OrderScreen/orderSreenSale.dart';
 import 'package:project/screen/USER/SALE/ProFile/profile_sereenbay.dart';
 import 'package:project/winged/map.dart';
@@ -42,7 +43,7 @@ int currentIndex = 0;
   final screen = [
     HomeScreensale(),
     OrderScreenSale(),
-    NotiFicationBayScreen(),
+    OrderScreenSaleALL(),
     ProFileUserSaleSreen(),
   ];
   @override
