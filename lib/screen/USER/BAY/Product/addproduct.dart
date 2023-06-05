@@ -75,7 +75,6 @@ class _AddProductState extends State<AddProduct> {
       }
     } else {
       normaDiolog(context, 'Error');
-      print("nohave");
     }
   }
 

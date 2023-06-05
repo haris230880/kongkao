@@ -47,7 +47,7 @@ class _OrderScreenBuyALLState extends State<OrderScreenBuyALL> {
             });
           }
         } else {
-          normaDiolog(context, 'No data found');
+          normaDiolog(context, 'ไม่พบรายการ');
         }
       } else {
         normaDiolog(context, 'Error');

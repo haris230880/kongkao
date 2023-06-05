@@ -47,7 +47,7 @@ class _OrderScreenBuyState extends State<OrderScreenBuy> {
             });
           }
         } else {
-          normaDiolog(context, 'No data found');
+          normaDiolog(context, 'ไม่พบรายการ');
         }
       } else {
         normaDiolog(context, 'Error');
@@ -301,7 +301,7 @@ class _OrderScreenBuyState extends State<OrderScreenBuy> {
                                               onPressed: () {
                                                 Navigator.of(context).pop();
                                               },
-                                              child: Text('ยกเลิก'),
+                                              child: Text('ยืนยัน'),
                                             ),
                                             SizedBox(height: 10),
                                             ElevatedButton(
