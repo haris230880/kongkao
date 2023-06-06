@@ -7,7 +7,7 @@ import 'package:project/future_All.dart';
 import 'package:project/model/exchangemodel.dart';
 import 'package:project/model/usermodel.dart';
 import 'package:project/screen/USER/BAY/HOME/components/appbarhomepagebay.dart';
-import 'package:project/screen/USER/SALE/Home/components/orderstatus.dart';
+import 'package:project/screen/USER/SALE/OrderScreen/orderstatus.dart';
 import 'package:project/screen/USER/SALE/ProFile/editprofile.dart';
 
 import '../../../../constants.dart';
@@ -194,19 +194,6 @@ class _OrderScreenSaleState extends State<OrderScreenSale> {
                                   ),
                                 ],
                               ),
-                              // SizedBox(height: 8),
-                              // Text(
-                              //   "${exchangemodels[index].status! == 'สำเร็จ' ? ('สำเร็จ') : exchangemodels[index].status! == 'ยกเลิก' ? ('ยกเลิก') : ('รอยืนยัน')}",
-                              //   style: TextStyle(
-                              //     fontWeight: FontWeight.bold,
-                              //     fontSize: 16,
-                              //     color: exchangemodels[index].status == "สำเร็จ"
-                              //         ? kPrimaryColor
-                              //         : exchangemodels[index].status == "ยกเลิก"
-                              //             ? Colors.red
-                              //             : Colors.orangeAccent,
-                              //   ),
-                              // ),
                               SizedBox(height: 8),
                             ],
                           ),

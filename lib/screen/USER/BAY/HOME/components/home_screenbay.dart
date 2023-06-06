@@ -60,70 +60,72 @@ class _HomeBayScreenState extends State<HomeBayScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HomeAppBarBay(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          HeaderHomePageBay(),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Column(
-              children: [
-                Text(
-                  'ประเภท',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Container(
-                    margin: EdgeInsets.only(top: kDefaultPaddin / 4),
-                    height: 3,
-                    width: 70,
-                    color: kPrimaryLightColor),
-              ],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            HeaderHomePageBay(),
+            SizedBox(
+              height: 20,
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            height: 200,
-            child: GridView.builder(
-                itemCount: typeProductModels.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 1,
-                  crossAxisSpacing: 1,
-                  childAspectRatio: 1.1,
-                  mainAxisExtent: 90,
-                ),
-                itemBuilder: (context, index) =>
-                    ItemCardType(typeProductModel: typeProductModels[index])),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-              children: [
-                Text(
-                  'บัญชี',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Container(
-                    margin: EdgeInsets.only(top: kDefaultPaddin / 4),
-                    height: 3,
-                    width: 70,
-                    color: kPrimaryLightColor),
-              ],
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Column(
+                children: [
+                  Text(
+                    'ประเภท',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(top: kDefaultPaddin / 4),
+                      height: 3,
+                      width: 70,
+                      color: kPrimaryLightColor),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(
+            SizedBox(
+              height: 20,
+            ),
+            Container(
               height: 200,
-              color: kPrimaryblckColor,
+              child: GridView.builder(
+                  itemCount: typeProductModels.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 1,
+                    crossAxisSpacing: 1,
+                    childAspectRatio: 1.1,
+                    mainAxisExtent: 90,
+                  ),
+                  itemBuilder: (context, index) =>
+                      ItemCardType(typeProductModel: typeProductModels[index])),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                children: [
+                  Text(
+                    'บัญชี',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(top: kDefaultPaddin / 4),
+                      height: 3,
+                      width: 70,
+                      color: kPrimaryLightColor),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                height: 200,
+                color: kPrimaryblckColor,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

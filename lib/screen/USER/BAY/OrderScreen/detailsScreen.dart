@@ -8,6 +8,7 @@ import 'package:project/configs/services/api.dart';
 import 'package:project/constants.dart';
 import 'package:project/future_All.dart';
 import 'package:project/model/exchangemodel.dart';
+import 'package:project/screen/USER/SALE/HomePageSell.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailsScreen extends StatefulWidget {
@@ -25,31 +26,108 @@ class _DetailsScreenState extends State<DetailsScreen> {
   late double buyerLongitude = 0; // Variable to store the buyer's longitude
   late double saleLatitude;
   late double saleLongitude;
+  var status = null;
+  bool isButtonDisabled = false;
+  bool isButtonDisabled2 = false;
+  bool isButtonDisabled3 = false;
+  bool isButtonDisabled4 = false;
+
   bool isLoading = true;
   @override
   void initState() {
     super.initState();
     _getCurrentLocation();
+    status = widget.exchangemodel.status;
     exchangemodel = widget.exchangemodel;
     saleLatitude = double.parse(exchangemodel.latitude!);
     saleLongitude = double.parse(exchangemodel.longitude!);
   }
+
   void updateListOrderStatus(int exchangeId) async {
+    print(exchangeId);
     try {
-      var response = await Dio().get(API.BASE_URL +
-          '/kongkao/updatelistorderstatus.php?isAdd=true&status=สำเร็จ&exchangeid=$exchangeId');
+      var response = await Dio().get(
+        API.BASE_URL +
+            '/kongkao/updatelistorderstatus.php?isAdd=true&status=สำเร็จ&exchangeid=$exchangeId',
+      );
       print(response);
 
       setState(() {
         exchangemodel = ExchangeModel(); // กำหนดค่าใหม่ให้กับ exchangemodel
       });
-
     } catch (e) {
       print(e);
     }
   }
 
+  void updateListOrderStatusconfirm(int exchangeId) async {
+    try {
+      var response = await Dio().get(API.BASE_URL +
+          '/kongkao/updatelistorderstatus.php?isAdd=true&status=ยืนยัน&exchangeid=$exchangeId');
+      print(response);
 
+      setState(() {
+        exchangemodel = ExchangeModel(); // กำหนดค่าใหม่ให้กับ exchangemodel
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void updateListOrderStatusgoing(int exchangeId) async {
+    try {
+      var response = await Dio().get(API.BASE_URL +
+          '/kongkao/updatelistorderstatus.php?isAdd=true&status=กำลังเดินทาง&exchangeid=$exchangeId');
+      print(response);
+
+      setState(() {
+        exchangemodel = ExchangeModel(); // กำหนดค่าใหม่ให้กับ exchangemodel
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void updateListOrderStatusdestination(int exchangeId) async {
+    try {
+      var response = await Dio().get(API.BASE_URL +
+          '/kongkao/updatelistorderstatus.php?isAdd=true&status=ถึงที่หมาย&exchangeid=$exchangeId');
+
+      setState(() {
+        exchangemodel = ExchangeModel(); // กำหนดค่าใหม่ให้กับ exchangemodel
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void updateListOrderStatusfinish(int exchangeId) async {
+    try {
+      var response = await Dio().get(API.BASE_URL +
+          '/kongkao/updatelistorderstatus.php?isAdd=true&status=เสร็จสิ้น&exchangeid=$exchangeId');
+      print(response);
+
+      setState(() {
+        exchangemodel = ExchangeModel(); // กำหนดค่าใหม่ให้กับ exchangemodel
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void updateListOrderStatuscancel(int exchangeId) async {
+    try {
+      var response = await Dio().get(API.BASE_URL +
+          '/kongkao/updatelistorderstatus.php?isAdd=true&status=ยกเลิก&exchangeid=$exchangeId');
+      print(response);
+
+      setState(() {
+        exchangemodel = ExchangeModel();
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   Future<void> _getCurrentLocation() async {
     try {
@@ -98,6 +176,95 @@ class _DetailsScreenState extends State<DetailsScreen> {
             ),
           ],
         ),
+        actions: [
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    elevation: 5,
+                    // Foreground color
+                    onPrimary: Colors.white,
+                    // Background color
+                    primary: Colors.red,
+                    minimumSize: Size(1, 1))
+                .copyWith(elevation: ButtonStyleButton.allOrNull(2.0)),
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                backgroundColor: Colors.transparent,
+                builder: (BuildContext context) {
+                  return Container(
+                    height: 200.0,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10.0),
+                        topRight: Radius.circular(10.0),
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'คุณต้องการยกเลิกรายการนี้?',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  elevation: 5,
+                                  // Foreground color
+                                  onPrimary: Colors.white,
+                                  // Background color
+                                  primary: kPrimaryColor,
+                                  minimumSize: Size(100, 40))
+                              .copyWith(
+                                  elevation: ButtonStyleButton.allOrNull(2.0)),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            updateListOrderStatuscancel(
+                                int.parse(exchangemodel.exchangeid!));
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      HomePageSell()), // แทน HomeScreen ด้วยหน้าที่ต้องการกลับไปยังหน้าเริ่มต้น
+                            );
+                          },
+                          child: Text('ตกลง'),
+                        ),
+                        SizedBox(height: 10),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  elevation: 5,
+                                  // Foreground color
+                                  onPrimary: Colors.white,
+                                  // Background color
+                                  primary: Colors.red,
+                                  minimumSize: Size(100, 40))
+                              .copyWith(
+                                  elevation: ButtonStyleButton.allOrNull(2.0)),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('ยกเลิก'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
+            child: Text('ยกเลิก'),
+          )
+        ],
       ),
       body: isLoading
           ? Center(
@@ -111,10 +278,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     flex: 1,
                     child: Container(
                       decoration: BoxDecoration(
-                          color: kPrimaryColor,
-                          borderRadius: BorderRadiusDirectional.only(
-                              bottomEnd: Radius.circular(12),
-                              topEnd: Radius.circular(12))),
+                        color: Colors.grey, // Set your desired color
+                        borderRadius: BorderRadiusDirectional.only(
+                          bottomEnd: Radius.circular(12),
+                          topEnd: Radius.circular(12),
+                        ),
+                      ),
                       child: GoogleMap(
                         initialCameraPosition: CameraPosition(
                           target: LatLng(
@@ -145,117 +314,612 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       ),
                     )),
                 Expanded(
-                    flex: 2,
-                    child: Container(
-                      width: fixsixe.screenWidth,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadiusDirectional.only(
-                              topStart: Radius.circular(12),
-                              topEnd: Radius.circular(12))),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(children: [
-                          CircleAvatar(
-                              maxRadius: 70,
-                              backgroundImage: NetworkImage(
-                                  API.BASE_URL + exchangemodel.photo!)),
-                          Text('รายการ',
-                              style:
-                                  TextStyle(fontSize: 24, color: Colors.white)),
-                          Text(exchangemodel.detail!.replaceAll('[', '').replaceAll(']', ''),
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.white)),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(exchangemodel.name!,
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.white)),
-                            SizedBox(width: 10,),
-                            Text(exchangemodel.lastname!,
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.white)),],),
-
-                          Row(mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('phone',
-                                  style: TextStyle(
-                                      fontSize: 20, color: Colors.white)),
-
-                              Text(exchangemodel.phone!,
-                                  style: TextStyle(
-                                      fontSize: 20, color: Colors.white)),
-                            ],
-                          ),
-                          Text(exchangemodel.email!,
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.white)),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    shape:
-                                    RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.circular(
-                                          50),
-                                    ),
-                                    elevation: 5,
-                                    // Foreground color
-                                    onPrimary: Colors.white,
-                                    // Background color
-                                    primary: kPrimaryColor,
-                                    minimumSize: Size(100, 40))
-                                    .copyWith(
-                                    elevation: ButtonStyleButton
-                                        .allOrNull(2.0)),
-                                onPressed: () {
-                                  double buyerLat =
-                                      buyerLatitude; // Replace with the actual buyer's latitude
-                                  double buyerLng =
-                                      buyerLongitude; // Replace with the actual buyer's longitude
-                                  double sellerLat =
-                                      saleLatitude; // Replace with the actual seller's latitude
-                                  double sellerLng =
-                                      saleLongitude; // Replace with the actual seller's longitude
-                                  // Open a navigation app (e.g., Google Maps) with the buyer and seller coordinates
-                                  String url =
-                                      'https://www.google.com/maps/dir/?api=1&origin=$buyerLat,$buyerLng&destination=$sellerLat,$sellerLng';
-                                  launch(url);
-                                },
-                                child: Text('นำทาง'),
-                              ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    shape:
-                                    RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.circular(
-                                          50),
-                                    ),
-                                    elevation: 5,
-                                    // Foreground color
-                                    onPrimary: Colors.white,
-                                    // Background color
-                                    primary: kPrimaryColor,
-                                    minimumSize: Size(100, 40))
-                                    .copyWith(
-                                    elevation: ButtonStyleButton
-                                        .allOrNull(2.0)),
-                                onPressed: () {
-
-                                },
-                                child: Text('เสร็จสิ้น'),
-                              ),
-                            ],
-                          ),
-                        ]),
+                  flex: 2,
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white, // Set your desired color
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(12),
                       ),
-                    )),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'รายการ #${exchangemodel.exchangeid}', // Customize your text
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            'รายละเอียด', // Customize your text
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          SizedBox(height: 16),
+                          Row(
+                            children: [
+                              Icon(Icons.person,
+                                  color: kPrimaryColor), // Customize your icon
+                              SizedBox(width: 8),
+                              Text(
+                                'ชื่อ: ${exchangemodel.name}', // Customize your text
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                'นามสกุล: ${exchangemodel.lastname}', // Customize your text
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 8),
+                          Row(
+                            children: [
+                              Icon(Icons.phone,
+                                  color: kPrimaryColor), // Customize your icon
+                              SizedBox(width: 8),
+                              Text(
+                                'เบอร์โทร: 0${exchangemodel.phone}', // Customize your text
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 8),
+                          Row(
+                            children: [
+                              Icon(Icons.email,
+                                  color: kPrimaryColor), // Customize your icon
+                              SizedBox(width: 8),
+                              Text(
+                                'อีเมล: ${exchangemodel.email}', // Customize your text
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 8),
+                          Row(
+                            children: [
+                              Icon(Icons.shopping_bag,
+                                  color: kPrimaryColor), // Customize your icon
+                              SizedBox(width: 8),
+                              Text(
+                                'รายละเอียด: ${exchangemodel.detail?.replaceAll('[', '').replaceAll(']', '')}', // Customize your text
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 8),
+                          Row(
+                            children: [
+                              Icon(Icons.home_filled,
+                                  color: kPrimaryColor), // Customize your icon
+                              SizedBox(width: 8),
+                              Text(
+                                'ที่อยู่: ${exchangemodel.housenum} ${exchangemodel.district} ${exchangemodel.prefecture} ${exchangemodel.city}', // Customize your text
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 16),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 50.0),
+                            child: Column(
+                              children: [
+                                Text(
+                                  'สถานะการสั่งซื้อ',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                // Row(
+                                //   mainAxisAlignment:
+                                //       MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     Icon(
+                                //       Icons.shop,
+                                //       color: status == 'ยืนยัน' ||
+                                //               status ==
+                                //                   'กำลังเดินทาง' ||
+                                //               status ==
+                                //                   'ถึงที่หมาย' ||
+                                //               status ==
+                                //                   'เสร็จสิ้น'
+                                //           ? Colors.green
+                                //           : null,
+                                //     ),
+                                //     Container(
+                                //       color: status ==
+                                //                   'กำลังเดินทาง' ||
+                                //               status ==
+                                //                   'ถึงที่หมาย' ||
+                                //               status ==
+                                //                   'เสร็จสิ้น'
+                                //           ? Colors.green
+                                //           : kPrimaryblckColor,
+                                //       height: 5,
+                                //       width: 50,
+                                //     ),
+                                //     Icon(
+                                //       Icons.car_crash,
+                                //       color: status ==
+                                //                   'กำลังเดินทาง' ||
+                                //               status ==
+                                //                   'ถึงที่หมาย' ||
+                                //           status ==
+                                //                   'เสร็จสิ้น'
+                                //           ? Colors.green
+                                //           : null,
+                                //     ),
+                                //     Container(
+                                //       color: status ==
+                                //                   'ถึงที่หมาย' ||
+                                //                     status ==
+                                //                   'เสร็จสิ้น'
+                                //           ? Colors.green
+                                //           : kPrimaryblckColor,
+                                //       height: 5,
+                                //       width: 50,
+                                //     ),
+                                //     Icon(
+                                //       Icons.location_on,
+                                //       color: status ==
+                                //                   'ถึงที่หมาย' ||
+                                //               status ==
+                                //                   'เสร็จสิ้น'
+                                //           ? Colors.green
+                                //           : null,
+                                //     ),
+                                //     Container(
+                                //       color: status == 'เสร็จสิ้น'
+                                //           ? Colors.green
+                                //           : kPrimaryblckColor,
+                                //       height: 5,
+                                //       width: 50,
+                                //     ),
+                                //     Icon(
+                                //       Icons.offline_pin_rounded,
+                                //       color: status == 'เสร็จสิ้น'
+                                //           ? Colors.green
+                                //           : null,
+                                //     ),
+                                //   ],
+                                // ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(50),
+                                        ),
+                                        elevation: 5,
+                                        // Foreground color
+                                        onPrimary: Colors.white,
+                                        // Background color
+                                        primary: isButtonDisabled
+                                            ? Colors.grey
+                                            : kPrimaryColor,
+                                        minimumSize: Size(100, 40),
+                                      ).copyWith(
+                                        elevation: ButtonStyleButton.allOrNull(2.0),
+                                      ),
+                                      onPressed: isButtonDisabled
+                                          ? null
+                                          : () {
+                                        setState(() {
+                                          isButtonDisabled = true;
+                                        });
+
+                                        showModalBottomSheet(
+                                          context: context,
+                                          backgroundColor: Colors.transparent,
+                                          builder: (BuildContext context) {
+                                            return Container(
+                                              height: 200.0,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft:
+                                                  Radius.circular(10.0),
+                                                  topRight:
+                                                  Radius.circular(10.0),
+                                                ),
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    'คุณต้องการยืนยันรายการนี้?',
+                                                    style:
+                                                    TextStyle(fontSize: 18),
+                                                  ),
+                                                  SizedBox(height: 20),
+                                                  ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      shape:
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                        BorderRadius
+                                                            .circular(50),
+                                                      ),
+                                                      elevation: 5,
+                                                      // Foreground color
+                                                      onPrimary: Colors.white,
+                                                      // Background color
+                                                      primary: kPrimaryColor,
+                                                      minimumSize:
+                                                      Size(100, 40),
+                                                    ).copyWith(
+                                                      elevation:
+                                                      ButtonStyleButton
+                                                          .allOrNull(2.0),
+                                                    ),
+                                                    onPressed: () {
+                                                      status = 'ยืนยัน';
+                                                      print(status);
+                                                      updateListOrderStatusconfirm(
+                                                          int.parse(exchangemodel
+                                                              .exchangeid!));
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: Text('ยืนยัน'),
+                                                  ),
+                                                  SizedBox(height: 10),
+                                                  ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      shape:
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                        BorderRadius
+                                                            .circular(50),
+                                                      ),
+                                                      elevation: 5,
+                                                      // Foreground color
+                                                      onPrimary: Colors.white,
+                                                      // Background color
+                                                      primary: Colors.red,
+                                                      minimumSize:
+                                                      Size(100, 40),
+                                                    ).copyWith(
+                                                      elevation:
+                                                      ButtonStyleButton
+                                                          .allOrNull(2.0),
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: Text('ยกเลิก'),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Text('ยืนยันรายการ'),
+                                    ),
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(50),
+                                        ),
+                                        elevation: 5,
+                                        // Foreground color
+                                        onPrimary: Colors.white,
+                                        // Background color
+                                        primary: isButtonDisabled2 ? Colors.grey : kPrimaryColor,
+                                        minimumSize: Size(100, 40),
+                                      ).copyWith(
+                                        elevation: ButtonStyleButton.allOrNull(2.0),
+                                      ),
+                                      onPressed: isButtonDisabled2
+                                          ? null
+                                          : () {
+                                        setState(() {
+                                          isButtonDisabled2 = true;
+                                        });
+
+                                        showModalBottomSheet(
+                                          context: context,
+                                          backgroundColor: Colors.transparent,
+                                          builder: (BuildContext context) {
+                                            return Container(
+                                              height: 200.0,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(10.0),
+                                                  topRight: Radius.circular(10.0),
+                                                ),
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    'คุณต้องการยืนยันรายการนี้?',
+                                                    style: TextStyle(fontSize: 18),
+                                                  ),
+                                                  SizedBox(height: 20),
+                                                  ElevatedButton(
+                                                    style: ElevatedButton.styleFrom(
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(50),
+                                                      ),
+                                                      elevation: 5,
+                                                      // Foreground color
+                                                      onPrimary: Colors.white,
+                                                      // Background color
+                                                      primary: kPrimaryColor,
+                                                      minimumSize: Size(100, 40),
+                                                    ).copyWith(
+                                                      elevation: ButtonStyleButton.allOrNull(2.0),
+                                                    ),
+                                                    onPressed: () {
+                                                      status = 'กำลังเดินทาง';
+                                                      updateListOrderStatusgoing(int.parse(exchangemodel.exchangeid!));
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                    child: Text('ยืนยัน'),
+                                                  ),
+                                                  ElevatedButton(
+                                                    style: ElevatedButton.styleFrom(
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(50),
+                                                      ),
+                                                      elevation: 5,
+                                                      // Foreground color
+                                                      onPrimary: Colors.white,
+                                                      // Background color
+                                                      primary: Colors.red,
+                                                      minimumSize: Size(100, 40),
+                                                    ).copyWith(
+                                                      elevation: ButtonStyleButton.allOrNull(2.0),
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                    child: Text('ยกเลิก'),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Text('กำลังเดินทาง'),
+                                    )
+
+                                  ],
+                                ),
+                                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(50),
+                                        ),
+                                        elevation: 5,
+                                        // Foreground color
+                                        onPrimary: Colors.white,
+                                        // Background color
+                                        primary: isButtonDisabled2 ? Colors.grey : kPrimaryColor,
+                                        minimumSize: Size(100, 40),
+                                      ).copyWith(
+                                        elevation: ButtonStyleButton.allOrNull(2.0),
+                                      ),
+                                      onPressed: isButtonDisabled2
+                                          ? null
+                                          : () {
+                                        setState(() {
+                                          isButtonDisabled2 = true;
+                                        });
+
+                                        showModalBottomSheet(
+                                          context: context,
+                                          backgroundColor: Colors.transparent,
+                                          builder: (BuildContext context) {
+                                            return Container(
+                                              height: 200.0,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(10.0),
+                                                  topRight: Radius.circular(10.0),
+                                                ),
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    'คุณต้องการยืนยันรายการนี้?',
+                                                    style: TextStyle(fontSize: 18),
+                                                  ),
+                                                  SizedBox(height: 20),
+                                                  ElevatedButton(
+                                                    style: ElevatedButton.styleFrom(
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(50),
+                                                      ),
+                                                      elevation: 5,
+                                                      // Foreground color
+                                                      onPrimary: Colors.white,
+                                                      // Background color
+                                                      primary: kPrimaryColor,
+                                                      minimumSize: Size(100, 40),
+                                                    ).copyWith(
+                                                      elevation: ButtonStyleButton.allOrNull(2.0),
+                                                    ),
+                                                    onPressed: () {
+                                                      status = 'ถึงที่หมาย';
+                                                      updateListOrderStatusdestination(int.parse(exchangemodel.exchangeid!));
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                    child: Text('ยืนยัน'),
+                                                  ),
+                                                  ElevatedButton(
+                                                    style: ElevatedButton.styleFrom(
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(50),
+                                                      ),
+                                                      elevation: 5,
+                                                      // Foreground color
+                                                      onPrimary: Colors.white,
+                                                      // Background color
+                                                      primary: Colors.red,
+                                                      minimumSize: Size(100, 40),
+                                                    ).copyWith(
+                                                      elevation: ButtonStyleButton.allOrNull(2.0),
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                    child: Text('ยกเลิก'),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Text('ถึงที่หมาย'),
+                                    ),
+
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(50),
+                                        ),
+                                        elevation: 5,
+                                        // Foreground color
+                                        onPrimary: Colors.white,
+                                        // Background color
+                                        primary: isButtonDisabled3 ? Colors.grey : kPrimaryColor,
+                                        minimumSize: Size(100, 40),
+                                      ).copyWith(
+                                        elevation: ButtonStyleButton.allOrNull(2.0),
+                                      ),
+                                      onPressed: isButtonDisabled3
+                                          ? null
+                                          : () {
+                                        setState(() {
+                                          isButtonDisabled3 = true;
+                                        });
+
+                                        showModalBottomSheet(
+                                          context: context,
+                                          backgroundColor: Colors.transparent,
+                                          builder: (BuildContext context) {
+                                            return Container(
+                                              height: 200.0,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(10.0),
+                                                  topRight: Radius.circular(10.0),
+                                                ),
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    'คุณต้องการยืนยันรายการนี้?',
+                                                    style: TextStyle(fontSize: 18),
+                                                  ),
+                                                  SizedBox(height: 20),
+                                                  ElevatedButton(
+                                                    style: ElevatedButton.styleFrom(
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(50),
+                                                      ),
+                                                      elevation: 5,
+                                                      // Foreground color
+                                                      onPrimary: Colors.white,
+                                                      // Background color
+                                                      primary: kPrimaryColor,
+                                                      minimumSize: Size(100, 40),
+                                                    ).copyWith(
+                                                      elevation: ButtonStyleButton.allOrNull(2.0),
+                                                    ),
+                                                    onPressed: () {
+                                                      status = 'ถึงที่หมาย';
+                                                      updateListOrderStatusfinish(int.parse(exchangemodel.exchangeid!));
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                    child: Text('ยืนยัน'),
+                                                  ),
+                                                  ElevatedButton(
+                                                    style: ElevatedButton.styleFrom(
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(50),
+                                                      ),
+                                                      elevation: 5,
+                                                      // Foreground color
+                                                      onPrimary: Colors.white,
+                                                      // Background color
+                                                      primary: Colors.red,
+                                                      minimumSize: Size(100, 40),
+                                                    ).copyWith(
+                                                      elevation: ButtonStyleButton.allOrNull(2.0),
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                    child: Text('ยกเลิก'),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Text('เสร็จสิ้น'),
+                                    )
+                                  ],
+                                )],
+                            ),
+                          ),
+
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          double buyerLat =
+              buyerLatitude; // Replace with the actual buyer's latitude
+          double buyerLng =
+              buyerLongitude; // Replace with the actual buyer's longitude
+          double sellerLat =
+              saleLatitude; // Replace with the actual seller's latitude
+          double sellerLng =
+              saleLongitude; // Replace with the actual seller's longitude
+          // Open a navigation app (e.g., Google Maps) with the buyer and seller coordinates
+          String url =
+              'https://www.google.com/maps/dir/?api=1&origin=$buyerLat,$buyerLng&destination=$sellerLat,$sellerLng';
+          launch(url);
+        },
+        child: Icon(Icons.navigation),
+        backgroundColor: Colors.blue,
+      ),
     );
   }
 }

@@ -75,14 +75,14 @@ class _OrderStatusPageState extends State<OrderStatusPage> {
                     Icon(
                       Icons.shop,
                       color: widget.exchangeModel.status == 'ยืนยัน' ||
-                              widget.exchangeModel.status == 'กำลังไป' ||
+                              widget.exchangeModel.status == 'กำลังเดินทาง' ||
                               widget.exchangeModel.status == 'ถึงที่หมาย' ||
                               widget.exchangeModel.status == 'เสร็จสิ้น'
                           ? Colors.green
                           : null,
                     ),
                     Container(
-                      color: widget.exchangeModel.status == 'กำลังไป' ||
+                      color: widget.exchangeModel.status == 'กำลังเดินทาง' ||
                               widget.exchangeModel.status == 'ถึงที่หมาย' ||
                               widget.exchangeModel.status == 'เสร็จสิ้น'
                           ? Colors.green
@@ -92,7 +92,7 @@ class _OrderStatusPageState extends State<OrderStatusPage> {
                     ),
                     Icon(
                       Icons.car_crash,
-                      color: widget.exchangeModel.status == 'กำลังไป' ||
+                      color: widget.exchangeModel.status == 'กำลังเดินทาง' ||
                               widget.exchangeModel.status == 'ถึงที่หมาย' ||
                               widget.exchangeModel.status == 'เสร็จสิ้น'
                           ? Colors.green

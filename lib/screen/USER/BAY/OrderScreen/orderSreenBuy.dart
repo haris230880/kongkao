@@ -57,21 +57,7 @@ class _OrderScreenBuyState extends State<OrderScreenBuy> {
     }
   }
 
-  void updateListOrderStatus(int exchangeId) async {
-    try {
-      var response = await Dio().get(API.BASE_URL +
-          '/kongkao/updatelistorderstatus.php?isAdd=true&status=สำเร็จ&exchangeid=$exchangeId');
-      print(response);
 
-      setState(() {
-        exchangemodels = [];
-      });
-
-      await readlistorder(); // อัพเดท UI ด้วยข้อมูลใหม่
-    } catch (e) {
-      print(e);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,31 +96,11 @@ class _OrderScreenBuyState extends State<OrderScreenBuy> {
               ),
             ],
           ),
-          actions: [
-            TextButton(
-                onPressed: () {},
-                child: Row(
-                  children: [
-                    Text(
-                      'ประวัติ',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Icon(
-                      Icons.history,
-                      color: Colors.white,
-                    ),
-                  ],
-                ))
-
-          ],
         ),
         body: ListView.builder(
           itemCount: exchangemodels.length,
           itemBuilder: (context, index) {
-            if (exchangemodels[index].status == "null") {
+            if (exchangemodels[index].status != "สำเร็จ"&&exchangemodels[index].status != "ยกเลิก")  {
               return GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -145,8 +111,6 @@ class _OrderScreenBuyState extends State<OrderScreenBuy> {
                     ),
                   );
                 },
-
-
                 child: Card(
                   child: Row(
                     children: [
@@ -217,23 +181,6 @@ class _OrderScreenBuyState extends State<OrderScreenBuy> {
                                 ],
                               ),
                               SizedBox(height: 8),
-                              Text(
-                                "${exchangemodels[index].status! == 'สำเร็จ'
-                                    ? ('สำเร็จ')
-                                    : exchangemodels[index].status! == 'ยกเลิก'
-                                    ? ('ยกเลิก')
-                                    : ('กำลังดำเนินการ')}",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: exchangemodels[index].status ==
-                                      "สำเร็จ"
-                                      ? kPrimaryColor
-                                      : exchangemodels[index].status == "ยกเลิก"
-                                      ? Colors.red
-                                      : Colors.orangeAccent,
-                                ),
-                              ),
                               SizedBox(height: 8),
                             ],
                           ),
@@ -242,106 +189,10 @@ class _OrderScreenBuyState extends State<OrderScreenBuy> {
                       Expanded(
                           child: Column(
                             children: [
-                              Text('\$ ${exchangemodels[index].total!}'),
-                              exchangemodels[index].status == "null"
-                                  ? ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50),
-                                    ),
-                                    elevation: 5,
-                                    // Foreground color
-                                    onPrimary: Colors.white,
-                                    // Background color
-                                    primary: kPrimaryColor,
-                                    minimumSize: Size(100, 40))
-                                    .copyWith(
-                                    elevation:
-                                    ButtonStyleButton.allOrNull(2.0)),
-                                onPressed: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    backgroundColor: Colors.transparent,
-                                    builder: (BuildContext context) {
-                                      return Container(
-                                        height: 200.0,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10.0),
-                                            topRight: Radius.circular(10.0),
-                                          ),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              'คุณต้องการยกเลิกรายการนี้?',
-                                              style: TextStyle(fontSize: 18),
-                                            ),
-                                            SizedBox(height: 20),
-                                            ElevatedButton(
-                                              style: ElevatedButton.styleFrom(
-                                                  shape:
-                                                  RoundedRectangleBorder(
-                                                    borderRadius:
-                                                    BorderRadius.circular(
-                                                        50),
-                                                  ),
-                                                  elevation: 5,
-                                                  // Foreground color
-                                                  onPrimary: Colors.white,
-                                                  // Background color
-                                                  primary: kPrimaryColor,
-                                                  minimumSize: Size(100, 40))
-                                                  .copyWith(
-                                                  elevation: ButtonStyleButton
-                                                      .allOrNull(2.0)),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text('ยืนยัน'),
-                                            ),
-                                            SizedBox(height: 10),
-                                            ElevatedButton(
-                                              style: ElevatedButton.styleFrom(
-                                                  shape:
-                                                  RoundedRectangleBorder(
-                                                    borderRadius:
-                                                    BorderRadius.circular(
-                                                        50),
-                                                  ),
-                                                  elevation: 5,
-                                                  // Foreground color
-                                                  onPrimary: Colors.white,
-                                                  // Background color
-                                                  primary: kPrimaryColor,
-                                                  minimumSize: Size(100, 40))
-                                                  .copyWith(
-                                                  elevation: ButtonStyleButton
-                                                      .allOrNull(2.0)),
-                                              onPressed: () {
-                                                // รายละเอียดการยกเลิก
-                                                updateListOrderStatus(int.parse(
-                                                    exchangemodels[index]
-                                                        .exchangeid!));
-                                                print(
-                                                    '${exchangemodels[index]
-                                                        .exchangeid}');
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text('ตกลง'),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                                child: Text('ยกเลิก'),
-                              )
-                                  : SizedBox.shrink(),
+                              Text('\฿ ${exchangemodels[index].total!} บาท'),
+                              Text('รายละเอียด'),
+                              SizedBox(height: 2,),
+                              Icon(Icons.arrow_drop_down_circle,color: kPrimaryColor,),
                             ],
                           ))
                     ],
