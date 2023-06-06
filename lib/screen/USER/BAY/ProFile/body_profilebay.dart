@@ -6,6 +6,7 @@ import 'package:project/configs/services/api.dart';
 import 'package:project/model/usermodel.dart';
 import 'package:project/screen/USER/BAY/ProFile/editprofile.dart';
 import 'package:project/screen/USER/BAY/backgroundbay.dart';
+import 'package:project/screen/USER/SALE/Home/components/backgroundhomesale.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../constants.dart';
 import '../../../../future_All.dart';

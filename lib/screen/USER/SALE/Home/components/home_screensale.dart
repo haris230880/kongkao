@@ -52,15 +52,11 @@ class _HomeScreensaleState extends State<HomeScreensale> {
     pageController.dispose();
   }
 
-  Future<Null> readTypeProduct() async {
+  Future<void> readTypeProduct() async {
     String url = API.BASE_URL + '/kongkao/showtypeproduct.php?isAdd=true';
-
     Response response = await Dio().get(url);
-    print('response$response');
-    var result = jsonDecode(response.data); //ดึงข้อมูลมา
-    // print("result>>>>$result");
+    var result = jsonDecode(response.data);
     if (result.toString() != 'null') {
-      // print("have");
       for (var map in result) {
         TypeProductModel typeProductModel = TypeProductModel.fromJson(map);
         setState(() {
@@ -70,7 +66,6 @@ class _HomeScreensaleState extends State<HomeScreensale> {
       }
     } else {
       normaDiolog(context, 'Error');
-      print("nohave");
     }
   }
 
@@ -80,21 +75,17 @@ class _HomeScreensaleState extends State<HomeScreensale> {
     Response response = await Dio().get(url);
     print('response$response');
     var result = jsonDecode(response.data); //ดึงข้อมูลมา
-    // print("result>>>>$result");
     if (result.toString() != 'null') {
-      // print("have");
       for (var map in result) {
         ProductModel productModel = ProductModel.fromJson(map);
         setState(() {
           productModels.add(productModel);
-          // productDetel.add(creatListvile(productModel));
         });
       }
     } else {
       setState(() {
         status = false;
       });
-      print("nohave");
     }
   }
 
@@ -205,7 +196,6 @@ class _HomeScreensaleState extends State<HomeScreensale> {
                       ],
                     ),
                   ),
-                  // showlistProduct(),//showสินค้า
                   showlistUser(), //showร้าน
                 ],
               ),
@@ -213,108 +203,6 @@ class _HomeScreensaleState extends State<HomeScreensale> {
     );
   }
 
-  Widget showlistProduct() {
-    return ListView.builder(
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: productModels.length,
-        itemBuilder: (context, index) {
-          return Container(
-            margin: EdgeInsets.only(left: 20, right: 20),
-            child: TextButton(
-              onPressed: () {
-                MaterialPageRoute route = MaterialPageRoute(
-                  builder: (context) => ShopDetait(
-                    userModel: userModels[index],
-                  ),
-                ); //ส้งค่า
-                Navigator.push(context, route);
-              },
-              child: Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    width: fixsixe.listViewImgSize,
-                    height: fixsixe.listViewImgSize,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                              API.BASE_URL + productModels[index].productphoto),
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                        color: kPrimaryLightColor,
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black12,
-                              //color: Colors.lightGreen,
-                              blurRadius: 1.0,
-                              offset: Offset(0, 5)),
-                          BoxShadow(color: Colors.white, offset: Offset(-5, 0)),
-                          BoxShadow(color: Colors.white, offset: Offset(5, 0))
-                        ]),
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(top: 15, left: 10),
-                      height: fixsixe.listViewImgSize,
-                      width: 200,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black12,
-                                //color: Colors.lightGreen,
-                                blurRadius: 1.0,
-                                offset: Offset(0, 5)),
-                            BoxShadow(
-                                color: Colors.white, offset: Offset(-5, 0)),
-                            BoxShadow(color: Colors.white, offset: Offset(5, 0))
-                          ]),
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '${productModels[index].productname}',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  height: 8,
-                                ),
-                                Text('ร้าน: ${productModels[index].shop}',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                    )),
-                                Text(
-                                    'ราคา: ${productModels[index].productprice} บาท',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                    )),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          );
-        });
-  }
 
   Widget showlistUser() {
     return ListView.builder(
@@ -340,22 +228,22 @@ class _HomeScreensaleState extends State<HomeScreensale> {
                     width: fixsixe.listViewImgSize,
                     height: fixsixe.listViewImgSize,
                     decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                              API.BASE_URL + userModels[index].photo),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(API.BASE_URL + userModels[index].photo),
+                      ),
+                      borderRadius: BorderRadius.circular(20),
+                      color: kPrimaryLightColor,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 1.0,
+                          offset: Offset(0, 5),
                         ),
-                        borderRadius: BorderRadius.circular(20),
-                        color: kPrimaryLightColor,
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black12,
-                              //color: Colors.lightGreen,
-                              blurRadius: 1.0,
-                              offset: Offset(0, 5)),
-                          BoxShadow(color: Colors.white, offset: Offset(-5, 0)),
-                          BoxShadow(color: Colors.white, offset: Offset(5, 0))
-                        ]),
+                        BoxShadow(color: Colors.white, offset: Offset(-5, 0)),
+                        BoxShadow(color: Colors.white, offset: Offset(5, 0)),
+                      ],
+                    ),
                   ),
                   Expanded(
                     child: Container(
@@ -363,18 +251,18 @@ class _HomeScreensaleState extends State<HomeScreensale> {
                       height: fixsixe.listViewImgSize,
                       width: 200,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black12,
-                                //color: Colors.lightGreen,
-                                blurRadius: 1.0,
-                                offset: Offset(0, 5)),
-                            BoxShadow(
-                                color: Colors.white, offset: Offset(-5, 0)),
-                            BoxShadow(color: Colors.white, offset: Offset(5, 0))
-                          ]),
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 1.0,
+                            offset: Offset(0, 5),
+                          ),
+                          BoxShadow(color: Colors.white, offset: Offset(-5, 0)),
+                          BoxShadow(color: Colors.white, offset: Offset(5, 0)),
+                        ],
+                      ),
                       child: Padding(
                         padding: EdgeInsets.only(left: 20, right: 10),
                         child: Column(
@@ -387,30 +275,33 @@ class _HomeScreensaleState extends State<HomeScreensale> {
                                 Text(
                                   '${userModels[index].shop}',
                                   style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                                SizedBox(
-                                  height: 8,
+                                SizedBox(height: 8),
+                                Text(
+                                  'ค่าบริการ: ${userModels[index].charge}',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
                                 ),
-                                Text('ค่าบริการ: ${userModels[index].charge}',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                    )),
-                                Text('เวลาทำการ: ${userModels[index].time}',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                    )),
+                                Text(
+                                  'เวลาทำการ: ${userModels[index].time}',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                ),
                               ],
                             ),
                           ],
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

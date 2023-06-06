@@ -63,12 +63,12 @@ int currentIndex = 0;
               backgroundColor: kPrimaryColor),
           BottomNavigationBarItem(
               icon: Icon(Icons.library_books_sharp),
-              label: 'รายการ',
+              label: 'รายการขาย',
               backgroundColor: kPrimaryColor),
          
           BottomNavigationBarItem(
-              icon: Icon(Icons.add_alert),
-              label: 'เเจ้งเตือน',
+              icon: Icon(Icons.history),
+              label: 'ประวัติการขาย',
               backgroundColor: kPrimaryColor),
           BottomNavigationBarItem(
               icon: Icon(Icons.person),
