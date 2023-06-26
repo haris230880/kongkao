@@ -2,8 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:project/configs/services/api.dart';
 import 'package:project/constants.dart';
+import 'package:project/future_All.dart';
 import 'package:project/model/exchangemodel.dart';
 import 'package:http/http.dart' as http;
+import 'package:project/screen/USER/SALE/HomePageSell.dart';
 
 class Assessment extends StatefulWidget {
   const Assessment({Key? key, required this.exchangemodel}) : super(key: key);
@@ -31,7 +33,9 @@ class _AssessmentState extends State<Assessment> {
     print(exchangeId);
     try {
       var response = await Dio().get(API.BASE_URL +
-          '/kongkao/insertreviews.php?isAdd=true&exchange_id=$exchangeId&rating=$rating&comment=$comment');
+          '/kongkao/insertreviews.php?isAdd=true&exchangeId=${exchangemodel.exchangeid}&rating=$rating&review_text=$comment&customer_name=$userid&shop=${exchangemodel.iduserbuy}'
+      );
+
       print(response);
       if (response.statusCode == 200) {
         return true;
@@ -163,7 +167,7 @@ class _AssessmentState extends State<Assessment> {
               ),
               SizedBox(height: 16),
               Text(
-                'Rate this store:',
+                'ให้ดาวร้าน:',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -171,18 +175,18 @@ class _AssessmentState extends State<Assessment> {
               ),
               buildRatingStars(),
               SizedBox(height: 16),
-              TextField(
-                onChanged: (value) {
-                  setState(() {
-                    comment = value;
-                  });
-                },
-                maxLines: 3,
-                decoration: InputDecoration(
-                  hintText: 'Enter your comment',
-                  border: OutlineInputBorder(),
-                ),
-              ),
+              // TextField(
+              //   onChanged: (value) {
+              //     setState(() {
+              //       comment = value;
+              //     });
+              //   },
+              //   maxLines: 3,
+              //   decoration: InputDecoration(
+              //     hintText: 'เเสดงความคิดเห็น',
+              //     border: OutlineInputBorder(),
+              //   ),
+              // ),
 
               SizedBox(height: 16),
 
@@ -190,12 +194,15 @@ class _AssessmentState extends State<Assessment> {
                 onPressed: () async {
                   bool success = await submitReview();
                   if (success) {
-                    // ดำเนินการหลังบันทึกข้อมูลสำเร็จ
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) =>HomePageSell()),
+                    );
                   } else {
                     // ดำเนินการหลังบันทึกข้อมูลไม่สำเร็จ
                   }
                 },
-                child: Text('Submit'),
+                child: Text('ยืนยัน'),
               ),
 
             ],

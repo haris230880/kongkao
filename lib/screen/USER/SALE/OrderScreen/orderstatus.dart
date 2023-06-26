@@ -148,16 +148,7 @@ class _OrderStatusPageState extends State<OrderStatusPage> {
               SizedBox(
                 height: 20,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('รวม'),
-                  Text('${widget.exchangeModel.total!} บาท')
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -173,6 +164,17 @@ class _OrderStatusPageState extends State<OrderStatusPage> {
                 children: [
                   Text('ค่าส่ง'),
                   Text('${widget.exchangeModel.transport!} บาท')
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('รวม'),
+                  Text('${widget.exchangeModel.total!} บาท')
                 ],
               ),
             ]),

@@ -2,7 +2,10 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:project/model/exchangebuymodel.dart';
+import 'package:project/model/receiptsmodel.dart';
 import 'package:project/my_style.dart';
+import 'package:project/screen/USER/BAY/HOME/components/account.dart';
 import 'package:project/screen/USER/BAY/oeder_list_shop.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../configs/services/api.dart';
@@ -25,13 +28,14 @@ class HomeBayScreen extends StatefulWidget {
 
 class _HomeBayScreenState extends State<HomeBayScreen> {
   List<TypeProductModel> typeProductModels = [];
-
+  List<ReceiptsModel> receiptsModels = [];
   @override
   void initState() {
     super.initState();
     setState(() {
       finduser();
       readTypeProduct();
+      readreceipts();
     });
   }
 
@@ -53,6 +57,26 @@ class _HomeBayScreenState extends State<HomeBayScreen> {
     } else {
       normaDiolog(context, 'Error');
       print("nohave");
+    }
+  }
+
+  Future<Null> readreceipts() async {
+    String url = API.BASE_URL + '/kongkao/showreceipts.php?isAdd=true&idshop=$userid';
+
+    Response response = await Dio().get(url);
+    print('response$response');
+    var result = jsonDecode(response.data); //ดึงข้อมูลมา
+    // print("result>>>>$result");
+    if (result.toString() != 'null') {
+      // print("have");
+      for (var map in result) {
+        ReceiptsModel receiptsModel = ReceiptsModel.fromJson(map);
+        setState(() {
+          receiptsModels.add(receiptsModel);
+        });
+      }
+    } else {
+
     }
   }
 
@@ -101,27 +125,48 @@ class _HomeBayScreenState extends State<HomeBayScreen> {
                   itemBuilder: (context, index) =>
                       ItemCardType(typeProductModel: typeProductModels[index])),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                children: [
-                  Text(
-                    'บัญชี',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        'บัญชี',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: kDefaultPaddin / 4),
+                        height: 3,
+                        width: 70,
+                        color: kPrimaryLightColor,
+                      ),
+                    ],
                   ),
-                  Container(
-                      margin: EdgeInsets.only(top: kDefaultPaddin / 4),
-                      height: 3,
-                      width: 70,
-                      color: kPrimaryLightColor),
-                ],
-              ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AccountSummaryPage(receiptsModels: receiptsModels),
+                        ),
+                      );
+                    },
+                    child: Text('เพิ่มเติม'),
+                  ),
+                )
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
                 height: 200,
-                color: kPrimaryblckColor,
+                color: Colors.white,
+                child: AccountSummary(receiptsModels: receiptsModels),
               ),
             ),
           ],
@@ -244,3 +289,39 @@ class ItemCardType extends StatelessWidget {
     );
   }
 }
+
+class AccountSummary extends StatelessWidget {
+  final List<ReceiptsModel> receiptsModels;
+
+  const AccountSummary({Key? key, required this.receiptsModels}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    double totalAmount = 0;
+    for (var receipt in receiptsModels) {
+      totalAmount += double.parse(receipt.totalAmount!);
+    }
+
+    return Scaffold(
+      body:Padding(
+        padding: const EdgeInsets.symmetric(horizontal:
+        16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'รายจ่ายทั้งหมด',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 16),
+            Text(
+              'รวมจ่ายได้ทั้งหมด: $totalAmount บาท',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+

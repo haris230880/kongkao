@@ -78,10 +78,10 @@ class _BodyRegisNumberBayState extends State<BodyRegisNumberBay> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: TextFormField(
-                        validator: (seuser_email) => EmailValidator.validate(buyuser_phone!)
+                        validator: (seuser_email) => EmailValidator.validate(buyuser_email!)
                             ? null
                             : "กรอกอีเมล ลงท้ายด้วย@gmail.com",
-                        onChanged: (value) => buyuser_phone = value.trim(),
+                        onChanged: (value) => buyuser_email = value.trim(),
                         cursorColor: kPrimaryColor,
                         keyboardType: TextInputType.emailAddress,
                         textAlignVertical: TextAlignVertical.center,

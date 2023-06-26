@@ -7,8 +7,10 @@ import 'package:project/future_All.dart';
 import 'package:project/model/exchangemodel.dart';
 import 'package:project/model/usermodel.dart';
 import 'package:project/screen/USER/BAY/HOME/components/appbarhomepagebay.dart';
+import 'package:project/screen/USER/BAY/NotiFication/showreceipt.dart';
 import 'package:project/screen/USER/SALE/components/Assessment.dart';
 import 'package:project/screen/USER/SALE/ProFile/editprofile.dart';
+import 'package:project/screen/USER/SALE/components/showreceiptsale.dart';
 
 import '../../../../constants.dart';
 import 'dart:convert';
@@ -148,7 +150,7 @@ class _OrderScreenSaleALLState extends State<OrderScreenSaleALL> {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          Assessment(exchangemodel: exchangemodels[index]),
+                          ShowReceiptPageSale(exchangemodel: exchangemodels[index]),
                     ),
                   );
                 },

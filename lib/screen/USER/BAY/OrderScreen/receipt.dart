@@ -20,9 +20,12 @@ class ReceiptPage extends StatefulWidget {
   State<ReceiptPage> createState() => _ReceiptPageState();
 }
 
+
+
 class _ReceiptPageState extends State<ReceiptPage> {
   // Define a list to store the entered items, their prices, weights, and total prices
   List<Map<String, dynamic>> items = [];
+  TextEditingController itemNameController = TextEditingController();
 
   void updateListOrderStatuscancel(int exchangeId) async {
     try {
@@ -34,8 +37,12 @@ class _ReceiptPageState extends State<ReceiptPage> {
     }
   }
 
-  void save(int exchangeId ,int idshop) async {
+  void save(int exchangeId, int idshop) async {
     try {
+      // Calculate the total amount
+      double totalAmount = items.fold(0, (sum, item) => sum + item['totalPrice']);
+      double income = totalAmount - double.parse(widget.exchangemodel.total!);
+
       // Convert the list of items to JSON
       List<Map<String, dynamic>> productList = items.map((item) {
         return {
@@ -53,12 +60,12 @@ class _ReceiptPageState extends State<ReceiptPage> {
 
       // Prepare the URL with the required parameters
       String url = API.BASE_URL +
-          '/kongkao/insertreceipts.php?isAdd=true&exchange_id=$exchangeId&date=$currentDate&total_amount=$exchangeId&product_details=$productDetails&idshop=$idshop';
+          '/kongkao/insertreceipts.php?isAdd=true&exchange_id=$exchangeId&date=$currentDate&total_amount=$income&product_details=$productDetails&idshop=$idshop';
 
       // Make the API request using Dio
       var response = await Dio().get(url);
       print(response);
-       updateListOrderStatuscancel(exchangeId);
+      updateListOrderStatuscancel(exchangeId);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -74,6 +81,7 @@ class _ReceiptPageState extends State<ReceiptPage> {
   Widget build(BuildContext context) {
     // Calculate the total amount
     double totalAmount = items.fold(0, (sum, item) => sum + item['totalPrice']);
+    double income = totalAmount - double.parse(widget.exchangemodel.total!);
 
     return Scaffold(
       appBar: AppBar(
@@ -159,8 +167,9 @@ class _ReceiptPageState extends State<ReceiptPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+
                             Text(
-                              'ราคร: \$${items[index]['price']}',
+                              'ราคา: \$${items[index]['price']}',
                               style: TextStyle(fontSize: 16),
                             ),
                             Text(
@@ -171,6 +180,7 @@ class _ReceiptPageState extends State<ReceiptPage> {
                               'รวม: \฿ ${items[index]['totalPrice'].toStringAsFixed(2)}',
                               style: TextStyle(fontSize: 16),
                             ),
+
                           ],
                         ),
                       ],
@@ -181,16 +191,32 @@ class _ReceiptPageState extends State<ReceiptPage> {
         :Center(child: Icon(Icons.receipt_long ,size: 300)),
               SizedBox(height: 16),
               Text(
-                'รวม: \฿${totalAmount.toStringAsFixed(2)} บาท',
+                'ค่าบริการ: \฿${widget.exchangemodel.total} บาท',
                 style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  fontWeight: FontWeight.normal,
                 ),
               ),
+
+              SizedBox(height: 6,),
+
+              Text(
+                'ราคาสินค้า: \฿${totalAmount.toStringAsFixed(2)} บาท',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+SizedBox(height: 10,),
+              Text(
+                'ชำระให้กับลูกค้า: ${income.toStringAsFixed(2)} บาท',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+
               SizedBox(height: 16),
 
               Center(
-                child: ElevatedButton(
+                child:ElevatedButton(
                   onPressed: () {
                     showDialog(
                       context: context,
@@ -206,12 +232,14 @@ class _ReceiptPageState extends State<ReceiptPage> {
                             children: [
                               TextField(
                                 onChanged: (value) {
+                                  print(value);
                                   itemName = value;
                                 },
                                 decoration: InputDecoration(
                                   labelText: 'ชื่อสินค้า',
                                 ),
                               ),
+
                               TextField(
                                 onChanged: (value) {
                                   itemPrice = double.parse(value);
@@ -246,7 +274,9 @@ class _ReceiptPageState extends State<ReceiptPage> {
                                     'weight': itemWeight,
                                     'totalPrice': totalPrice,
                                   });
+
                                 });
+
                                 Navigator.of(context).pop();
                               },
                               child: Text('เพิ่ม'),
@@ -258,6 +288,7 @@ class _ReceiptPageState extends State<ReceiptPage> {
                   },
                   child: Text('เพิ่มสินค้า'),
                 ),
+
               ),
               items.length !=0
               ?Center(
@@ -290,7 +321,7 @@ class _ReceiptPageState extends State<ReceiptPage> {
                       },
                     );
                   },
-                  child: Text('Save'),
+                  child: Text('ตกลง'),
                 ),
               )
 
